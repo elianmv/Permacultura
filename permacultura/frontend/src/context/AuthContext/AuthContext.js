@@ -9,10 +9,12 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(initialState);
 
   const login = ({ username, password }, onLogin: Function) => {
-    LoginService.login(username, password).then((user) => {
-      setUser(user);
+    // LoginService.login(username, password).then((user) => {
+    //   setUser(user);
+    //   onLogin();
+    // });
+    setUser(username);
       onLogin();
-    });
   };
 
   const logout = (onLogout: Function) => {

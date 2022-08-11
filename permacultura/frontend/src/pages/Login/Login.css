@@ -45,12 +45,29 @@
     
 } 
 #form-login .input-login {
+    text-decoration: none;
+    background-color:transparent;
+    border:none;
+    outline: none;
+    /* margin:10px;
+    padding: 5px;
+    width: 300px;
+    height: 40px;
+    border: 1px solid ;
+    border-radius: 25px; */
+    
+}
+.input-usuario {
     margin:10px;
     padding: 5px;
     width: 300px;
     height: 40px;
     border: 1px solid ;
     border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
 }
 #form-login .button-login {
     margin:20px;
@@ -62,12 +79,10 @@
 }
 
 .input-loginError {
-    margin:10px;
-    padding: 5px;
-    width: 300px;
-    height: 40px;
-    border: 3px solid #D01110;
-    border-radius: 25px;
+    text-decoration: none;
+    background-color:transparent;
+    border:none;
+    outline: none;
      
 }
 
@@ -80,9 +95,58 @@
     background-color: #A3EBB1;
 }
 .button-login:hover {
-    background-color: #A3EBB1;
+    background-color: #d3fbdc;
 }
-label {
+.button-login {
     font-family: 'Kalam', cursive;
     font-size:large;
+    background-color:transparent;
+    border:none;
+    outline: none;
 }
+.input-login::placeholder {
+    font-family: 'Kalam', cursive;
+    font-size: 20px;
+    text-align: center;
+    color: black;
+}
+.input-loginError::placeholder {
+    font-family: 'Kalam', cursive;
+    font-size: 20px;
+    text-align: center;
+    color: black;
+}
+
+#icon{
+    position: absolute;
+    display: block;
+    margin-top: 60px;
+    margin-left: -250px;
+    user-select: none;
+    cursor: pointer;
+  }
+  #icon-pssw {
+    position: absolute;
+    display: block;
+    margin-top: 180px;
+    margin-left: -250px;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  #icon-err{
+    position: absolute;
+    display: block;
+    margin-top: 40px;
+    margin-left: -250px;
+    user-select: none;
+    cursor: pointer;
+  }
+  #icon-pssw-err {
+    position: absolute;
+    display: block;
+    margin-top: 160px;
+    margin-left: -250px;
+    user-select: none;
+    cursor: pointer;
+  }
