@@ -1,0 +1,88 @@
+
+#titulo-login {
+    font-family: 'Kalam', cursive;
+    font-size:x-large;
+    
+}
+#form-login h1 {
+    font-family: 'Kalam', cursive;
+    font-size:xx-large;
+    margin-bottom: 0;
+    padding: 0;
+}
+#form-login h4 {
+    margin-top: 0;
+    padding: 0;
+    font-family: 'Kalam', cursive;
+    font-size:small;
+}
+
+#form-login {
+    background-image: url('../../assets/images/permacultura.png');
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    width: 400px;
+    height: 500px;
+    border: 1px solid #A3EBB1;
+    border-radius: 10px;
+    background-color: white;
+    -webkit-box-shadow: -10px 8px 15px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: -10px 8px 15px -4px rgba(0,0,0,0.75);
+    box-shadow: -10px 8px 15px -4px rgba(0,0,0,0.75);
+}
+
+#div-login {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 50px;
+    
+} 
+#form-login .input-login {
+    margin:10px;
+    padding: 5px;
+    width: 300px;
+    height: 40px;
+    border: 1px solid ;
+    border-radius: 25px;
+}
+#form-login .button-login {
+    margin:20px;
+    padding: 5px;
+    width: 200px;
+    height: 40px;
+    border: 1px solid ;
+    border-radius: 25px;
+}
+
+.input-loginError {
+    margin:10px;
+    padding: 5px;
+    width: 300px;
+    height: 40px;
+    border: 3px solid #D01110;
+    border-radius: 25px;
+     
+}
+
+#label-error {
+    color :#D01110;
+    font-size: small;
+    align-items: flex-end;
+}
+.input-login:hover {
+    background-color: #A3EBB1;
+}
+.button-login:hover {
+    background-color: #A3EBB1;
+}
+label {
+    font-family: 'Kalam', cursive;
+    font-size:large;
+}
