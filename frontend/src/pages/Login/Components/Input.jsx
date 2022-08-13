@@ -3,7 +3,7 @@ import React from 'react'
 
 
 
-const Input =  ({ name, type, placeholder, handleChange, param}) => {
+const Input =  ({ name, type, placeholder, handleChange, param,id}) => {
   return (
     <div>
         <input className={param ?'input-loginError':'input-login'} 
@@ -11,7 +11,8 @@ const Input =  ({ name, type, placeholder, handleChange, param}) => {
                 name={name} 
                 placeholder={placeholder}
                 type={type}
-                required="required"/>
+                required="required"
+                id={id}/>
     </div>
   )
 }

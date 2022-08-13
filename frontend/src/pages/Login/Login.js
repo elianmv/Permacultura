@@ -54,41 +54,48 @@ export function Login() {
   };
 
   return (
-    <div id="div-login">
-      <form id="form-login" onSubmit={onSubmit}>
-        <h1>SyCAS</h1>
-        <h4>Servicios y Capacitaciones de Ambientes Sustentables</h4>
-        <h3 id="titulo-login">¡Bienvenido!</h3>
-        <span id={passwordError ? "icon-err" : "icon"}>
-          <FontAwesomeIcon icon={faEnvelope} />
-        </span>
+    <div id="div-login" >
+      
+        <form id="form-login" onSubmit={onSubmit}  >
+          
+          <h1>SyCAS</h1>
+          <h4>Servicios y Capacitaciones de Ambientes Sustentables</h4>
+         
+          
+          <h3 id="titulo-login">¡Bienvenido!</h3>
+          <span className="icon" id={passwordError ? "icon-err" : "icon"}>
+            <FontAwesomeIcon icon={faEnvelope} />
+          </span>
 
-        <div className="input-usuario">
-          <Input
-            handleChange={handleChange}
-            name="username"
-            placeholder="Username"
-            type="email"
-          />
-        </div>
-        <span id={passwordError ? "icon-pssw-err" : "icon-pssw"}>
-          <FontAwesomeIcon icon={faKey} />
-        </span>
+          <div className="input-usuario" id="input-us">
+            <Input
+              handleChange={handleChange}
+              name="username"
+              placeholder="Username"
+              type="email"
+              id="input-us"
+            />
+          </div>
+          <span className="icon-pssw" id={passwordError ? "icon-pssw-err" : "icon-pssw"}>
+            <FontAwesomeIcon  icon={faKey} />
+          </span>
 
-        <div className="input-usuario">
-          <Input
-            handleChange={handleChange}
-            param={passwordError}
-            name="password"
-            placeholder="Password"
-            type="password"
-          />
-        </div>
-        {passwordError && <label id="label-error">Contraseña Incorrecta</label>}
-        <button className="button-login" type="submit">
-          Login
-        </button>
-      </form>
+          <div className="input-usuario" id="input-pw">
+            <Input
+              handleChange={handleChange}
+              param={passwordError}
+              name="password"
+              placeholder="Password"
+              type="password"
+              id="input-pw"
+            />
+          </div>
+          {passwordError && <label id="label-error">Contraseña Incorrecta</label>}
+          <button className="button-login" type="submit">
+            Login
+          </button>
+        </form>
+      
     </div>
   );
 }
