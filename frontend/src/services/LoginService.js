@@ -6,7 +6,7 @@ const LoginService = {
       method: 'POST',
     };
 
-    return fetch('/login', options)
+    return fetch('http://127.0.0.1:8080/api/v1/login', options)
       .then((response) => response.json())
       .then((data) => data)
       .catch((err) => {

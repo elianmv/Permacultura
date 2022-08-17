@@ -4,17 +4,23 @@ import { LoginService } from '../../services';
 const AuthContext = createContext();
 
 const initialState = null;
+const initialStateUser = false;
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(initialState);
+  const [userLoggedIn, setUserLoggedIn] = useState(initialStateUser);
 
   const login = ({ username, password }, onLogin: Function) => {
-    // LoginService.login(username, password).then((user) => {
-    //   setUser(user);
-    //   onLogin();
-    // });
-    setUser(username);
-      onLogin();
+    LoginService.login(username, password).then((result) => {
+      if(!result.message){
+        setUser(result);
+        setUserLoggedIn(true)
+        onLogin({status:true});
+      }
+      setUserLoggedIn(false)
+      onLogin({message:result.message,status:false});
+    });
+   
   };
 
   const logout = (onLogout: Function) => {

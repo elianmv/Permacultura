@@ -1,6 +1,6 @@
 const express = require('express');
 const routes = express.Router()
-const { getAll } = require('./operations')
+const { login } = require('./operations')
 const { pool } = require('../config/connect')
 
 
@@ -8,8 +8,8 @@ routes.get('/',(req,res) => {
     res.send('Hello')
 })
 
-routes.get('/getAll',(req,res) => {
-    getAll(pool,result => {
+routes.post('/login',(req,res) => {
+    login(pool,req,result => {
         res.json(result)
     })
 })

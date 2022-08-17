@@ -7,10 +7,10 @@ import Input from "./Components/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 
-const json = [
-  { user: "juang@gmail.com", passw: "123456" },
-  { user: "eliv@gmail.com", passw: "123456" },
-];
+// const json = [
+//   { user: "juang@gmail.com", passw: "123456" },
+//   { user: "eliv@gmail.com", passw: "123456" },
+// ];
 
 export function Login() {
   const [passwordError, setPasswordError] = useState(false);
@@ -35,22 +35,31 @@ export function Login() {
     const formData = new FormData(event.currentTarget);
     const username = formData.get("username");
     const password = formData.get("password");
-    json.map((element) => {
-      if (element.user === username && element.passw === password) {
-        check = true;
-        auth.login({ username, password }, () => {
+   
+   
+    // json.map((element) => {
+    //   if (element.user === username && element.passw === password) {
+    //     check = true;
+        auth.login({ username, password }, (respon) => {
+          
+          if(respon.status){
+            const from = location.state?.from?.pathname || "/";
+            navigate(from, { replace: true });
+            return alert('conexion exitosa')
+          }else{
+            return alert(respon.message)
+          }
           // Send them back to the page they tried to visit when they were
           // redirected to the login page. Use { replace: true } so we don't create
           // another entry in the history stack for the login page.  This means that
           // when they get to the protected page and click the back button, they
           // won't end up back on the login page, which is also really nice for the
           // user experience.
-          const from = location.state?.from?.pathname || "/";
-          navigate(from, { replace: true });
+         
         });
-      }
-    });
-    if(!check) return alert("Contraseña Invalida");
+      // }
+    // });
+    // if(!check) return alert("Contraseña Invalida");
   };
 
   return (
