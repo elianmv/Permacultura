@@ -28,7 +28,7 @@ const login = (pool,req, callback) => {
         callback(errorMess);
       } 
         }else{
-          console.log('conraseña incorrecta')
+         
           let errorMess =  {
             message: 'contraseña incorrecta',
             status: httpStatus.UNAUTHORIZED,
