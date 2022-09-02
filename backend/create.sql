@@ -117,3 +117,27 @@ insert into usuario (dni, username, name, lastname, password, email, phone, tipo
 insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (49734530, 'lhuckster13', 'Muhammad', 'Huckster', '9pgbuEno', 'lhuckster13@skyrock.com', '3517830241', 'cli', 41);
 insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (40506671, 'ggarza14', 'Chas', 'Garza', 'UfklDxyMpH', 'ggarza14@drupal.org', '5114118171', 'admin', 4);
 insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (43199282, 'alinning15', 'Angele', 'Linning', 'MNC6N5', 'alinning15@prlog.org', '3963140531', 'admin', 26);
+
+
+
+
+
+
+
+insert into categoria (name) values ('Construccion');
+insert into categoria (name) values ('Instalacion');
+insert into categoria (name) values ('Reparacion');
+insert into categoria (name) values ('Bioconstruccion');
+insert into categoria (name) values ('Mantenimiento');
+
+
+insert into servicio (name, categoria_id) values ('Colocación de paneles solares', '2');
+insert into servicio (name, categoria_id) values ('Construcción casa de maderas', '4');
+insert into servicio (name, categoria_id) values ('Instalación horno de barro', '2');
+insert into servicio (name, categoria_id) values ('Construcción horno de barro', '1');
+insert into servicio (name, categoria_id) values ('Reparación paneles solares', '3');
+insert into servicio (name, categoria_id) values ('Colocación de termo solar', '2');
+insert into servicio (name, categoria_id) values ('Construcción casa de bambú', '4');
+insert into servicio (name, categoria_id) values ('Reparación de casa bambú', '3');
+insert into servicio (name, categoria_id) values ('Reparación de termo solar', '3');
+insert into servicio (name, categoria_id) values ('Mantenimiento de huerta', '5');

@@ -1,7 +1,14 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2022-08-31 22:43:40.462
+-- Last modification date: 2022-09-01 22:07:08.749
 
 -- tables
+-- Table: categoria
+CREATE TABLE categoria (
+    id int NOT NULL AUTO_INCREMENT,
+    name varchar(50) NOT NULL,
+    CONSTRAINT categoria_pk PRIMARY KEY (id)
+);
+
 -- Table: ciudad
 CREATE TABLE ciudad (
     zip_code int NOT NULL,
@@ -14,7 +21,7 @@ CREATE TABLE ciudad (
 CREATE TABLE comprobante (
     id int NOT NULL AUTO_INCREMENT,
     fecha date NOT NULL,
-    proveedor_id int NOT NULL,
+    publicacion_id int NOT NULL,
     CONSTRAINT comprobante_pk PRIMARY KEY (id)
 );
 
@@ -33,22 +40,22 @@ CREATE TABLE pais (
     CONSTRAINT pais_pk PRIMARY KEY (name)
 );
 
--- Table: proveedor
-CREATE TABLE proveedor (
+-- Table: publicacion
+CREATE TABLE publicacion (
     id int NOT NULL AUTO_INCREMENT,
     tiempo_estimado int NOT NULL,
     precio decimal(10,2) NOT NULL,
     usuario_id int NOT NULL,
     servicio_id int NOT NULL,
-    CONSTRAINT proveedor_pk PRIMARY KEY (id)
+    description varchar(512),
+    CONSTRAINT publicacion_pk PRIMARY KEY (id)
 );
 
 -- Table: servicio
 CREATE TABLE servicio (
     id int NOT NULL AUTO_INCREMENT,
     name varchar(50) NOT NULL,
-    category varchar(50) NOT NULL,
-    description varchar(512) NULL,
+    categoria_id int NOT NULL,
     CONSTRAINT servicio_pk PRIMARY KEY (id)
 );
 
@@ -78,21 +85,25 @@ CREATE TABLE usuario (
 ALTER TABLE ciudad ADD CONSTRAINT ciudad_pais FOREIGN KEY ciudad_pais (pais_name)
     REFERENCES pais (name);
 
--- Reference: comprobante_proveedor (table: comprobante)
-ALTER TABLE comprobante ADD CONSTRAINT comprobante_proveedor FOREIGN KEY comprobante_proveedor (proveedor_id)
-    REFERENCES proveedor (id);
+-- Reference: comprobante_publicacion (table: comprobante)
+ALTER TABLE comprobante ADD CONSTRAINT comprobante_publicacion FOREIGN KEY comprobante_publicacion (publicacion_id)
+    REFERENCES publicacion (id);
 
 -- Reference: direccion_ciudad (table: direccion)
 ALTER TABLE direccion ADD CONSTRAINT direccion_ciudad FOREIGN KEY direccion_ciudad (ciudad_zip_code)
     REFERENCES ciudad (zip_code);
 
--- Reference: proveedor_servicio (table: proveedor)
-ALTER TABLE proveedor ADD CONSTRAINT proveedor_servicio FOREIGN KEY proveedor_servicio (servicio_id)
+-- Reference: proveedor_usuario (table: publicacion)
+ALTER TABLE publicacion ADD CONSTRAINT proveedor_usuario FOREIGN KEY proveedor_usuario (usuario_id)
+    REFERENCES usuario (id);
+
+-- Reference: publicacion_servicio (table: publicacion)
+ALTER TABLE publicacion ADD CONSTRAINT publicacion_servicio FOREIGN KEY publicacion_servicio (servicio_id)
     REFERENCES servicio (id);
 
--- Reference: proveedor_usuario (table: proveedor)
-ALTER TABLE proveedor ADD CONSTRAINT proveedor_usuario FOREIGN KEY proveedor_usuario (usuario_id)
-    REFERENCES usuario (id);
+-- Reference: servicio_categoria (table: servicio)
+ALTER TABLE servicio ADD CONSTRAINT servicio_categoria FOREIGN KEY servicio_categoria (categoria_id)
+    REFERENCES categoria (id);
 
 -- Reference: usuario_direccion (table: usuario)
 ALTER TABLE usuario ADD CONSTRAINT usuario_direccion FOREIGN KEY usuario_direccion (direccion_id)
@@ -103,3 +114,4 @@ ALTER TABLE usuario ADD CONSTRAINT usuario_tipo_usuario FOREIGN KEY usuario_tipo
     REFERENCES tipo_usuario (name);
 
 -- End of file.
+

@@ -1,6 +1,26 @@
 const my = require("mysql2");
 const httpStatus = require('http-status')
 
+
+
+
+const select = (pool,req, callback) => {
+  let query = `SELECT * FROM usuario `;
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+    
+    connection.query(query, (error, result) => {
+      if (error) throw error;
+      
+      let response = result;
+      console.log(response)
+      
+      
+      connection.release();
+    });
+  });
+}
+
 const login = (pool,req, callback) => {
   let { username, password } = req.body;
   let query = `SELECT * FROM usuarios where email = '${username}'`;
