@@ -1,14 +1,27 @@
+
+
+
 .Menu {
-  background-color: #03a9f4;
-  box-shadow: 0 2px 5px 0 #00000042;
+
+  background-color: #03f427;
+  box-shadow: 0 2px 5px 0 #4405056b;
   margin-bottom: 16px;
+ display: flex;
+ flex-direction: column;
+ padding-left: 2%;
+ padding-right: 2%;
+
 }
 
 .Menu ul {
-  display: block;
+ 
+  display: flex;
   list-style-type: none;
   margin: 0;
   padding: 0;
+  align-items: center;
+  align-content: flex-end;
+  justify-content: flex-end;
 }
 
 .Menu li {

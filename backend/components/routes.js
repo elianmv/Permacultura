@@ -5,7 +5,9 @@ const { pool } = require('../config/connect')
 
 
 routes.get('/',(req,res) => {
-    res.send('Hello')
+    select(pool,req,result => {
+        res.json(result)
+    })
 })
 
 routes.post('/login',(req,res) => {
