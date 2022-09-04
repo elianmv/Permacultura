@@ -1,6 +1,6 @@
 const express = require('express');
 const routes = express.Router()
-const { login } = require('./operations')
+const { login, select } = require('./operations')
 const { pool } = require('../config/connect')
 
 

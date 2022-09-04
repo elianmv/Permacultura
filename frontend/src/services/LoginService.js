@@ -1,7 +1,7 @@
 const LoginService = {
-  login: (username, password) => {
+  login: (email, password) => {
     const options = {
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
     };

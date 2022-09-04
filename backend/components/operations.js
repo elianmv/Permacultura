@@ -14,7 +14,7 @@ const select = (pool,req, callback) => {
       
       let response = result;
       console.log(response)
-      
+      callback(response)
       
       connection.release();
     });
@@ -22,8 +22,12 @@ const select = (pool,req, callback) => {
 }
 
 const login = (pool,req, callback) => {
-  let { username, password } = req.body;
-  let query = `SELECT * FROM usuarios where email = '${username}'`;
+  
+  /*------- llamada al back con la condicion del email-----   */ 
+  let { email, password } = req.body;
+  console.log('username',email)
+  console.log('password',password)
+  let query = `SELECT * FROM usuario where email = '${email}'`;
 
   pool.getConnection((error, connection) => {
     if (error) throw error;
@@ -32,11 +36,10 @@ const login = (pool,req, callback) => {
       if (error) throw error;
       
       let response = result;
-      console.log(response.length)
+      console.log(response)
       if(response.length > 0 ){
-        console.log(response)
-        console.log(password)
-      if(response[0].password === parseInt(password)){
+       
+      if(response[0].password === password){
         console.log('password correcto')
         callback(result)
       }else{
@@ -64,4 +67,5 @@ const login = (pool,req, callback) => {
 
 module.exports = {
   login,
+  select,
 };
