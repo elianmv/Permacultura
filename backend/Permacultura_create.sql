@@ -14,7 +14,6 @@ CREATE TABLE ciudad (
     zip_code int NOT NULL,
     name varchar(255) NOT NULL,
     pais_name varchar(255) NOT NULL,
-    UNIQUE INDEX ciudad_uk (pais_name),
     CONSTRAINT ciudad_pk PRIMARY KEY (zip_code)
 );
 
