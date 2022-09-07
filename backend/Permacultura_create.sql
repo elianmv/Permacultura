@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2022-09-01 22:07:08.749
+-- Last modification date: 2022-09-07 21:50:36.792
 
 -- tables
 -- Table: categoria
@@ -14,15 +14,8 @@ CREATE TABLE ciudad (
     zip_code int NOT NULL,
     name varchar(255) NOT NULL,
     pais_name varchar(255) NOT NULL,
+    UNIQUE INDEX ciudad_uk (pais_name),
     CONSTRAINT ciudad_pk PRIMARY KEY (zip_code)
-);
-
--- Table: comprobante
-CREATE TABLE comprobante (
-    id int NOT NULL AUTO_INCREMENT,
-    fecha date NOT NULL,
-    publicacion_id int NOT NULL,
-    CONSTRAINT comprobante_pk PRIMARY KEY (id)
 );
 
 -- Table: direccion
@@ -47,7 +40,6 @@ CREATE TABLE publicacion (
     precio decimal(10,2) NOT NULL,
     usuario_id int NOT NULL,
     servicio_id int NOT NULL,
-    description varchar(512),
     CONSTRAINT publicacion_pk PRIMARY KEY (id)
 );
 
@@ -74,9 +66,10 @@ CREATE TABLE usuario (
     lastname varchar(255) NOT NULL,
     password varchar(255) NOT NULL,
     email varchar(255) NOT NULL,
-    phone varchar(255) NULL,
+    phone varchar(255) NOT NULL,
     tipo_usuario_name varchar(255) NOT NULL,
     direccion_id int NOT NULL,
+    UNIQUE INDEX unique_uname_email (username,email),
     CONSTRAINT usuario_pk PRIMARY KEY (id)
 );
 
@@ -84,10 +77,6 @@ CREATE TABLE usuario (
 -- Reference: ciudad_pais (table: ciudad)
 ALTER TABLE ciudad ADD CONSTRAINT ciudad_pais FOREIGN KEY ciudad_pais (pais_name)
     REFERENCES pais (name);
-
--- Reference: comprobante_publicacion (table: comprobante)
-ALTER TABLE comprobante ADD CONSTRAINT comprobante_publicacion FOREIGN KEY comprobante_publicacion (publicacion_id)
-    REFERENCES publicacion (id);
 
 -- Reference: direccion_ciudad (table: direccion)
 ALTER TABLE direccion ADD CONSTRAINT direccion_ciudad FOREIGN KEY direccion_ciudad (ciudad_zip_code)
