@@ -1,7 +1,7 @@
 const LoginService = {
-  login: (username, password) => {
+  login: (email, password) => {
     const options = {
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
     };
@@ -14,9 +14,9 @@ const LoginService = {
       });
   },
 
-  logout: (username) => {
+  logout: (email) => {
     const options = {
-      body: JSON.stringify({ username }),
+      body: JSON.stringify({ email }),
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
     };
