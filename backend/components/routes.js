@@ -22,5 +22,11 @@ routes.post('/Register',(req,res) => {
     })
 })
 
+routes.put('/Person',(req,res) => {
+    login(pool,req,result => {
+        res.json(result)
+    })
+})
+
 module.exports = routes;
     
