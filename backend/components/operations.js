@@ -66,6 +66,5 @@ const login = (pool,req, callback) => {
 };
 
 module.exports = {
-  login,
-  select,
+  login,Register,
 };
