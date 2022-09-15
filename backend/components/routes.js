@@ -4,7 +4,7 @@ const { login, select } = require('./operations')
 const { pool } = require('../config/connect')
 
 
-routes.get('/',(req,res) => {
+routes.get('/select',(req,res) => {
     select(pool,req,result => {
         res.json(result)
     })
