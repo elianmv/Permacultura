@@ -1,17 +1,23 @@
 const express = require('express');
 const routes = express.Router()
-const { login } = require('./operations')
-const { pool } = require('../config/connect')
+const { login,services, register } = require('./operations')
+const { pool  } = require('../config/connect')
 
 
-routes.get('/',(req,res) => {
-    select(pool,req,result => {
+routes.get('/services',(req,res) => {
+    services(pool,req,result => {
         res.json(result)
     })
 })
 
 routes.post('/login',(req,res) => {
     login(pool,req,result => {
+        res.json(result)
+    })
+})
+
+routes.post('/register',(req,res) => {
+    register(pool,req,result => {
         res.json(result)
     })
 })

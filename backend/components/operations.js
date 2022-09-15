@@ -22,8 +22,8 @@ const select = (pool,req, callback) => {
 }
 
 const login = (pool,req, callback) => {
-  let { username, password } = req.body;
-  let query = `SELECT * FROM usuarios where email = '${username}'`;
+  let { email, password } = req.body;
+  let query = `SELECT * FROM usuario where email = '${email}'`;
 
   pool.getConnection((error, connection) => {
     if (error) throw error;
@@ -36,7 +36,7 @@ const login = (pool,req, callback) => {
       if(response.length > 0 ){
         console.log(response)
         console.log(password)
-      if(response[0].password === parseInt(password)){
+      if(response[0].password === password){
         console.log('password correcto')
         callback(result)
       }else{
