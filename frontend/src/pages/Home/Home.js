@@ -7,14 +7,7 @@ export function Home() {
     <>
       <Menu />
       <h3>Home Page</h3>
-      <ul >{loremIpsum({p:20}).map(text=>(
-        <li>{text}</li>
-)
-)}
-        <li >
-          
-        </li>
-      </ul>
+     
     </>
   );
 }

@@ -20,7 +20,7 @@ export function Login() {
 
   const handleChange = (name, value) => {
     if (name === "password") {
-      if (value.length < 6) {
+      if (value.length < 3) {
         setPasswordError(true);
       } else {
         setPasswordError(false);
