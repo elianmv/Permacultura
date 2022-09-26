@@ -32,15 +32,15 @@ export function Register() {
     const userName = formData.get("username");
     const password = formData.get("password");
     const passwordConfirm = formData.get("passwordConfirm");
-    const name = formData.get("name");
-    const lastName = formData.get("lastname");
-    const dni = formData.get("dni");
+    // const name = formData.get("name");
+    // const lastName = formData.get("lastname");
+    // const dni = formData.get("dni");
     const email = formData.get("email");
-    const phone = formData.get("phone");
-    const country = formData.get("country");
-    const city = formData.get("city");
-    const street = formData.get("street");
-    const number = formData.get("number");
+    // const phone = formData.get("phone");
+    // const country = formData.get("country");
+    // const city = formData.get("city");
+    // const street = formData.get("street");
+    // const number = formData.get("number");
     const userType = formData.get("usertype");
 
     // json.map((element) => {
@@ -51,7 +51,7 @@ export function Register() {
       if (respon.status) {
         const from = location.state?.from?.pathname || "/";
         navigate(from, { replace: true });
-        return alert('conexion exitosa')
+        return alert('Su usuario fue registrado con exito')
       } else {
         return alert(respon.message)
       }
