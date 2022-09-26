@@ -1,5 +1,6 @@
 const my = require("mysql2");
-const httpStatus = require('http-status')
+const httpStatus = require('http-status');
+const { hashear } = require('./hashPassword')
 
 
 
@@ -29,8 +30,7 @@ const login = (pool,req, callback) => {
   
   /*------- llamada al back con la condicion del email-----   */ 
   let { email, password } = req.body;
-  console.log('username',email)
-  console.log('password',password)
+  
   let query = `SELECT * FROM usuario where email = '${email}'`;
 
   pool.getConnection((error, connection) => {
@@ -72,13 +72,13 @@ const login = (pool,req, callback) => {
 const register = async (pool,req, callback) => {
   
   /*------- llamada al back con la condicion del email-----   */ 
-  let { userName,name,lastName, 
-        email, password,address,
-        phone,dni, } = req.body;
-  let { country, city,typeUser, street, number  } = req.body;     
-  console.log(req.body)
-  let responseId = await selectIdMax();
-  let query = `SELECT MAX(usuario.id) FROM usuario`;
+  let { password, passwordConfirm, email } = req.body;    
+  if(!(password === passwordConfirm)) return 'Contraseñas Incorrectas'
+  password = hashear(password);
+
+  // let responseId = await selectIdMax();
+  let query = `INSERT INTO usuario (email,password)
+              values(${email},${password})`;
 
   pool.getConnection((error, connection) => {
     if (error) throw error;
@@ -87,8 +87,8 @@ const register = async (pool,req, callback) => {
       if (error) throw error;
       
       responseId = result;
-      insertCity(req.body)
-      insertTypeUser(req.body)
+      // insertCity(req.body)
+      // insertTypeUser(req.body)
       connection.release();
     });
   });
