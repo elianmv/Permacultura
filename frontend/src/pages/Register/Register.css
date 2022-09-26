@@ -28,8 +28,8 @@
     align-items: center;
     align-content: center;
     flex-direction: column;
-    width: 300px;
-    height: 400px;
+    width: 600px;
+    height: 800px;
     border: 1px solid #A3EBB1;
     border-radius: 10px;
     background-color: white;
@@ -38,15 +38,7 @@
     box-shadow: -10px 8px 15px -4px rgba(0,0,0,0.75);
 }
 
-#div-register{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-content: center;
-    background-color: #eff3f5;
-    background-size: cover;
-    height: 30%;
-}
+
 
 #div-login {
     display: flex;
@@ -95,7 +87,7 @@
 .input-usuario {
     margin:10px;
     padding: 5px;
-    width: 350px;
+    width: 250px;
     height: 40px;
     border: 1px solid ;
     border-radius: 25px;

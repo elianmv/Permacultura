@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2022-09-07 21:50:36.792
+-- Last modification date: 2022-09-26 13:17:45.495
 
 -- tables
 -- Table: categoria
@@ -39,6 +39,7 @@ CREATE TABLE publicacion (
     precio decimal(10,2) NOT NULL,
     usuario_id int NOT NULL,
     servicio_id int NOT NULL,
+    description varchar(500) NOT NULL,
     CONSTRAINT publicacion_pk PRIMARY KEY (id)
 );
 
@@ -59,15 +60,15 @@ CREATE TABLE tipo_usuario (
 -- Table: usuario
 CREATE TABLE usuario (
     id int NOT NULL AUTO_INCREMENT,
-    dni bigint NOT NULL,
+    dni bigint NULL,
     username varchar(255) NOT NULL,
-    name varchar(255) NOT NULL,
-    lastname varchar(255) NOT NULL,
+    name varchar(255) NULL,
+    lastname varchar(255) NULL,
     password varchar(255) NOT NULL,
     email varchar(255) NOT NULL,
-    phone varchar(255) NOT NULL,
+    phone varchar(255) NULL,
     tipo_usuario_name varchar(255) NOT NULL,
-    direccion_id int NOT NULL,
+    direccion_id int NULL,
     UNIQUE INDEX unique_uname_email (username,email),
     CONSTRAINT usuario_pk PRIMARY KEY (id)
 );
@@ -102,4 +103,3 @@ ALTER TABLE usuario ADD CONSTRAINT usuario_tipo_usuario FOREIGN KEY usuario_tipo
     REFERENCES tipo_usuario (name);
 
 -- End of file.
-
