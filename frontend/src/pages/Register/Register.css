@@ -1,0 +1,223 @@
+#titulo-login {
+    font-family: 'Kalam', cursive;
+    font-size:x-large;
+    
+}
+#form-login h1 {
+    font-family: 'Kalam', cursive;
+    font-size:xx-large;
+    margin-bottom: 0;
+    padding: 0;
+}
+#form-login h4 {
+    margin-top: 0;
+    padding: 0;
+    font-family: 'Kalam', cursive;
+    font-size:small;
+}
+
+#form-login {
+    background-image: url('../../assets/images/permacultura.png');
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: 5px;
+    margin-top:80px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    width: 300px;
+    height: 400px;
+    border: 1px solid #A3EBB1;
+    border-radius: 10px;
+    background-color: white;
+    -webkit-box-shadow: -10px 8px 15px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: -10px 8px 15px -4px rgba(0,0,0,0.75);
+    box-shadow: -10px 8px 15px -4px rgba(0,0,0,0.75);
+}
+
+#div-register{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+    background-color: #eff3f5;
+    background-size: cover;
+    height: 30%;
+}
+
+#div-login {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: #eff3f5;
+    background-size: cover;
+    height: 100%;
+    
+    
+} 
+#form-login .input-login {
+    text-decoration: none;
+    background-color:transparent;
+    border:none;
+    outline: none;
+    margin: -10px;
+    
+    /* margin:10px;
+    padding: 5px;
+    width: 300px;
+    height: 40px;
+    border: 1px solid ;
+    border-radius: 25px; */
+    
+}
+
+.custom-span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 0;
+    opacity: 0.7;
+    background-color: #a4e3fe ;
+    width: 400px;
+    height: 220px;
+    border-radius: 150% 100% 100% 150% / 100% 550% 150% 150% 
+}
+
+.input-address {
+    display: flex;
+    flex-direction: row;
+
+}
+.input-usuario {
+    margin:10px;
+    padding: 5px;
+    width: 350px;
+    height: 40px;
+    border: 1px solid ;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+#form-login .button-login {
+    margin:20px;
+    padding: 5px;
+    width: 200px;
+    height: 40px;
+    border: 1px solid ;
+    border-radius: 25px;
+}
+
+.input-loginError {
+    text-decoration: none;
+    background-color:transparent;
+    border:none;
+    outline: none;
+     
+}
+
+#label-error {
+    color :#D01110;
+    font-size: small;
+    align-items: flex-end;
+}
+.input-login:hover {
+    background-color: #A3EBB1;
+}
+.button-login:hover {
+    background-color: #d3fbdc;
+}
+.button-login {
+    font-family: 'Kalam', cursive;
+    font-size:large;
+    background-color:transparent;
+    border:none;
+    outline: none;
+}
+.input-login::placeholder {
+    font-family: 'Kalam', cursive;
+    font-size: 16px;
+    text-align: center;
+    color: black;
+}
+.input-loginError::placeholder {
+    font-family: 'Kalam', cursive;
+    font-size: 16px;
+    text-align: center;
+    color: black;
+}
+
+#icon{
+    position: absolute;
+    display: block;
+    margin-top: 60px;
+    margin-left: -250px;
+    user-select: none;
+    cursor: pointer;
+  }
+  #icon-pssw {
+    position: absolute;
+    display: block;
+    margin-top: 180px;
+    margin-left: -250px;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  #icon-err{
+    position: absolute;
+    display: block;
+    margin-top: 40px;
+    margin-left: -250px;
+    user-select: none;
+    cursor: pointer;
+  }
+  #icon-pssw-err {
+    position: absolute;
+    display: block;
+    margin-top: 160px;
+    margin-left: -250px;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  /* ---------- Animaciones ------------- */
+
+  #input-us,.icon {
+    animation: inputMoved 2s ease 0.5s forwards ;
+    opacity: 0;
+    
+  }
+  #input-pw,.icon-pssw {
+    animation: inputMovedFromRigth 2s ease 0.5s forwards ;
+    opacity: 0;
+    
+  }
+
+
+
+  @keyframes inputMoved {
+    from{
+        transform: translateX(-200px);
+        opacity: 0;
+    }
+    to{
+        transform: translateX(0);
+        opacity: 1;
+    }
+  }
+  @keyframes inputMovedFromRigth {
+    from{
+        transform: translateX(200px);
+        opacity: 0;
+    }
+    to{
+        transform: translateX(0);
+        opacity: 1;
+    }
+  }
