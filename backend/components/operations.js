@@ -141,7 +141,7 @@ const selectIdMax = (pool,req, callback) => {
       
       responseId = result;
       
-      connection.release();
+      connection.release(); 
       return responseId
     });
   });
