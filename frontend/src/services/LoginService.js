@@ -30,4 +30,25 @@ const LoginService = {
   },
 };
 
-export { LoginService };
+const RegisterService = {
+  login: (userName, password,passwordConfirm,email, userType) => {
+    const options = {
+      body: JSON.stringify({ userName, password,passwordConfirm,email, userType }),
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
+    };
+
+    return fetch('http://127.0.0.1:8080/api/v1/register', options)
+      .then((response) => response.json())
+      .then((data) => data)
+      .catch((err) => {
+        throw err;
+      });
+  },
+
+  
+   
+  
+};
+
+export { LoginService, RegisterService };

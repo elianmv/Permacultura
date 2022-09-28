@@ -10,6 +10,7 @@ import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 
 export function Register() {
   const [passwordError, setPasswordError] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuthContext();
@@ -29,24 +30,28 @@ export function Register() {
     let check = false;
     if (passwordError === true) return alert("Contraseña Invalida");
     const formData = new FormData(event.currentTarget);
-    const userName = formData.get("username");
+    const userName = formData.get("userName");
     const password = formData.get("password");
     const passwordConfirm = formData.get("passwordConfirm");
+    const email = formData.get("email");
+    const userType = formData.get("usertype");
+
+    console.log(userName, password,passwordConfirm,email, userType)
     // const name = formData.get("name");
     // const lastName = formData.get("lastname");
     // const dni = formData.get("dni");
-    const email = formData.get("email");
+    
     // const phone = formData.get("phone");
     // const country = formData.get("country");
     // const city = formData.get("city");
     // const street = formData.get("street");
     // const number = formData.get("number");
-    const userType = formData.get("usertype");
+    
 
-    // json.map((element) => {
-    //   if (element.user === username && element.passw === password) {
-    //     check = true;
-    auth.register({ userName, password, passwordConfirm }, (respon) => {
+    json.map((element) => {
+      if (element.user === username && element.passw === password) {
+        check = true;
+    auth.register({ userName, password, passwordConfirm, email, userType }, (respon) => {
 
       if (respon.status) {
         const from = location.state?.from?.pathname || "/";
@@ -63,9 +68,9 @@ export function Register() {
       // user experience.
 
     });
-    // }
-    // });
-    // if(!check) return alert("Contraseña Invalida");
+    }
+    });
+    if(!check) return alert("Contraseña Invalida");
   };
 
   return (
@@ -115,14 +120,16 @@ export function Register() {
           <div className="input-usuario" id="input-pw">
             <InputRegister
               handleChange={handleChange}
-              param={passwordError}
+              param={passwordDiff}
               name="passwordConfirm"
               placeholder="Repita su Contraseña"
               type="password"
               id="input-pw"
             />
           </div>
-          {passwordError && <label id="label-error">Contraseña Incorrecta</label>}
+          {passwordError && <label id="label-error">La Contraseña debe contener mas de 3 caracteres</label>}  
+          
+          
           {/* <div className="input-usuario" id="input-us">
             <InputRegister
               handleChange={handleChange}

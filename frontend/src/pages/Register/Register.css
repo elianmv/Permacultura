@@ -114,6 +114,7 @@
 }
 
 #label-error {
+    font-weight: bolder;
     color :#D01110;
     font-size: small;
     align-items: flex-end;
@@ -213,3 +214,26 @@
         opacity: 1;
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

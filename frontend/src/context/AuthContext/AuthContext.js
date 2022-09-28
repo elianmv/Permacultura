@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { LoginService } from '../../services';
+import { LoginService, RegisterService } from '../../services';
 
 const AuthContext = createContext();
 
@@ -9,16 +9,30 @@ const initialStateUser = false;
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(initialState);
   const [userLoggedIn, setUserLoggedIn] = useState(initialStateUser);
+  const [userRegisteredIn, setUserRegisteredIn] = useState(initialStateUser);
 
   const login = ({ username, password }, onLogin: Function) => {
     LoginService.login(username, password).then((result) => {
       if(!result.message){
         setUser(result);
-        setUserLoggedIn(true)
+        setUserRegisteredIn(true)
         onLogin({status:true});
       }
-      setUserLoggedIn(false)
+      setUserRegisteredIn(false)
       onLogin({message:result.message,status:false});
+    });
+   
+  };
+
+  const register = ({userName, password, passwordConfirm, email, userType }, onRegister: Function) => {
+    RegisterService.register(userName, password, passwordConfirm, email, userType).then((result) => {
+      if(!result.message){
+        setUser(result);
+        setUserLoggedIn(true)
+        onRegister({status:true});
+      }
+      setUserLoggedIn(false)
+      onRegister({message:result.message,status:false});
     });
    
   };
@@ -31,7 +45,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout,register }}>
       {children}
     </AuthContext.Provider>
   );
