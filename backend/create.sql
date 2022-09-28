@@ -120,3 +120,34 @@ insert into usuario (dni, username, name, lastname, password, email, phone, tipo
 insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (40506681, 'MFranco', 'Franco', 'Garza', '1234', 'franco@m.com', '5114118171', 'admin', 4);
 insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (43199252, 'VElian', 'Elian', 'Linning', '1234', 'elian@v.com', '3963140531', 'admin', 26);
 
+#addCategorias
+insert into categoria (name) values ('Construccion');
+insert into categoria (name) values ('Instalacion');
+insert into categoria (name) values ('Reparacion');
+insert into categoria (name) values ('Bioconstruccion');
+insert into categoria (name) values ('Mantenimiento');
+
+#addServicios
+insert into servicio (name, categoria_id) values ('Colocación de paneles solares', '2');
+insert into servicio (name, categoria_id) values ('Construcción casa de maderas', '4');
+insert into servicio (name, categoria_id) values ('Instalación horno de barro', '2');
+insert into servicio (name, categoria_id) values ('Construcción horno de barro', '1');
+insert into servicio (name, categoria_id) values ('Reparación paneles solares', '3');
+insert into servicio (name, categoria_id) values ('Colocación de termo solar', '2');
+insert into servicio (name, categoria_id) values ('Construcción casa de bambú', '4');
+insert into servicio (name, categoria_id) values ('Reparación de casa bambú', '3');
+insert into servicio (name, categoria_id) values ('Reparación de termo solar', '3');
+insert into servicio (name, categoria_id) values ('Mantenimiento de huerta', '5');
+
+#addPublicaciones
+
+insert into publicacion (tiempo_estimado, precio, usuario_id, servicio_id, description) values (1, 9658120.00, 17, 7, 'Construimos tu casa de bambú, en la ubicación que quieras, a tu gusto!');
+insert into publicacion (tiempo_estimado, precio, usuario_id, servicio_id, description) values (1, 535236.37, 17, 8, 'Consulta por la reparación de tu casa mediante un mensaje directo.');
+insert into publicacion (tiempo_estimado, precio, usuario_id, servicio_id, description) values (1, 3305.10, 20, 10, 'Soy un jardinero calificado para mantener tu huerta.');
+insert into publicacion (tiempo_estimado, precio, usuario_id, servicio_id, description) values (1, 22962492.74, 21, 2, 'La casa que soñaste puede ser construida por nosotros.');
+insert into publicacion (tiempo_estimado, precio, usuario_id, servicio_id, description) values (1, 17682.00, 33, 5, 'Reparamos cualquier modelo de paneles solares.');
+insert into publicacion (tiempo_estimado, precio, usuario_id, servicio_id, description) values (1, 57682.35, 23, 1, 'Instalación de los mejores paneles solares, consulta por la potencia que necesites.');
+insert into publicacion (tiempo_estimado, precio, usuario_id, servicio_id, description) values (1, 34681.62, 33, 4, 'Hornos de barro, de diferentes tamaños.');
+insert into publicacion (tiempo_estimado, precio, usuario_id, servicio_id, description) values (1, 19200.00, 23, 5, 'Reparación de paneles solares.');
+insert into publicacion (tiempo_estimado, precio, usuario_id, servicio_id, description) values (1, 8500.35, 23, 9, 'Gente calificada para reparar termo solares.');
+insert into publicacion (tiempo_estimado, precio, usuario_id, servicio_id, description) values (1, 9500.85, 33, 3, 'Instalamos tu horno de barro.');
