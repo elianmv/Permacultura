@@ -48,13 +48,13 @@ export function Register() {
     // const number = formData.get("number");
     
 
-    json.map((element) => {
-      if (element.user === username && element.passw === password) {
-        check = true;
+    // json.map((element) => {
+    //   if (element.user === userName && element.passw === password) {
+    //     check = true;
     auth.register({ userName, password, passwordConfirm, email, userType }, (respon) => {
 
       if (respon.status) {
-        const from = location.state?.from?.pathname || "/";
+        const from = location.state?.from?.pathname || "/login";
         navigate(from, { replace: true });
         return alert('Su usuario fue registrado con exito')
       } else {
@@ -68,9 +68,9 @@ export function Register() {
       // user experience.
 
     });
-    }
-    });
-    if(!check) return alert("Contraseña Invalida");
+  //   }
+  //   });
+  //   if(!check) return alert("Contraseña Invalida");
   };
 
   return (
@@ -120,7 +120,7 @@ export function Register() {
           <div className="input-usuario" id="input-pw">
             <InputRegister
               handleChange={handleChange}
-              param={passwordDiff}
+              param={passwordError}
               name="passwordConfirm"
               placeholder="Repita su Contraseña"
               type="password"

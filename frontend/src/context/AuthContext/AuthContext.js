@@ -15,10 +15,10 @@ export function AuthProvider({ children }) {
     LoginService.login(username, password).then((result) => {
       if(!result.message){
         setUser(result);
-        setUserRegisteredIn(true)
+        setUserLoggedIn(true)
         onLogin({status:true});
       }
-      setUserRegisteredIn(false)
+      setUserLoggedIn(false)
       onLogin({message:result.message,status:false});
     });
    
@@ -28,10 +28,10 @@ export function AuthProvider({ children }) {
     RegisterService.register(userName, password, passwordConfirm, email, userType).then((result) => {
       if(!result.message){
         setUser(result);
-        setUserLoggedIn(true)
+        setUserRegisteredIn(true)
         onRegister({status:true});
       }
-      setUserLoggedIn(false)
+      setUserRegisteredIn(false)
       onRegister({message:result.message,status:false});
     });
    

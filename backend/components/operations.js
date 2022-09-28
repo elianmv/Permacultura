@@ -72,13 +72,14 @@ const login = (pool,req, callback) => {
 const register = async (pool,req, callback) => {
   
   /*------- llamada al back con la condicion del email-----   */ 
-  let { password, passwordConfirm, email } = req.body;    
+  let { userName, password, passwordConfirm, email, userType } = req.body;    
   if(!(password === passwordConfirm)) return 'Contraseñas Incorrectas'
-  password = hashear(password);
-
+  console.log(password)
+  // password = hashear(password);
+// console.log(password)
   // let responseId = await selectIdMax();
-  let query = `INSERT INTO usuario (email,password)
-              values(${email},${password})`;
+  let query = `INSERT INTO usuario (username,email,password,tipo_usuario_name)
+              values("${userName}","${email}",${password},"${userType}")`;
 
   pool.getConnection((error, connection) => {
     if (error) throw error;
@@ -87,6 +88,8 @@ const register = async (pool,req, callback) => {
       if (error) throw error;
       
       responseId = result;
+      callback(responseId)
+      
       // insertCity(req.body)
       // insertTypeUser(req.body)
       connection.release();

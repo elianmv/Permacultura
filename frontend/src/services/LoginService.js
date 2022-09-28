@@ -31,7 +31,7 @@ const LoginService = {
 };
 
 const RegisterService = {
-  login: (userName, password,passwordConfirm,email, userType) => {
+  register: (userName, password,passwordConfirm,email, userType) => {
     const options = {
       body: JSON.stringify({ userName, password,passwordConfirm,email, userType }),
       headers: { 'Content-Type': 'application/json' },
