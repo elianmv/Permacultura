@@ -1,12 +1,11 @@
 
-#addPaises
+
 
 insert into pais (name)
 values ("Argentina"),("Peru"),("Chile"),("Uruguay"), ("Paraguay");
 
 
 
-#addCuidades
 
 insert into ciudad (zip_code,name,pais_name)
 values(7000,"Tandil","Argentina"),
@@ -19,7 +18,7 @@ values(7000,"Tandil","Argentina"),
         (7007,"Chacabuco","Uruguay");
 
 
-#addTipo_Cliente
+
 
 insert into  tipo_usuario (name)
 values ('admin'),
@@ -73,7 +72,6 @@ values ('Dunning',2420,7005),
 
 
 
-##addUsuarios
 
 insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (41721451, 'lpunyer0', 'Vincenz', 'Punyer', 'jZ2ezve', 'lpunyer0@shareasale.com', '9152051683', 'cli', 27);
 insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (27996693, 'ldensey1', 'Phillida', 'Densey', '1p8U9muTn', 'ldensey1@homestead.com', '1168723715', 'cli', 7);
@@ -117,6 +115,10 @@ insert into usuario (dni, username, name, lastname, password, email, phone, tipo
 insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (49734530, 'lhuckster13', 'Muhammad', 'Huckster', '9pgbuEno', 'lhuckster13@skyrock.com', '3517830241', 'cli', 41);
 insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (40506671, 'ggarza14', 'Chas', 'Garza', 'UfklDxyMpH', 'ggarza14@drupal.org', '5114118171', 'admin', 4);
 insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (43199282, 'alinning15', 'Angele', 'Linning', 'MNC6N5', 'alinning15@prlog.org', '3963140531', 'admin', 26);
+insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (4098429, 'BTrini', 'Trinidad', 'Bulpitt', '1234', 'trini@b.com', '1777644823', 'admin', 29);
+insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (49734560, 'AJuan', 'Juan', 'Huckster', '1234', 'juan@g.com', '3517830241', 'admin', 41);
+insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (40506681, 'MFranco', 'Franco', 'Garza', '1234', 'franco@m.com', '5114118171', 'admin', 4);
+insert into usuario (dni, username, name, lastname, password, email, phone, tipo_usuario_name, direccion_id) values (43199252, 'VElian', 'Elian', 'Linning', '1234', 'elian@v.com', '3963140531', 'admin', 26);
 
 #addCategorias
 insert into categoria (name) values ('Construccion');

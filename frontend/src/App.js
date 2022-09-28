@@ -6,7 +6,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { AuthProvider, useAuthContext } from './context';
-import { Home, Login, NotFound, Private } from './pages';
+import { Home, Login, NotFound, Private, Register } from './pages';
 import './App.css';
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
         <Routes>
           <Route exact strict path="/" element={<Home />} />
           <Route exact strict path="/login" element={<Login />} />
+          <Route exact strict path="/register" element={<Register />} />
           <Route
             exact
             string

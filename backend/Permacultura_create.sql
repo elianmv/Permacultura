@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2022-09-01 22:07:08.749
+-- Last modification date: 2022-09-26 13:17:45.495
 
 -- tables
 -- Table: categoria
@@ -15,14 +15,6 @@ CREATE TABLE ciudad (
     name varchar(255) NOT NULL,
     pais_name varchar(255) NOT NULL,
     CONSTRAINT ciudad_pk PRIMARY KEY (zip_code)
-);
-
--- Table: comprobante
-CREATE TABLE comprobante (
-    id int NOT NULL AUTO_INCREMENT,
-    fecha date NOT NULL,
-    publicacion_id int NOT NULL,
-    CONSTRAINT comprobante_pk PRIMARY KEY (id)
 );
 
 -- Table: direccion
@@ -47,7 +39,7 @@ CREATE TABLE publicacion (
     precio decimal(10,2) NOT NULL,
     usuario_id int NOT NULL,
     servicio_id int NOT NULL,
-    description varchar(512),
+    description varchar(500) NOT NULL,
     CONSTRAINT publicacion_pk PRIMARY KEY (id)
 );
 
@@ -68,15 +60,16 @@ CREATE TABLE tipo_usuario (
 -- Table: usuario
 CREATE TABLE usuario (
     id int NOT NULL AUTO_INCREMENT,
-    dni bigint NOT NULL,
+    dni bigint NULL,
     username varchar(255) NOT NULL,
-    name varchar(255) NOT NULL,
-    lastname varchar(255) NOT NULL,
+    name varchar(255) NULL,
+    lastname varchar(255) NULL,
     password varchar(255) NOT NULL,
     email varchar(255) NOT NULL,
     phone varchar(255) NULL,
     tipo_usuario_name varchar(255) NOT NULL,
-    direccion_id int NOT NULL,
+    direccion_id int NULL,
+    UNIQUE INDEX unique_uname_email (username,email),
     CONSTRAINT usuario_pk PRIMARY KEY (id)
 );
 
@@ -84,10 +77,6 @@ CREATE TABLE usuario (
 -- Reference: ciudad_pais (table: ciudad)
 ALTER TABLE ciudad ADD CONSTRAINT ciudad_pais FOREIGN KEY ciudad_pais (pais_name)
     REFERENCES pais (name);
-
--- Reference: comprobante_publicacion (table: comprobante)
-ALTER TABLE comprobante ADD CONSTRAINT comprobante_publicacion FOREIGN KEY comprobante_publicacion (publicacion_id)
-    REFERENCES publicacion (id);
 
 -- Reference: direccion_ciudad (table: direccion)
 ALTER TABLE direccion ADD CONSTRAINT direccion_ciudad FOREIGN KEY direccion_ciudad (ciudad_zip_code)
@@ -114,4 +103,3 @@ ALTER TABLE usuario ADD CONSTRAINT usuario_tipo_usuario FOREIGN KEY usuario_tipo
     REFERENCES tipo_usuario (name);
 
 -- End of file.
-

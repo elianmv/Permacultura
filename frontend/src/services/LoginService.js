@@ -14,9 +14,9 @@ const LoginService = {
       });
   },
 
-  logout: (username) => {
+  logout: (email) => {
     const options = {
-      body: JSON.stringify({ username }),
+      body: JSON.stringify({ email }),
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
     };
