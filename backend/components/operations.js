@@ -40,29 +40,23 @@ const login = async (pool,req, callback) => {
       if (error) throw error;
       
       let response = result;
-      console.log(response)
-      if(response.length > 0 ){
-       
-      if(response[0].password === password){
-        
-        callback(result)
-      }else{
-        let errorMess =  {
-          message: 'contraseña incorrecta',
-          status: httpStatus.UNAUTHORIZED,
-        }
-        callback(errorMess);
-      } 
-        }else{
-         
-          let errorMess =  {
-            message: 'contraseña incorrecta',
-            status: httpStatus.UNAUTHORIZED,
-          }
-          callback(errorMess);
-        } 
-
       
+      if(response.length > 0 ){
+        bcrypt.compare(password, response[0].password, (err, match) => {
+          if (err) {
+            let errorMess =  {
+              message: 'contraseña incorrecta',
+              status: httpStatus.UNAUTHORIZED,
+            }
+            callback(errorMess);
+          }else{
+            let okMess =  {
+              message: 'login correcto'
+            }
+            callback(okMess)
+          }
+        });
+      }
       connection.release();
     });
   });
@@ -95,78 +89,78 @@ const register = async (pool,req, callback) => {
 };
 
 
-const insertCity = (body) => {
-  let query = `INSERT INTO ciudad`;
+// const insertCity = (body) => {
+//   let query = `INSERT INTO ciudad`;
 
-  pool.getConnection((error, connection) => {
-    if (error) throw error;
+//   pool.getConnection((error, connection) => {
+//     if (error) throw error;
     
-    connection.query(query, (error, result) => {
-      if (error) throw error;
+//     connection.query(query, (error, result) => {
+//       if (error) throw error;
       
-      responseId = result;
+//       responseId = result;
       
-      connection.release();
-    });
-  });
-}
+//       connection.release();
+//     });
+//   });
+// }
 
-const insertTypeUser = (body) => {
-  let query = `INSERT INTO tipo_usuario`;
+// const insertTypeUser = (body) => {
+//   let query = `INSERT INTO tipo_usuario`;
 
-  pool.getConnection((error, connection) => {
-    if (error) throw error;
+//   pool.getConnection((error, connection) => {
+//     if (error) throw error;
     
-    connection.query(query, (error, result) => {
-      if (error) throw error;
+//     connection.query(query, (error, result) => {
+//       if (error) throw error;
       
-      responseId = result;
+//       responseId = result;
       
-      connection.release();
-    });
-  });
-}
+//       connection.release();
+//     });
+//   });
+// }
 
 
-const selectIdMax = (pool,req, callback) => {
+// const selectIdMax = (pool,req, callback) => {
   
-  /*------- llamada al back para traer Id más grande-----   */ 
+//   /*------- llamada al back para traer Id más grande-----   */ 
 
-  let responseId;
-  let query = `SELECT MAX(usuario.id) FROM usuario`;
-  pool.getConnection((error, connection) => {
-    if (error) throw error;
+//   let responseId;
+//   let query = `SELECT MAX(usuario.id) FROM usuario`;
+//   pool.getConnection((error, connection) => {
+//     if (error) throw error;
     
-    connection.query(query, (error, result) => {
-      if (error) throw error;
+//     connection.query(query, (error, result) => {
+//       if (error) throw error;
       
-      responseId = result;
+//       responseId = result;
       
-      connection.release(); 
-      return responseId
-    });
-  });
-};
+//       connection.release(); 
+//       return responseId
+//     });
+//   });
+// };
 
-const insertTypeUsuario = (pool,req, callback) => {
+// const insertTypeUsuario = (pool,req, callback) => {
   
-  /*------- Insert in tabla de tipo de usuario-----   */ 
+//   /*------- Insert in tabla de tipo de usuario-----   */ 
 
-  let { idUsuarioType } = req.body
-  let query = `SELECT MAX(usuario.id) FROM usuario`;
-  pool.getConnection((error, connection) => {
-    if (error) throw error;
+//   let { idUsuarioType } = req.body
+//   let query = `SELECT MAX(usuario.id) FROM usuario`;
+//   pool.getConnection((error, connection) => {
+//     if (error) throw error;
     
-    connection.query(query, (error, result) => {
-      if (error) throw error;
+//     connection.query(query, (error, result) => {
+//       if (error) throw error;
       
-      responseId = result;
+//       responseId = result;
       
-      connection.release();
-      return responseId
-    });
-  });
-};
+//       connection.release();
+//       return responseId
+//     });
+//   });
+// };
 
 
 
