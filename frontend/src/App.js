@@ -8,6 +8,7 @@ import {
 import { AuthProvider, useAuthContext } from './context';
 import { Home, Login, NotFound, Private, Register, Config } from './pages';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
