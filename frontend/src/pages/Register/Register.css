@@ -1,22 +1,22 @@
-#titulo-login {
+#titulo-rg {
     font-family: 'Kalam', cursive;
     font-size:x-large;
     
 }
-#form-login h1 {
+#form-rg h1 {
     font-family: 'Kalam', cursive;
     font-size:xx-large;
     margin-bottom: 0;
     padding: 0;
 }
-#form-login h4 {
+#form-rg h4 {
     margin-top: 0;
     padding: 0;
     font-family: 'Kalam', cursive;
     font-size:small;
 }
 
-#form-login {
+#form-rg {
     background-image: url('../../assets/images/permacultura.png');
     background-repeat: no-repeat;
     background-size:contain;
@@ -40,7 +40,7 @@
 
 
 
-#div-login {
+#div-rg {
     display: flex;
     justify-content: center;
     align-content: center;
@@ -50,7 +50,7 @@
     
     
 } 
-#form-login .input-login {
+#form-rg .input-rg {
     text-decoration: none;
     background-color:transparent;
     border:none;
@@ -66,7 +66,7 @@
     
 }
 
-.custom-span {
+.custom-span-rg {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,12 +79,12 @@
     border-radius: 150% 100% 100% 150% / 100% 550% 150% 150% 
 }
 
-.input-address {
+.input-address-rg {
     display: flex;
     flex-direction: row;
 
 }
-.input-usuario {
+.input-usuario-rg {
     margin:10px;
     padding: 5px;
     width: 250px;
@@ -96,7 +96,7 @@
     justify-content: center;
     
 }
-#form-login .button-login {
+#form-rg .button-rg {
     margin:20px;
     padding: 5px;
     width: 200px;
@@ -105,7 +105,7 @@
     border-radius: 25px;
 }
 
-.input-loginError {
+.input-rgError {
     text-decoration: none;
     background-color:transparent;
     border:none;
@@ -113,39 +113,39 @@
      
 }
 
-#label-error {
+#label-error-rg {
     font-weight: bolder;
     color :#D01110;
     font-size: small;
     align-items: flex-end;
 }
-.input-login:hover {
+.input-rg:hover {
     background-color: #A3EBB1;
 }
-.button-login:hover {
+.button-rg:hover {
     background-color: #d3fbdc;
 }
-.button-login {
+.button-rg {
     font-family: 'Kalam', cursive;
     font-size:large;
     background-color:transparent;
     border:none;
     outline: none;
 }
-.input-login::placeholder {
+.input-rg::placeholder {
     font-family: 'Kalam', cursive;
     font-size: 16px;
     text-align: center;
     color: black;
 }
-.input-loginError::placeholder {
+.input-rgError::placeholder {
     font-family: 'Kalam', cursive;
     font-size: 16px;
     text-align: center;
     color: black;
 }
 
-#icon{
+#icon-rg{
     position: absolute;
     display: block;
     margin-top: 60px;
@@ -153,7 +153,7 @@
     user-select: none;
     cursor: pointer;
   }
-  #icon-pssw {
+  #icon-pssw-rg {
     position: absolute;
     display: block;
     margin-top: 180px;
@@ -162,7 +162,7 @@
     cursor: pointer;
   }
 
-  #icon-err{
+  #icon-err-rg{
     position: absolute;
     display: block;
     margin-top: 40px;
@@ -170,7 +170,7 @@
     user-select: none;
     cursor: pointer;
   }
-  #icon-pssw-err {
+  #icon-pssw-err-rg {
     position: absolute;
     display: block;
     margin-top: 160px;
@@ -181,12 +181,12 @@
 
   /* ---------- Animaciones ------------- */
 
-  #input-us,.icon {
+  #input-us-rg,.icon-rg {
     animation: inputMoved 2s ease 0.5s forwards ;
     opacity: 0;
     
   }
-  #input-pw,.icon-pssw {
+  #input-pw-rg,.icon-pssw-rg {
     animation: inputMovedFromRigth 2s ease 0.5s forwards ;
     opacity: 0;
     

@@ -10,16 +10,25 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(initialState);
   const [userLoggedIn, setUserLoggedIn] = useState(initialStateUser);
   const [userRegisteredIn, setUserRegisteredIn] = useState(initialStateUser);
+  const[userName,setUserName] = useState('')
 
   const login = ({ username, password }, onLogin: Function) => {
     LoginService.login(username, password).then((result) => {
       if(!result.message){
         setUser(result);
         setUserLoggedIn(true)
-        onLogin({status:true});
+        
+        onLogin({status:true, result });
+        
+        
       }
-      setUserLoggedIn(false)
-      onLogin({message:result.message,status:false});
+      else{
+        setUserLoggedIn(false)
+       
+        onLogin({message:result.message,status:false});
+      }
+      console.log('user: ',user)
+      console.log(user)
     });
    
   };
@@ -45,7 +54,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout,register }}>
+    <AuthContext.Provider value={{ user, login, logout,register, userLoggedIn}}>
       {children}
     </AuthContext.Provider>
   );

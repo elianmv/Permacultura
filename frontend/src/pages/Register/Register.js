@@ -75,154 +75,154 @@ export function Register() {
 
   return (
     
-      <div id="div-login" >
+      <div id="div-rg" >
 
-        <form id="form-login" onSubmit={onSubmit}  >
+        <form id="form-rg" onSubmit={onSubmit}  >
 
           <h1>SyCAS</h1>
           <h1>Registro</h1>
 
 
-          <h3 id="titulo-login">Complete Con sus Datos</h3>
-          <span className="icon" id={passwordError ? "icon-err" : "icon"}>
+          <h3 id="titulo-rg">Complete Con sus Datos</h3>
+          <span className="icon-rg" id={passwordError ? "icon-err-rg" : "icon-rg"}>
             <FontAwesomeIcon icon={faEnvelope} />
           </span>
 
 
-          <div className="input-usuario" id="input-us">
+          <div className="input-usuario-rg" id="input-us-rg">
             <InputRegister
               handleChange={handleChange}
               name="userName"
               placeholder="Nombre de Usuario"
               type="text"
-              id="input-us"
+              id="input-us-rg"
             />
           </div>
-          <div className="input-usuario" id="input-us">
+          <div className="input-usuario-rg" id="input-us-rg">
             <InputRegister
               handleChange={handleChange}
               name="email"
               placeholder="Correo Electronico"
               type="email"
-              id="input-us"
+              id="input-us-rg"
             />
           </div>
-          <div className="input-usuario" id="input-pw">
+          <div className="input-usuario-rg" id="input-pw-rg">
             <InputRegister
               handleChange={handleChange}
               param={passwordError}
               name="password"
               placeholder="Contraseña"
               type="password"
-              id="input-pw"
+              id="input-pw-rg"
             />
           </div>
-          <div className="input-usuario" id="input-pw">
+          <div className="input-usuario-rg" id="input-pw-rg">
             <InputRegister
               handleChange={handleChange}
               param={passwordError}
               name="passwordConfirm"
               placeholder="Repita su Contraseña"
               type="password"
-              id="input-pw"
+              id="input-pw-rg"
             />
           </div>
-          {passwordError && <label id="label-error">La Contraseña debe contener mas de 3 caracteres</label>}  
+          {passwordError && <label id="label-error-rg">La Contraseña debe contener mas de 3 caracteres</label>}  
           
           
-          {/* <div className="input-usuario" id="input-us">
+          {/* <div className="input-usuario-rg" id="input-us-rg">
             <InputRegister
               handleChange={handleChange}
               name="dni"
               placeholder="Dni"
               type="text"
-              id="input-us"
+              id="input-us-rg"
             />
           </div>
-          <div className="input-usuario" id="input-us">
+          <div className="input-usuario-rg" id="input-us-rg">
             <InputRegister
               handleChange={handleChange}
               name="name"
               placeholder="Nombre"
               type="text"
-              id="input-us"
+              id="input-us-rg"
             />
           </div>
-          <div className="input-usuario" id="input-us">
+          <div className="input-usuario-rg" id="input-us-rg">
             <InputRegister
               handleChange={handleChange}
               name="lastName"
               placeholder="Apellido"
               type="text"
-              id="input-us"
+              id="input-us-rg"
             />
           </div>
 
-          <div className="input-usuario" id="input-us">
+          <div className="input-usuario-rg" id="input-us-rg">
             <InputRegister
               handleChange={handleChange}
               name="country"
               placeholder="Pais"
               type="text"
-              id="input-us"
+              id="input-us-rg"
             />
           </div>
-          <div className="input-usuario" id="input-us">
+          <div className="input-usuario-rg" id="input-us-rg">
             <InputRegister
               handleChange={handleChange}
               name="city"
               placeholder="Ciudad"
               type="text"
-              id="input-us"
+              id="input-us-rg"
             />
           </div>
           <div className="input-address">
-            <div className="input-usuario" id="input-us">
+            <div className="input-usuario-rg" id="input-us-rg">
               <InputRegister
                 handleChange={handleChange}
                 name="street"
                 placeholder="Calle"
                 type="text"
-                id="input-us"
+                id="input-us-rg"
               />
             </div>
-            <div className="input-usuario" id="input-us">
+            <div className="input-usuario-rg" id="input-us-rg">
               <InputRegister
                 handleChange={handleChange}
                 name="number"
                 placeholder="Numero"
                 type="text"
-                id="input-us"
+                id="input-us-rg"
               />
             </div>
           </div>
-          <div className="input-usuario" id="input-us">
+          <div className="input-usuario-rg" id="input-us-rg">
             <InputRegister
               handleChange={handleChange}
               name="phone"
               placeholder="Telefono"
               type="select"
-              id="input-us"
+              id="input-us-rg"
             />
           </div> */}
-          <div className="input-usuario" id="input-us">
+          <div className="input-usuario-rg" id="input-us-rg">
             <select
               handleChange={handleChange}
               name="usertype"
               placeholder="Tipo de Usuario"
-              id="input-us"
+              id="input-us-rg"
             >
               <option value={"prov"} > Proveedor</option>
               <option value={"cli"} >Cliente</option>
             </select>
           </div>
 
-          <span className="icon-pssw" id={passwordError ? "icon-pssw-err" : "icon-pssw"}>
+          <span className="icon-pssw-rg" id={passwordError ? "icon-pssw-err-rg" : "icon-pssw-rg"}>
             <FontAwesomeIcon icon={faKey} />
           </span>
 
 
-          <button className="button-login" type="submit">
+          <button className="button-rg" type="submit">
             Registrese
           </button>
         </form>

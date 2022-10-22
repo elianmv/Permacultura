@@ -1,11 +1,11 @@
 import { Menu } from '../../components';
-import './Private.css';
+import './Config.css';
 
-export function Private() {
+export function Config() {
   return (
     <>
       <Menu />
-      <h3>Servicios:</h3>
+      <h3>Actualize sus Datos:</h3>
 
 <div>
   
