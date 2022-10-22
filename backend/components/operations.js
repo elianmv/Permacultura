@@ -1,6 +1,6 @@
 const my = require("mysql2");
 const httpStatus = require('http-status');
-const { hashear } = require('./hashPassword')
+const bcrypt = require("bcryptjs");
 
 
 
@@ -26,13 +26,13 @@ const servicios = (pool,req, callback) => {
   });
 }
 
-const login = (pool,req, callback) => {
+const login = async (pool,req, callback) => {
   
   /*------- llamada al back con la condicion del email-----   */ 
   let { email, password } = req.body;
   
   let query = `SELECT * FROM usuario where email = '${email}'`;
-
+  // const match = await bcrypt.compare(password, dbResponse[0].password);
   pool.getConnection((error, connection) => {
     if (error) throw error;
     
@@ -72,14 +72,14 @@ const login = (pool,req, callback) => {
 const register = async (pool,req, callback) => {
   
   /*------- llamada al back con la condicion del email-----   */ 
-  let { userName, password, passwordConfirm, email, userType } = req.body;    
+  let { userName, password, passwordConfirm, email, userType} = req.body;    
   if(!(password === passwordConfirm)) return 'Contraseñas Incorrectas'
+  const passwordHashed = await bcrypt.hash(password, 10);
   console.log(password)
-  // password = hashear(password);
-// console.log(password)
+
   // let responseId = await selectIdMax();
   let query = `INSERT INTO usuario (username,email,password,tipo_usuario_name)
-              values("${userName}","${email}",${password},"${userType}")`;
+              values("${userName}","${email}","${passwordHashed}","${userType}")`;
 
   pool.getConnection((error, connection) => {
     if (error) throw error;
@@ -88,10 +88,7 @@ const register = async (pool,req, callback) => {
       if (error) throw error;
       
       responseId = result;
-      callback(responseId)
-      
-      // insertCity(req.body)
-      // insertTypeUser(req.body)
+      callback(result)
       connection.release();
     });
   });

@@ -1,8 +1,11 @@
 import { Menu } from '../../components';
 import './Home.css';
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/juan
 
 export function Home() {
 
