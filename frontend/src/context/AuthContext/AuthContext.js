@@ -15,10 +15,13 @@ export function AuthProvider({ children }) {
       if(!result.message){
         setUser(result);
         setUserLoggedIn(true)
-        onLogin({status:true});
+        onLogin({status:true, result });
       }
-      setUserLoggedIn(false)
-      onLogin({message:result.message,status:false});
+      else{
+        setUserLoggedIn(false)
+        onLogin({message:result.message,status:false});
+      }
+      
     });
    
   };
