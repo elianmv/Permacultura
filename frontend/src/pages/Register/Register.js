@@ -1,15 +1,19 @@
 import React from "react";
 import { useState } from "react";
+import { Menu } from "../../components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../../context";
 import "./Register.css";
 import InputRegister from "./Components/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
-
+import SwitchSelector from "react-switch-selector";
+import { Form, Button } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 export function Register() {
   const [passwordError, setPasswordError] = useState(false);
+  const [userType, setuserType] = useState("cli");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,6 +29,28 @@ export function Register() {
     }
   };
 
+  const options = [
+    {
+      label: <span>Cliente</span>,
+      value: "cli",
+      
+      selectedBackgroundColor: "#66CC00",
+    },
+    {
+      label: "Proveedor",
+      value: "prov",
+      selectedBackgroundColor: "#66CC00",
+    },
+  ];
+
+  const onChange = (newValue) => {
+    setuserType(newValue);
+  };
+
+  const initialSelectedIndex = options.findIndex(
+    ({ value }) => value === "cli"
+  );
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let check = false;
@@ -34,103 +60,146 @@ export function Register() {
     const password = formData.get("password");
     const passwordConfirm = formData.get("passwordConfirm");
     const email = formData.get("email");
-    const userType = formData.get("usertype");
+    
 
-    console.log(userName, password,passwordConfirm,email, userType)
+    console.log(userName, password, passwordConfirm, email, userType);
     // const name = formData.get("name");
     // const lastName = formData.get("lastname");
     // const dni = formData.get("dni");
-    
+
     // const phone = formData.get("phone");
     // const country = formData.get("country");
     // const city = formData.get("city");
     // const street = formData.get("street");
     // const number = formData.get("number");
-    
 
     // json.map((element) => {
     //   if (element.user === userName && element.passw === password) {
-    //     check = true;
-    auth.register({ userName, password, passwordConfirm, email, userType }, (respon) => {
 
-      if (respon.status) {
-        const from = location.state?.from?.pathname || "/login";
-        navigate(from, { replace: true });
-        return alert('Su usuario fue registrado con exito')
-      } else {
-        return alert(respon.message)
+    if (password !== passwordConfirm) {
+      Swal.fire({
+        icon: "warning",
+        title: "Oops...",
+        text: "Passwords do not match!",
+        footer: "Try again",
+        showConfirmButton: false,
+        timer: 2500,
+      });
+
+      if (!password || !passwordConfirm || !userName) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "you have to complete the required fields",
+          footer: "Try again",
+          showConfirmButton: false,
+          timer: 2500,
+        });
       }
-      // Send them back to the page they tried to visit when they were
-      // redirected to the login page. Use { replace: true } so we don't create
-      // another entry in the history stack for the login page.  This means that
-      // when they get to the protected page and click the back button, they
-      // won't end up back on the login page, which is also really nice for the
-      // user experience.
-
-    });
-  //   }
-  //   });
-  //   if(!check) return alert("Contraseña Invalida");
+    }
+    //     check = true;
+    auth.register(
+      { userName, password, passwordConfirm, email, userType },
+      (respon) => {
+        if (respon.status) {
+          const from = location.state?.from?.pathname || "/login";
+          navigate(from, { replace: true });
+          return alert("Su usuario fue registrado con exito");
+        } else {
+          return alert(respon.message);
+        }
+        // Send them back to the page they tried to visit when they were
+        // redirected to the login page. Use { replace: true } so we don't create
+        // another entry in the history stack for the login page.  This means that
+        // when they get to the protected page and click the back button, they
+        // won't end up back on the login page, which is also really nice for the
+        // user experience.
+      }
+    );
+    //   }
+    //   });
+    //   if(!check) return alert("Contraseña Invalida");
   };
 
   return (
-    
-      <div id="div-rg" >
+    <div className="body">
+      
+      <div className="register">
+        <div className="content-register">
+          <h2 className="title-register">Registro</h2>{" "}
+          <Form onSubmit={onSubmit} className="table-register">
+            <div className="input-group">
+              <span className="input-group-text">Nombre de Usuario</span>
 
-        <form id="form-rg" onSubmit={onSubmit}  >
+              <input
+                type="text"
+                aria-label="username"
+                name="userName"
+                className="form-control"
+                placeholder="Obligatorio"
+              />
+            </div>
+            <div className="input-group">
+              <span className="input-group-text">Email</span>
 
-          <h1>SyCAS</h1>
-          <h1>Registro</h1>
+              <input
+                type="text"
+                aria-label="username"
+                name="email"
+                className="form-control"
+                placeholder="Obligatorio"
+              />
+            </div>
+            <div className="input-group">
+              <span className="input-group-text">Contraseña</span>
 
+              <input
+                type="password"
+                aria-label="password"
+                name="password"
+                className="form-control"
+                placeholder="Obligatorio"
+              />
+            </div>
+            <div className="input-group">
+              <span className="input-group-text"> Repita la Contraseña</span>
 
-          <h3 id="titulo-rg">Complete Con sus Datos</h3>
-          <span className="icon-rg" id={passwordError ? "icon-err-rg" : "icon-rg"}>
-            <FontAwesomeIcon icon={faEnvelope} />
-          </span>
+              <input
+                type="password"
+                aria-label="passwordConfirm"
+                name="passwordConfirm"
+                className="form-control"
+                placeholder="Obligatorio"
+              />
+            </div>
+            <div className="switch-usuario-rg" id="switch-us-rg">
+              <SwitchSelector
+              
+                onChange={onChange}
+                options={options}
+                initialSelectedIndex={initialSelectedIndex}
+                backgroundColor={"#6E6E6E"}
+                fontColor={"#f5f6fa"}
+              />
+            </div>
+            <div>
+              <Button
+                type="submit"
+                variant="outline-success"
+                //   onClick={this.props.handleInsert}
+              >
+                Registrar
+              </Button>{" "}
+              <Button
+                type="reset"
+                variant="outline-dark"
+                //   onClick={this.props.handleInsert}
+              >
+                Cancelar
+              </Button>
+            </div>
 
-
-          <div className="input-usuario-rg" id="input-us-rg">
-            <InputRegister
-              handleChange={handleChange}
-              name="userName"
-              placeholder="Nombre de Usuario"
-              type="text"
-              id="input-us-rg"
-            />
-          </div>
-          <div className="input-usuario-rg" id="input-us-rg">
-            <InputRegister
-              handleChange={handleChange}
-              name="email"
-              placeholder="Correo Electronico"
-              type="email"
-              id="input-us-rg"
-            />
-          </div>
-          <div className="input-usuario-rg" id="input-pw-rg">
-            <InputRegister
-              handleChange={handleChange}
-              param={passwordError}
-              name="password"
-              placeholder="Contraseña"
-              type="password"
-              id="input-pw-rg"
-            />
-          </div>
-          <div className="input-usuario-rg" id="input-pw-rg">
-            <InputRegister
-              handleChange={handleChange}
-              param={passwordError}
-              name="passwordConfirm"
-              placeholder="Repita su Contraseña"
-              type="password"
-              id="input-pw-rg"
-            />
-          </div>
-          {passwordError && <label id="label-error-rg">La Contraseña debe contener mas de 3 caracteres</label>}  
-          
-          
-          {/* <div className="input-usuario-rg" id="input-us-rg">
+            {/* <div className="input-usuario-rg" id="input-us-rg">
             <InputRegister
               handleChange={handleChange}
               name="dni"
@@ -205,34 +274,9 @@ export function Register() {
               id="input-us-rg"
             />
           </div> */}
-          <div className="input-usuario-rg" id="input-us-rg">
-            <select
-              handleChange={handleChange}
-              name="usertype"
-              placeholder="Tipo de Usuario"
-              id="input-us-rg"
-            >
-              <option value={"prov"} > Proveedor</option>
-              <option value={"cli"} >Cliente</option>
-            </select>
-          </div>
-
-          <span className="icon-pssw-rg" id={passwordError ? "icon-pssw-err-rg" : "icon-pssw-rg"}>
-            <FontAwesomeIcon icon={faKey} />
-          </span>
-
-
-          <button className="button-rg" type="submit">
-            Registrese
-          </button>
-        </form>
-
+          </Form>
+        </div>
       </div>
-
-    
-
-
+    </div>
   );
 }
-
-

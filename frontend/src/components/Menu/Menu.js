@@ -45,7 +45,7 @@ export function Menu() {
        
           {user? <li id='username'><NavDropdown
             id='nav-dropdown-dark-example'
-            title={`WELCOME, ${user[0].name}!`}
+            title={`WELCOME, ${user[0].username}!`}
             menuVariant='dark'
             size='sm'
             align='end'
