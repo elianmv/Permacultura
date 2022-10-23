@@ -89,21 +89,37 @@ const register = async (pool,req, callback) => {
 };
 
 
-// const insertCity = (body) => {
-//   let query = `INSERT INTO ciudad`;
+const insertCity = (body) => {
+  let query = `INSERT INTO ciudad`;
 
-//   pool.getConnection((error, connection) => {
-//     if (error) throw error;
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
     
-//     connection.query(query, (error, result) => {
-//       if (error) throw error;
+    connection.query(query, (error, result) => {
+      if (error) throw error;
       
-//       responseId = result;
+      responseId = result;
+      return responseId
+      connection.release();
+    });
+  });
+}
+
+const insertCountry = (name) => {
+  let query = `INSERT INTO pais (name) values ("${name}") `;
+
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+    
+    connection.query(query, (error, result) => {
+      if (error) throw error;
       
-//       connection.release();
-//     });
-//   });
-// }
+      responseId = result;
+      return responseId;
+      connection.release();
+    });
+  });
+}
 
 // const insertTypeUser = (body) => {
 //   let query = `INSERT INTO tipo_usuario`;
@@ -122,25 +138,29 @@ const register = async (pool,req, callback) => {
 // }
 
 
-// const selectIdMax = (pool,req, callback) => {
+const updateRegister = (pool,req, callback) => {
   
-//   /*------- llamada al back para traer Id más grande-----   */ 
+  /*------- llamada al back para traer Id más grande-----   */ 
+  let { dni,name,lastName,phone } = req.body;
+  let { direccion,calle,numero,cPostal,nameCiudad,namePais } = req.body;
+  insertCountry(namePais)
+  insertCity(direccion,calle,numero,cPostal,nameCiudad,namePais)
 
-//   let responseId;
-//   let query = `SELECT MAX(usuario.id) FROM usuario`;
-//   pool.getConnection((error, connection) => {
-//     if (error) throw error;
+  let responseId;
+  let query = `UPDATE usuario SET  `;
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
     
-//     connection.query(query, (error, result) => {
-//       if (error) throw error;
+    connection.query(query, (error, result) => {
+      if (error) throw error;
       
-//       responseId = result;
+      responseId = result;
       
-//       connection.release(); 
-//       return responseId
-//     });
-//   });
-// };
+      connection.release(); 
+      return responseId
+    });
+  });
+};
 
 // const insertTypeUsuario = (pool,req, callback) => {
   
