@@ -12,7 +12,7 @@ import { Form, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 export function Config() {
-  const {user} =useAuthContext()
+  const { user } = useAuthContext()
   const [passwordError, setPasswordError] = useState(false);
   const [userType, setuserType] = useState("cli");
   const [name, setName] = useState(user[0].name);
@@ -23,6 +23,10 @@ export function Config() {
   const [dni, setDni] = useState(user[0].dni);
   const [password, setPassword] = useState(user[0].password);
   const [passwordConfirm, setPasswordConfirm] = useState(user[0].password);
+  const [country, setCountry] = useState(user[0].country);
+  const [city, setCity] = useState(user[0].city);
+  const [street, setStreet] = useState(user[0].street);
+  const [number, setNumber] = useState(user[0].number);
   const auth = useAuthContext();
 
   const handleChange = (name, value) => {
@@ -70,7 +74,7 @@ export function Config() {
     const password = formData.get("password");
     const passwordConfirm = formData.get("passwordConfirm");
     const email = formData.get("email");
-    
+
 
     console.log(userName, password, passwordConfirm, email, userType);
 
@@ -96,12 +100,12 @@ export function Config() {
         });
       }
     }
-    
+
     auth.update(
-      {dni, name, lastName, userName, password, passwordConfirm, email, phone, userType },
+      { dni, name, lastName, userName, password, passwordConfirm, email, phone, userType },
       (respon) => {
         if (respon.status) {
-          
+
           return alert("Los datos fueron actualizados con exito");
         } else {
           return alert(respon.message);
@@ -114,103 +118,156 @@ export function Config() {
         // user experience.
       }
     );
-   
+
   };
 
   return (
     <>
-    <Menu/>
-    <div className="body-config">
-      
-      <div className="register">
-        <div className="content-register">
-          <h2 className="title-register">Actualice sus Datos</h2>{" "}
-          {/* form */}
-          <Form onSubmit={onSubmit} className="table-config">
-            
-            <div className="input-group">
-              <span className="input-group-text">Nombre</span>
+      <Menu />
+      <div className="body-config">
 
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                aria-label="name"
-                name="Name"
-                className="form-control"
-                placeholder="Opcional"
-              />
-            </div>
-            <div className="input-group">
-              <span className="input-group-text">Apellido</span>
+        <div className="register">
+          <div className="content-register">
+            <h2 className="title-register">Actualice sus Datos</h2>{" "}
+            {/* form */}
+            <Form onSubmit={onSubmit} className="table-config">
 
-              <input
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                aria-label="lastName"
-                name="lastName"
-                className="form-control"
-                placeholder="Opcional"
-              />
-            </div>
-            <div className="input-group">
-              <span className="input-group-text">Dni</span>
+              <div className="input-group">
+                <span className="input-group-text">Nombre</span>
 
-              <input
-                type="text"
-                value={dni}
-                onChange={(e) => setDni(e.target.value)}
-                aria-label="dni"
-                name="dni"
-                className="form-control"
-                placeholder="Opcional"
-              />
-            </div>
-            <div className="input-group">
-              <span className="input-group-text">Telefono</span>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  aria-label="name"
+                  name="Name"
+                  className="form-control"
+                  placeholder="Opcional"
+                />
+              </div>
+              <div className="input-group">
+                <span className="input-group-text">Apellido</span>
 
-              <input
-                type="text"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                aria-label="phone"
-                name="phone"
-                className="form-control"
-                placeholder="Opcional"
-              />
-            </div>
-            
-            <div className="switch-usuario-rg" id="switch-us-rg">
-              <SwitchSelector
-              
-                onChange={onChange}
-                options={options}
-                initialSelectedIndex={user[0].tipo_usuario_name}
-                backgroundColor={"#6E6E6E"}
-                fontColor={"#f5f6fa"}
-              />
-            </div>
-            <div>
-              <Button
-                type="submit"
-                variant="outline-success"
-              >
-                Registrar
-              </Button>{" "}
-              <Button
-                type="reset"
-                variant="outline-dark"
-              >
-                Cancelar
-              </Button>
-            </div>
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  aria-label="lastName"
+                  name="lastName"
+                  className="form-control"
+                  placeholder="Opcional"
+                />
+              </div>
+              <div className="input-group">
+                <span className="input-group-text">Dni</span>
 
-           
-          </Form>
+                <input
+                  type="text"
+                  value={dni}
+                  onChange={(e) => setDni(e.target.value)}
+                  aria-label="dni"
+                  name="dni"
+                  className="form-control"
+                  placeholder="Opcional"
+                />
+              </div>
+              <div className="input-group">
+                <span className="input-group-text">Telefono</span>
+
+                <input
+                  type="text"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  aria-label="phone"
+                  name="phone"
+                  className="form-control"
+                  placeholder="Opcional"
+                />
+              </div>
+
+              <div className="input-group">
+                <span className="input-group-text">Pais</span>
+
+                <Form.Select aria-label="Default select example" value= {country} onChange = {(e) => setCountry(e.target.value)}  >
+                  <option >Seleccione su Pais</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Chile">Chile</option>
+                  <option value="Paraguay">Paraguay</option>
+                  <option value="Peru">Peru</option>
+                  <option value="Uruguay">Uruguay</option>
+
+
+                </Form.Select>
+
+                <span className="input-group-text">Ciudad</span>
+
+
+
+                <input
+                  type="text"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  aria-label="city"
+                  name="city"
+                  className="form-control"
+                  placeholder="Opcional"
+                />
+              </div>
+              <div className="input-group">
+                <span className="input-group-text">Calle</span>
+
+                <input
+                  type="text"
+                  value={street}
+                  onChange={(e) => setStreet(e.target.value)}
+                  aria-label="street"
+                  name="street"
+                  className="form-control"
+                  placeholder="Opcional"
+                />
+                <span className="input-group-text">N°</span>
+
+                <input
+                  type="text"
+                  value={number}
+                  onChange={(e) => setNumber(e.target.value)}
+                  aria-label="number"
+                  name="number"
+                  className="form-control"
+                  placeholder="Opcional"
+                />
+              </div>
+
+              <div className="switch-usuario-rg" id="switch-us-rg">
+                <SwitchSelector
+
+                  onChange={onChange}
+                  options={options}
+                  initialSelectedIndex={user[0].tipo_usuario_name}
+                  backgroundColor={"#6E6E6E"}
+                  fontColor={"#f5f6fa"}
+                />
+              </div>
+              <div>
+                <Button
+                  type="submit"
+                  variant="outline-success"
+                >
+                  Registrar
+                </Button>{" "}
+                <Button
+                  type="reset"
+                  variant="outline-dark"
+                >
+                  Cancelar
+                </Button>
+              </div>
+
+
+            </Form>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 }

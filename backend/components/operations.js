@@ -4,12 +4,13 @@ const bcrypt = require("bcryptjs");
 
 /* ---- LLamada al back de todos los servicios----- */
 const servicios = (pool, req, callback) => {
-  let query = `SELECT tiempo_estimado, precio,description, usuario.name as nombre, categoria.name as categoria, 
+  let query = `SELECT categoria.name as categoria,tiempo_estimado, precio,description, usuario.name as nombre,
   usuario.lastname as apellido, usuario.email,servicio.name as servicio 
   FROM publicacion 
   join usuario on publicacion.usuario_id = usuario.id
   join servicio on publicacion.servicio_id = servicio.id
-  join categoria on categoria.id = categoria_id`;
+  join categoria on categoria.id = categoria_id
+  order by categoria.name asc`;
   pool.getConnection((error, connection) => {
     if (error) throw error;
 
@@ -29,7 +30,11 @@ const login = async (pool, req, callback) => {
   /*------- llamada al back con la condicion del email-----   */
   let { email, password } = req.body;
 
-  let query = `SELECT * FROM usuario where email = '${email}'`;
+  let query = `SELECT usuario.id,usuario.dni,usuario.username,usuario.name,usuario.lastname,usuario.password,usuario.email, usuario.phone, usuario.tipo_usuario_name,direccion.street as street, direccion.number, ciudad.name as city, pais.name as country FROM usuario 
+  join direccion on direccion.id = direccion_id
+  join ciudad on ciudad.zip_code = ciudad_zip_code
+  join pais on pais_name = pais.name
+  where email ='${email}'`;
   // const match = await bcrypt.compare(password, dbResponse[0].password);
   pool.getConnection((error, connection) => {
     if (error) throw error;
