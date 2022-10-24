@@ -15,18 +15,18 @@ export function Config() {
   const { user } = useAuthContext()
   const [passwordError, setPasswordError] = useState(false);
   const [userType, setuserType] = useState("cli");
-  const [name, setName] = useState(user[0].name);
-  const [userName, setUserName] = useState(user[0].username);
-  const [lastName, setLastName] = useState(user[0].lastname);
-  const [phone, setPhone] = useState(user[0].phone);
-  const [email, setEmail] = useState(user[0].email);
-  const [dni, setDni] = useState(user[0].dni);
-  const [password, setPassword] = useState(user[0].password);
-  const [passwordConfirm, setPasswordConfirm] = useState(user[0].password);
-  const [country, setCountry] = useState(user[0].country);
-  const [city, setCity] = useState(user[0].city);
-  const [street, setStreet] = useState(user[0].street);
-  const [number, setNumber] = useState(user[0].number);
+  const [name, setName] = useState(user.response[0].name);
+  const [userName, setUserName] = useState(user.response[0].username);
+  const [lastName, setLastName] = useState(user.response[0].lastname);
+  const [phone, setPhone] = useState(user.response[0].phone);
+  const [email, setEmail] = useState(user.response[0].email);
+  const [dni, setDni] = useState(user.response[0].dni);
+  // const [password, setPassword] = useState(user.response[0].password);
+  // const [passwordConfirm, setPasswordConfirm] = useState(user.response[0].password);
+  const [country, setCountry] = useState(user.response[0].country);
+  const [city, setCity] = useState(user.response[0].city);
+  const [street, setStreet] = useState(user.response[0].street);
+  const [number, setNumber] = useState(user.response[0].number);
   const auth = useAuthContext();
 
   const handleChange = (name, value) => {
@@ -243,7 +243,7 @@ export function Config() {
 
                   onChange={onChange}
                   options={options}
-                  initialSelectedIndex={user[0].tipo_usuario_name}
+                  initialSelectedIndex={user.response[0].tipo_usuario_name}
                   backgroundColor={"#6E6E6E"}
                   fontColor={"#f5f6fa"}
                 />

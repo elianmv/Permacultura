@@ -18,23 +18,7 @@ const servicios = (pool, req, callback) => {
       if (error) throw error;
 
       let response = result;
-      
-      if(response.length > 0 ){
-        bcrypt.compare(password, response[0].password, (err, match) => {
-          if (err) {
-            let errorMess =  {
-              message: 'contraseña incorrecta',
-              status: httpStatus.UNAUTHORIZED,
-            }
-            callback(errorMess);
-          }else{
-            let okMess =  {
-              message: 'login correcto'
-            }
-            callback(okMess)
-          }
-        });
-      }
+      callback(response)
       connection.release();
     });
   });
@@ -43,39 +27,40 @@ const servicios = (pool, req, callback) => {
 const login = async (pool, req, callback) => {
   /*------- llamada al back con la condicion del email-----   */
   let { email, password } = req.body;
-
+  const passwordHashed = await bcrypt.hash(password, 10);
+  
+  
   let query = `SELECT usuario.id,usuario.dni,usuario.username,usuario.name,usuario.lastname,usuario.password,usuario.email, usuario.phone, usuario.tipo_usuario_name,direccion.street as street, direccion.number, ciudad.name as city, pais.name as country FROM usuario 
-  join direccion on direccion.id = direccion_id
-  join ciudad on ciudad.zip_code = ciudad_zip_code
-  join pais on pais_name = pais.name
+  left join direccion on direccion.id = direccion_id
+  left join ciudad on ciudad.zip_code = ciudad_zip_code
+  left join pais on pais_name = pais.name
   where email ='${email}'`;
   // const match = await bcrypt.compare(password, dbResponse[0].password);
   pool.getConnection((error, connection) => {
     if (error) throw error;
 
-    connection.query(query, (error, result) => {
+    connection.query(query, (error, response) => {
       if (error) throw error;
-
-      let response = result;
-      console.log(response);
-      if (response.length > 0) {
-        if (response[0].password === password) {
-          callback(result);
-        } else {
-          let errorMess = {
-            message: "contraseña incorrecta",
-            status: httpStatus.UNAUTHORIZED,
-          };
-          callback(errorMess);
-        }
-      } else {
-        let errorMess = {
-          message: "contraseña incorrecta",
-          status: httpStatus.UNAUTHORIZED,
-        };
-        callback(errorMess);
+      
+      if(response.length > 0 ){
+        bcrypt.compare(passwordHashed, response[0].password, (err, match) => {
+          
+          if (err) {
+            let errorMess =  {
+              message: 'contraseña incorrecta',
+              status: httpStatus.UNAUTHORIZED,
+            }
+            callback(errorMess);
+          }else{
+            response[0].password = '';
+            let okMess =  {
+              message: 'login correcto',
+              response:response
+            }
+            callback(okMess)
+          }
+        });
       }
-
       connection.release();
     });
   });

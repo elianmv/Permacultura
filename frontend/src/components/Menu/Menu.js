@@ -13,10 +13,14 @@ export function Menu() {
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuthContext();
+
+  console.log(user)
+
+
   const handleClickLogout = () => {
     setUser(null);
     setUserLoggedIn(false);
-
+    
     auth.logout(() => {
       const from = location.state?.from?.pathname || '/';
       navigate(from, { replace: true });
@@ -45,7 +49,7 @@ export function Menu() {
        
           {user? <li id='username'><NavDropdown
             id='nav-dropdown-dark-example'
-            title={`WELCOME, ${user[0].username}!`}
+            title={`WELCOME, ${user.response[0].username}!`}
             menuVariant='dark'
             size='sm'
             align='end'
