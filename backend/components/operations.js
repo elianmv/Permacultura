@@ -18,9 +18,23 @@ const servicios = (pool, req, callback) => {
       if (error) throw error;
 
       let response = result;
-      console.log(response);
-      callback(response);
-
+      
+      if(response.length > 0 ){
+        bcrypt.compare(password, response[0].password, (err, match) => {
+          if (err) {
+            let errorMess =  {
+              message: 'contraseña incorrecta',
+              status: httpStatus.UNAUTHORIZED,
+            }
+            callback(errorMess);
+          }else{
+            let okMess =  {
+              message: 'login correcto'
+            }
+            callback(okMess)
+          }
+        });
+      }
       connection.release();
     });
   });
@@ -91,7 +105,8 @@ const register = async (pool, req, callback) => {
   });
 };
 
-const insertCity = (body) => {
+
+const insertCity = (pool,callback,body) => {
   let query = `INSERT INTO ciudad`;
 
   pool.getConnection((error, connection) => {
@@ -101,14 +116,36 @@ const insertCity = (body) => {
       if (error) throw error;
 
       responseId = result;
-
+      return responseId
       connection.release();
     });
   });
 };
 
-const insertTypeUser = (body) => {
-  let query = `INSERT INTO tipo_usuario`;
+const viewCountry = (pool,callback,name) => {
+
+  let query = `SELECT * FROM pais where name = '${name}'`;
+  
+
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+    
+    connection.query(query, (error, result) => {
+      if (error) {
+        insertCountry(pool,callback,name)
+        callback(false)};
+      
+      responseId = result;
+      callback(responseId);
+      connection.release();
+    });
+  });
+}
+
+const insertCountry = (pool,callback,name) => {
+
+  
+  let query = `INSERT INTO pais (name) values ("${name}") `;
 
   pool.getConnection((error, connection) => {
     if (error) throw error;
@@ -117,17 +154,40 @@ const insertTypeUser = (body) => {
       if (error) throw error;
 
       responseId = result;
-
+      callback(responseId);
       connection.release();
+      
     });
   });
 };
 
-const selectIdMax = (pool, req, callback) => {
-  /*------- llamada al back para traer Id más grande-----   */
+// const insertTypeUser = (body) => {
+//   let query = `INSERT INTO tipo_usuario`;
+
+//   pool.getConnection((error, connection) => {
+//     if (error) throw error;
+    
+//     connection.query(query, (error, result) => {
+//       if (error) throw error;
+      
+//       responseId = result;
+      
+//       connection.release();
+//     });
+//   });
+// }
+
+
+const updateRegister = (pool,req, callback) => {
+  
+  /*------- llamada al back para traer Id más grande-----   */ 
+  let { dni,name,lastName,phone } = req.body;
+  let { direccion,calle,numero,cPostal,nameCiudad,namePais } = req.body;
+  viewCountry(pool,callback,namePais)
+  insertCity(pool,callback,direccion,calle,numero,cPostal,nameCiudad,namePais)
 
   let responseId;
-  let query = `SELECT MAX(usuario.id) FROM usuario`;
+  let query = `UPDATE usuario SET  `;
   pool.getConnection((error, connection) => {
     if (error) throw error;
 
@@ -142,24 +202,25 @@ const selectIdMax = (pool, req, callback) => {
   });
 };
 
-const insertTypeUsuario = (pool, req, callback) => {
-  /*------- Insert in tabla de tipo de usuario-----   */
+// const insertTypeUsuario = (pool,req, callback) => {
+  
+//   /*------- Insert in tabla de tipo de usuario-----   */ 
 
-  let { idUsuarioType } = req.body;
-  let query = `SELECT MAX(usuario.id) FROM usuario`;
-  pool.getConnection((error, connection) => {
-    if (error) throw error;
-
-    connection.query(query, (error, result) => {
-      if (error) throw error;
-
-      responseId = result;
-
-      connection.release();
-      return responseId;
-    });
-  });
-};
+//   let { idUsuarioType } = req.body
+//   let query = `SELECT MAX(usuario.id) FROM usuario`;
+//   pool.getConnection((error, connection) => {
+//     if (error) throw error;
+    
+//     connection.query(query, (error, result) => {
+//       if (error) throw error;
+      
+//       responseId = result;
+      
+//       connection.release();
+//       return responseId
+//     });
+//   });
+// };
 
 module.exports = {
   servicios,
