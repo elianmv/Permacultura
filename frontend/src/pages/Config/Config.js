@@ -118,6 +118,8 @@ export function Config() {
   };
 
   return (
+    <>
+    <Menu/>
     <div className="body-config">
       
       <div className="register">
@@ -125,32 +127,7 @@ export function Config() {
           <h2 className="title-register">Actualice sus Datos</h2>{" "}
           {/* form */}
           <Form onSubmit={onSubmit} className="table-config">
-            <div className="input-group">
-              <span className="input-group-text">Nombre de Usuario</span>
-
-              <input
-                type="text"
-                aria-label="username"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                name="userName"
-                className="form-control"
-                placeholder="Obligatorio"
-              />
-            </div>
-            <div className="input-group">
-              <span className="input-group-text">Email</span>
-
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                aria-label="username"
-                name="email"
-                className="form-control"
-                placeholder="Obligatorio"
-              />
-            </div>
+            
             <div className="input-group">
               <span className="input-group-text">Nombre</span>
 
@@ -203,32 +180,7 @@ export function Config() {
                 placeholder="Opcional"
               />
             </div>
-            <div className="input-group">
-              <span className="input-group-text">Contraseña</span>
-
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                aria-label="password"
-                name="password"
-                className="form-control"
-                placeholder="Obligatorio"
-              />
-            </div>
-            <div className="input-group">
-              <span className="input-group-text"> Repita la Contraseña</span>
-
-              <input
-                type="password"
-                aria-label="passwordConfirm"
-                name="passwordConfirm"
-                className="form-control"
-                value={passwordConfirm}
-                onChange={(e) => setPasswordConfirm(e.target.value)}
-                placeholder="Obligatorio"
-              />
-            </div>
+            
             <div className="switch-usuario-rg" id="switch-us-rg">
               <SwitchSelector
               
@@ -259,5 +211,6 @@ export function Config() {
         </div>
       </div>
     </div>
+    </>
   );
 }

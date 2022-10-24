@@ -122,7 +122,7 @@ export function Register() {
   };
 
   return (
-    <div className="body">
+    <div className="body-container">
       
       <div className="register">
         <div className="content-register">

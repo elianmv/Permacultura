@@ -1,7 +1,7 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Menu.css';
 import { useAuthContext } from '../../context';
-import { createContext, useContext, useState } from 'react';
+
 import Icon from '@mdi/react';
 import { mdiAccountEdit, mdiLogout } from '@mdi/js';
 
@@ -30,7 +30,7 @@ export function Menu() {
           <Link to='/'>Home</Link>
         </li>
         <li className='menu-item'>
-          <Link to='/private'>Private</Link>
+          <Link to='/private'>Servicios</Link>
         </li>
        {!user? <li className='menu-item'>
           <Link to='/login'>login</Link>
