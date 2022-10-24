@@ -89,7 +89,7 @@ const register = async (pool,req, callback) => {
 };
 
 
-const insertCity = (body) => {
+const insertCity = (pool,callback,body) => {
   let query = `INSERT INTO ciudad`;
 
   pool.getConnection((error, connection) => {
@@ -105,7 +105,29 @@ const insertCity = (body) => {
   });
 }
 
-const insertCountry = (name) => {
+const viewCountry = (pool,callback,name) => {
+
+  let query = `SELECT * FROM pais where name = '${name}'`;
+  
+
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+    
+    connection.query(query, (error, result) => {
+      if (error) {
+        insertCountry(pool,callback,name)
+        callback(false)};
+      
+      responseId = result;
+      callback(responseId);
+      connection.release();
+    });
+  });
+}
+
+const insertCountry = (pool,callback,name) => {
+
+  
   let query = `INSERT INTO pais (name) values ("${name}") `;
 
   pool.getConnection((error, connection) => {
@@ -115,8 +137,9 @@ const insertCountry = (name) => {
       if (error) throw error;
       
       responseId = result;
-      return responseId;
+      callback(responseId);
       connection.release();
+      
     });
   });
 }
@@ -143,8 +166,8 @@ const updateRegister = (pool,req, callback) => {
   /*------- llamada al back para traer Id más grande-----   */ 
   let { dni,name,lastName,phone } = req.body;
   let { direccion,calle,numero,cPostal,nameCiudad,namePais } = req.body;
-  insertCountry(namePais)
-  insertCity(direccion,calle,numero,cPostal,nameCiudad,namePais)
+  viewCountry(pool,callback,namePais)
+  insertCity(pool,callback,direccion,calle,numero,cPostal,nameCiudad,namePais)
 
   let responseId;
   let query = `UPDATE usuario SET  `;
