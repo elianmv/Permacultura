@@ -17,13 +17,31 @@ export function AuthProvider({ children }) {
       if(!result.message){
         setUser(result);
         setUserLoggedIn(true)
+        
         onLogin({status:true, result });
+        
+        
       }
       else{
         setUserLoggedIn(false)
+       
         onLogin({message:result.message,status:false});
       }
-      
+      console.log('user: ',user)
+      console.log(user)
+    });
+   
+  };
+
+  const register = ({userName, password, passwordConfirm, email, userType }, onRegister: Function) => {
+    RegisterService.register(userName, password, passwordConfirm, email, userType).then((result) => {
+      if(!result.message){
+        setUser(result);
+        setUserRegisteredIn(true)
+        onRegister({status:true});
+      }
+      setUserRegisteredIn(false)
+      onRegister({message:result.message,status:false});
     });
    
   };
