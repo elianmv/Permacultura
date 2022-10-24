@@ -51,9 +51,14 @@ export function Register() {
     ({ value }) => value === "cli"
   );
 
+  const onCancel =() =>{
+    const from = location.state?.from?.pathname || "/";
+          navigate(from, { replace: true });
+  }
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    let check = false;
+   
     if (passwordError === true) return alert("Contraseña Invalida");
     const formData = new FormData(event.currentTarget);
     const userName = formData.get("userName");
@@ -63,18 +68,6 @@ export function Register() {
     
 
     console.log(userName, password, passwordConfirm, email, userType);
-    // const name = formData.get("name");
-    // const lastName = formData.get("lastname");
-    // const dni = formData.get("dni");
-
-    // const phone = formData.get("phone");
-    // const country = formData.get("country");
-    // const city = formData.get("city");
-    // const street = formData.get("street");
-    // const number = formData.get("number");
-
-    // json.map((element) => {
-    //   if (element.user === userName && element.passw === password) {
 
     if (password !== passwordConfirm) {
       Swal.fire({
@@ -97,7 +90,8 @@ export function Register() {
         });
       }
     }
-    //     check = true;
+
+   
     auth.register(
       { userName, password, passwordConfirm, email, userType },
       (respon) => {
@@ -116,9 +110,8 @@ export function Register() {
         // user experience.
       }
     );
-    //   }
-    //   });
-    //   if(!check) return alert("Contraseña Invalida");
+ 
+ 
   };
 
   return (
@@ -186,94 +179,20 @@ export function Register() {
               <Button
                 type="submit"
                 variant="outline-success"
-                //   onClick={this.props.handleInsert}
+                
               >
                 Registrar
               </Button>{" "}
               <Button
-                type="reset"
+                onClick={onCancel}
                 variant="outline-dark"
-                //   onClick={this.props.handleInsert}
+                
               >
                 Cancelar
               </Button>
             </div>
 
-            {/* <div className="input-usuario-rg" id="input-us-rg">
-            <InputRegister
-              handleChange={handleChange}
-              name="dni"
-              placeholder="Dni"
-              type="text"
-              id="input-us-rg"
-            />
-          </div>
-          <div className="input-usuario-rg" id="input-us-rg">
-            <InputRegister
-              handleChange={handleChange}
-              name="name"
-              placeholder="Nombre"
-              type="text"
-              id="input-us-rg"
-            />
-          </div>
-          <div className="input-usuario-rg" id="input-us-rg">
-            <InputRegister
-              handleChange={handleChange}
-              name="lastName"
-              placeholder="Apellido"
-              type="text"
-              id="input-us-rg"
-            />
-          </div>
-
-          <div className="input-usuario-rg" id="input-us-rg">
-            <InputRegister
-              handleChange={handleChange}
-              name="country"
-              placeholder="Pais"
-              type="text"
-              id="input-us-rg"
-            />
-          </div>
-          <div className="input-usuario-rg" id="input-us-rg">
-            <InputRegister
-              handleChange={handleChange}
-              name="city"
-              placeholder="Ciudad"
-              type="text"
-              id="input-us-rg"
-            />
-          </div>
-          <div className="input-address">
-            <div className="input-usuario-rg" id="input-us-rg">
-              <InputRegister
-                handleChange={handleChange}
-                name="street"
-                placeholder="Calle"
-                type="text"
-                id="input-us-rg"
-              />
-            </div>
-            <div className="input-usuario-rg" id="input-us-rg">
-              <InputRegister
-                handleChange={handleChange}
-                name="number"
-                placeholder="Numero"
-                type="text"
-                id="input-us-rg"
-              />
-            </div>
-          </div>
-          <div className="input-usuario-rg" id="input-us-rg">
-            <InputRegister
-              handleChange={handleChange}
-              name="phone"
-              placeholder="Telefono"
-              type="select"
-              id="input-us-rg"
-            />
-          </div> */}
+           
           </Form>
         </div>
       </div>

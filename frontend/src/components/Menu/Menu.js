@@ -33,12 +33,12 @@ export function Menu() {
           <Link to='/private'>Servicios</Link>
         </li>
        {!user? <li className='menu-item'>
-          <Link to='/login'>login</Link>
+          <Link to='/login'>Ingresar</Link>
         </li>
         : null
       }
       {!user? <li className='menu-item'>
-          <Link to='/register'>Register</Link>
+          <Link to='/register'>Registrarse</Link>
         </li>
         : null
       }
@@ -59,7 +59,7 @@ export function Menu() {
                   size={0.8}
                   color='#def1f0'
                 />
-                {' Settings'}
+                {' Configuraciones'}
               </Link>
             </NavDropdown.Item>
 
@@ -71,7 +71,7 @@ export function Menu() {
                   size={0.8}
                   color='#def1f0'
                 />
-                {'Logout'}
+                {'Desconectarse'}
               </Link>
             </NavDropdown.Item>
           </NavDropdown>
