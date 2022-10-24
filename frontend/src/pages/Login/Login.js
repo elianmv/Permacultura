@@ -41,13 +41,15 @@ export function Login() {
     //   if (element.user === username && element.passw === password) {
     //     check = true;
         auth.login({ username, password }, (respon) => {
-          
+          console.log(respon)
           if(respon.status){
+            
             const from = location.state?.from?.pathname || "/";
             navigate(from, { replace: true });
-            return alert('conexion exitosa')
+            
           }else{
-            return alert(respon.message)
+            console.log(respon)
+            
           }
           // Send them back to the page they tried to visit when they were
           // redirected to the login page. Use { replace: true } so we don't create
@@ -72,29 +74,25 @@ export function Login() {
          
           
           <h3 id="titulo-login">¡Bienvenido!</h3>
-          <span className="icon" id={passwordError ? "icon-err" : "icon"}>
-            <FontAwesomeIcon icon={faEnvelope} />
-          </span>
+          
 
           <div className="input-usuario" id="input-us">
             <Input
               handleChange={handleChange}
               name="username"
-              placeholder="Username"
+              placeholder="Email"
               type="email"
               id="input-us"
             />
           </div>
-          <span className="icon-pssw" id={passwordError ? "icon-pssw-err" : "icon-pssw"}>
-            <FontAwesomeIcon  icon={faKey} />
-          </span>
+          
 
           <div className="input-usuario" id="input-pw">
             <Input
               handleChange={handleChange}
               param={passwordError}
               name="password"
-              placeholder="Password"
+              placeholder="Contraseña"
               type="password"
               id="input-pw"
             />

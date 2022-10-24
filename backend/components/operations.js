@@ -1,44 +1,22 @@
 const my = require("mysql2");
-const httpStatus = require('http-status');
+const httpStatus = require("http-status");
 const bcrypt = require("bcryptjs");
 
-
-
 /* ---- LLamada al back de todos los servicios----- */
-const servicios = (pool,req, callback) => {
-  let query = `SELECT tiempo_estimado, precio,description, usuario.name as nombre, 
-                usuario.lastname as apellido, usuario.email,servicio.name as servicio 
-                FROM publicacion 
-                join usuario on publicacion.usuario_id = usuario.id
-                join servicio on publicacion.servicio_id = servicio.id`;
+const servicios = (pool, req, callback) => {
+  let query = `SELECT categoria.name as categoria,tiempo_estimado, precio,description, usuario.name as nombre,
+  usuario.lastname as apellido, usuario.email,servicio.name as servicio 
+  FROM publicacion 
+  join usuario on publicacion.usuario_id = usuario.id
+  join servicio on publicacion.servicio_id = servicio.id
+  join categoria on categoria.id = categoria_id
+  order by categoria.name asc`;
   pool.getConnection((error, connection) => {
     if (error) throw error;
-    
-    connection.query(query, (error, result) => {
-      if (error) throw error;
-      
-      let response = result;
-      console.log(response)
-      callback(response)
-      
-      connection.release();
-    });
-  });
-}
 
-const login = async (pool,req, callback) => {
-  
-  /*------- llamada al back con la condicion del email-----   */ 
-  let { email, password } = req.body;
-  
-  let query = `SELECT * FROM usuario where email = '${email}'`;
-  // const match = await bcrypt.compare(password, dbResponse[0].password);
-  pool.getConnection((error, connection) => {
-    if (error) throw error;
-    
     connection.query(query, (error, result) => {
       if (error) throw error;
-      
+
       let response = result;
       
       if(response.length > 0 ){
@@ -62,14 +40,53 @@ const login = async (pool,req, callback) => {
   });
 };
 
+const login = async (pool, req, callback) => {
+  /*------- llamada al back con la condicion del email-----   */
+  let { email, password } = req.body;
 
-const register = async (pool,req, callback) => {
-  
-  /*------- llamada al back con la condicion del email-----   */ 
-  let { userName, password, passwordConfirm, email, userType} = req.body;    
-  if(!(password === passwordConfirm)) return 'Contraseñas Incorrectas'
+  let query = `SELECT usuario.id,usuario.dni,usuario.username,usuario.name,usuario.lastname,usuario.password,usuario.email, usuario.phone, usuario.tipo_usuario_name,direccion.street as street, direccion.number, ciudad.name as city, pais.name as country FROM usuario 
+  join direccion on direccion.id = direccion_id
+  join ciudad on ciudad.zip_code = ciudad_zip_code
+  join pais on pais_name = pais.name
+  where email ='${email}'`;
+  // const match = await bcrypt.compare(password, dbResponse[0].password);
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+
+    connection.query(query, (error, result) => {
+      if (error) throw error;
+
+      let response = result;
+      console.log(response);
+      if (response.length > 0) {
+        if (response[0].password === password) {
+          callback(result);
+        } else {
+          let errorMess = {
+            message: "contraseña incorrecta",
+            status: httpStatus.UNAUTHORIZED,
+          };
+          callback(errorMess);
+        }
+      } else {
+        let errorMess = {
+          message: "contraseña incorrecta",
+          status: httpStatus.UNAUTHORIZED,
+        };
+        callback(errorMess);
+      }
+
+      connection.release();
+    });
+  });
+};
+
+const register = async (pool, req, callback) => {
+  /*------- llamada al back con la condicion del email-----   */
+  let { userName, password, passwordConfirm, email, userType } = req.body;
+  if (!(password === passwordConfirm)) return "Contraseñas Incorrectas";
   const passwordHashed = await bcrypt.hash(password, 10);
-  console.log(password)
+  console.log(password);
 
   // let responseId = await selectIdMax();
   let query = `INSERT INTO usuario (username,email,password,tipo_usuario_name)
@@ -77,12 +94,12 @@ const register = async (pool,req, callback) => {
 
   pool.getConnection((error, connection) => {
     if (error) throw error;
-    
+
     connection.query(query, (error, result) => {
       if (error) throw error;
-      
+
       responseId = result;
-      callback(result)
+      callback(result);
       connection.release();
     });
   });
@@ -94,16 +111,16 @@ const insertCity = (pool,callback,body) => {
 
   pool.getConnection((error, connection) => {
     if (error) throw error;
-    
+
     connection.query(query, (error, result) => {
       if (error) throw error;
-      
+
       responseId = result;
       return responseId
       connection.release();
     });
   });
-}
+};
 
 const viewCountry = (pool,callback,name) => {
 
@@ -132,17 +149,17 @@ const insertCountry = (pool,callback,name) => {
 
   pool.getConnection((error, connection) => {
     if (error) throw error;
-    
+
     connection.query(query, (error, result) => {
       if (error) throw error;
-      
+
       responseId = result;
       callback(responseId);
       connection.release();
       
     });
   });
-}
+};
 
 // const insertTypeUser = (body) => {
 //   let query = `INSERT INTO tipo_usuario`;
@@ -173,14 +190,14 @@ const updateRegister = (pool,req, callback) => {
   let query = `UPDATE usuario SET  `;
   pool.getConnection((error, connection) => {
     if (error) throw error;
-    
+
     connection.query(query, (error, result) => {
       if (error) throw error;
-      
+
       responseId = result;
-      
-      connection.release(); 
-      return responseId
+
+      connection.release();
+      return responseId;
     });
   });
 };
@@ -205,9 +222,8 @@ const updateRegister = (pool,req, callback) => {
 //   });
 // };
 
-
-
-
 module.exports = {
-  servicios,login,register
+  servicios,
+  login,
+  register,
 };
