@@ -1,5 +1,5 @@
 const my = require("mysql2");
-const httpStatus = require("http-status");
+const responseHttp = require("../utils/response");
 const bcrypt = require("bcryptjs");
 
 /* ---- LLamada al back de todos los servicios----- */
@@ -16,12 +16,12 @@ const servicios = (pool, req, callback) => {
 
     connection.query(query, (error, result) => {
       if (error) throw error;
-
-      let okMess =  {
-        status: httpStatus.OK,
-        response:result
-      }
-      callback(response)
+      if(!result.length > 0){
+        callback(responseHttp.responseNoContent('Ningun Servicio Encontrado'))
+      }else{
+        callback(responseHttp.responseOk(result))
+      };
+      
       connection.release();
     });
   });
@@ -36,11 +36,8 @@ const persons = (pool, req, callback) => {
 
     connection.query(query, (error, result) => {
       if (error) throw error;
-      let okMess =  {
-        status: httpStatus.OK,
-        response:result
-      }
-      callback(okMess)
+      
+      callback(responseHttp.responseOk(result))
       connection.release();
     });
   });
@@ -68,27 +65,14 @@ const login = async (pool, req, callback) => {
       if(response.length > 0 ){
         const match = await bcrypt.compare(password, response[0].password);
           if (!match) {
-            let errorMess =  {
-              message: 'contraseña incorrecta',
-              status: httpStatus.UNAUTHORIZED,
-            }
-            callback(errorMess);
+
+            callback(responseHttp.responseUnauthorized('Contraseña Incorrecta'));
           }else{
             response[0].password = '';
-            let okMess =  {
-              message: 'login correcto',
-              status: httpStatus.OK,
-              response:response
-            }
-            callback(okMess)
+            callback(responseHttp.responseOkLogin('Login Correcto',response))
           }
-        
       }else{
-        let errorMess =  {
-          message: 'Usuario Desconocido',
-          status: httpStatus.NO_CONTENT,
-        }
-        callback(errorMess);
+        callback(responseHttp.responseNoContent('Usuario Desconocido'));
       }
       connection.release();
     });
@@ -100,9 +84,7 @@ const register = async (pool, req, callback) => {
   let { userName, password, passwordConfirm, email, userType } = req.body;
   if (!(password === passwordConfirm)) return "Contraseñas Incorrectas";
   const passwordHashed = await bcrypt.hash(password, 10);
-  console.log(password);
-
-  // let responseId = await selectIdMax();
+  
   let query = `INSERT INTO usuario (username,email,password,tipo_usuario_name)
               values("${userName}","${email}","${passwordHashed}","${userType}")`;
 
@@ -112,11 +94,7 @@ const register = async (pool, req, callback) => {
     connection.query(query, (error, result) => {
       if (error) throw error;
 
-      let errorMess =  {
-        message: 'Usuario Creado',
-        status: httpStatus.CREATED,
-      }
-      callback(errorMess);
+      callback(responseHttp.responseCreated('Usuario Creado'));
       connection.release();
     });
   });
