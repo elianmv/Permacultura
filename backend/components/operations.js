@@ -17,7 +17,10 @@ const servicios = (pool, req, callback) => {
     connection.query(query, (error, result) => {
       if (error) throw error;
 
-      let response = result;
+      let okMess =  {
+        status: httpStatus.OK,
+        response:result
+      }
       callback(response)
       connection.release();
     });
@@ -33,9 +36,11 @@ const persons = (pool, req, callback) => {
 
     connection.query(query, (error, result) => {
       if (error) throw error;
-      console.log(result)
-      let response = result;
-      callback(response)
+      let okMess =  {
+        status: httpStatus.OK,
+        response:result
+      }
+      callback(okMess)
       connection.release();
     });
   });
@@ -44,7 +49,7 @@ const persons = (pool, req, callback) => {
 const login = async (pool, req, callback) => {
   /*------- llamada al back con la condicion del email-----   */
   let { email, password } = req.body;
-  const passwordHashed = await bcrypt.hash(password, 10);
+  // const passwordHashed = await bcrypt.hash(password, 10);
   
   
   let query = `SELECT usuario.id,usuario.dni,usuario.username,usuario.name,usuario.lastname,usuario.password,usuario.email, usuario.phone, usuario.tipo_usuario_name,direccion.street as street, direccion.number, ciudad.name as city, pais.name as country FROM usuario 
@@ -52,17 +57,17 @@ const login = async (pool, req, callback) => {
   left join ciudad on ciudad.zip_code = ciudad_zip_code
   left join pais on pais_name = pais.name
   where email ='${email}'`;
-  // const match = await bcrypt.compare(password, dbResponse[0].password);
+  
   pool.getConnection((error, connection) => {
     if (error) throw error;
 
-    connection.query(query, (error, response) => {
+    connection.query(query, async (error, response) => {
       if (error) throw error;
       
+      
       if(response.length > 0 ){
-        bcrypt.compare(passwordHashed, response[0].password, (err, match) => {
-          
-          if (err) {
+        const match = await bcrypt.compare(password, response[0].password);
+          if (!match) {
             let errorMess =  {
               message: 'contraseña incorrecta',
               status: httpStatus.UNAUTHORIZED,
@@ -72,11 +77,18 @@ const login = async (pool, req, callback) => {
             response[0].password = '';
             let okMess =  {
               message: 'login correcto',
+              status: httpStatus.OK,
               response:response
             }
             callback(okMess)
           }
-        });
+        
+      }else{
+        let errorMess =  {
+          message: 'Usuario Desconocido',
+          status: httpStatus.NO_CONTENT,
+        }
+        callback(errorMess);
       }
       connection.release();
     });
@@ -100,8 +112,11 @@ const register = async (pool, req, callback) => {
     connection.query(query, (error, result) => {
       if (error) throw error;
 
-      responseId = result;
-      callback(result);
+      let errorMess =  {
+        message: 'Usuario Creado',
+        status: httpStatus.CREATED,
+      }
+      callback(errorMess);
       connection.release();
     });
   });
