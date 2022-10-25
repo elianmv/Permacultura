@@ -1,6 +1,7 @@
 const my = require("mysql2");
 const responseHttp = require("../utils/response");
 const bcrypt = require("bcryptjs");
+const { viewCountry } = require("./secundaryOperation")
 
 /* ---- LLamada al back de todos los servicios----- */
 const servicios = (pool, req, callback) => {
@@ -21,7 +22,6 @@ const servicios = (pool, req, callback) => {
       }else{
         callback(responseHttp.responseOk(result))
       };
-      
       connection.release();
     });
   });
@@ -133,49 +133,49 @@ const insertCity = (pool,callback,body) => {
   });
 };
 
-const insertCountry = (pool,name,callback) => {
-  console.log('insert',name)
+// const insertCountry = (pool,name,callback) => {
+//   console.log('insert',name)
   
-  let query = `INSERT INTO pais (name) values ("${name}") `;
+//   let query = `INSERT INTO pais (name) values ("${name}") `;
 
-  pool.getConnection((error, connection) => {
-    if (error) throw error;
+//   pool.getConnection((error, connection) => {
+//     if (error) throw error;
 
-    connection.query(query, (error, result) => {
-      if (error) throw error;
-      console.log('resultInsert',result)
-      callback(responseHttp.responseCreated('Creado'));
-      connection.release();
+//     connection.query(query, (error, result) => {
+//       if (error) throw error;
+//       console.log('resultInsert',result)
+//       callback(responseHttp.responseCreated('Creado'));
+//       connection.release();
       
-    });
-  });
-};
+//     });
+//   });
+// };
 
 
 
-const viewCountry = (pool,req,callback) => {
-  let name  = req
-  let query = `SELECT * FROM pais where name = '${name}'`;
+// const viewCountry = (pool,req,callback) => {
+//   let name  = req
+//   let query = `SELECT * FROM pais where name = '${name}'`;
   
 
-  pool.getConnection((error, connection) => {
-    if (error) throw error;
+//   pool.getConnection((error, connection) => {
+//     if (error) throw error;
     
-    connection.query(query, async (error, result) => {
-      if (error) throw error;
-      console.log(result.length)
-      if(!result.legth > 0){
-        let insert = await insertCountry(pool,name,callback)
-        console.log(insert)
-        // if(insert.message === 'Creado')callback(true);
-        }else{
-          console.log(result)
-          callback(true)
-        };
-      connection.release();
-    });
-  });
-}
+//     connection.query(query, async (error, result) => {
+//       if (error) throw error;
+//       console.log(result.length)
+//       if(!result.legth > 0){
+//         let insert = await insertCountry(pool,name,callback)
+//         console.log(insert)
+//         // if(insert.message === 'Creado')callback(true);
+//         }else{
+//           console.log(result)
+//           callback(true)
+//         };
+//       connection.release();
+//     });
+//   });
+// }
 
 
 
@@ -201,9 +201,16 @@ const updateRegister = async (pool,req, callback) => {
   /*------- llamada al back para traer Id más grande-----   */ 
   let { dni,name,lastName,phone } = req.body;
   let { direccion,calle,numero,cPostal,nameCiudad,namePais } = req.body;
-  console.log(namePais)
-  let vCountry = await viewCountry(pool,namePais,callback)
-  console.log('vCountry',vCountry)
+  
+  viewCountry(pool,namePais,callback).then(res => {
+    console.log(res)
+  }).catch(err => {
+    console.log(err)
+  });
+
+  // if(vCountry)console.log('vCountry1',vCountry);
+  // console.log('vCountry2',vCountry)
+  
   // insertCity(pool,callback,direccion,calle,numero,cPostal,nameCiudad,namePais)
 
     // if(vCountry){
