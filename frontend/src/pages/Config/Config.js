@@ -4,12 +4,13 @@ import { Menu } from "../../components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../../context";
 import "./Config.css";
-// import InputRegister from "./Components/Input";
+// import App from "./Components/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import SwitchSelector from "react-switch-selector";
 import { Form, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { Usuarios } from '../../components/Usuarios';
 
 export function Config() {
   const { user } = useAuthContext()
@@ -262,12 +263,17 @@ export function Config() {
                   Cancelar
                 </Button>
               </div>
-
+              
 
             </Form>
           </div>
         </div>
+        <div className="users-container">
+      <Usuarios />
       </div>
+      </div>
+      
+     
     </>
   );
 }

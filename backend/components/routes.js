@@ -1,6 +1,6 @@
 const express = require('express');
 const routes = express.Router()
-const { login, servicios, register, updateRegister } = require('./operations')
+const { users, login, servicios, register, updateRegister } = require('./operations')
 const { pool } = require('../config/connect')
 
 
@@ -24,6 +24,13 @@ routes.post('/register',(req,res) => {
 
 routes.put('/updateRegister',(req,res) => {
     updateRegister(pool,req,result => {
+        res.json(result)
+    })
+})
+
+
+routes.get('/usuarios',(req,res) => {
+    users(pool,req,result => {
         res.json(result)
     })
 })

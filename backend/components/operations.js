@@ -24,6 +24,22 @@ const servicios = (pool, req, callback) => {
   });
 };
 
+/* ---- LLamada al back de todos los usuarios----- */
+const users = (pool, req, callback) => {
+  let query = `SELECT username, email, name, lastname from usuario`;
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+
+    connection.query(query, (error, result) => {
+      if (error) throw error;
+
+      let response = result;
+      callback(response)
+      connection.release();
+    });
+  });
+};
+
 const login = async (pool, req, callback) => {
   /*------- llamada al back con la condicion del email-----   */
   let { email, password } = req.body;
@@ -211,4 +227,5 @@ module.exports = {
   servicios,
   login,
   register,
+  users,
 };
