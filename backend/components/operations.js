@@ -117,28 +117,8 @@ const insertCity = (pool,callback,body) => {
   });
 };
 
-const viewCountry = (pool,callback,name) => {
-
-  let query = `SELECT * FROM pais where name = '${name}'`;
-  
-
-  pool.getConnection((error, connection) => {
-    if (error) throw error;
-    
-    connection.query(query, (error, result) => {
-      if (error) {
-        insertCountry(pool,callback,name)
-        callback(false)};
-      
-      responseId = result;
-      callback(responseId);
-      connection.release();
-    });
-  });
-}
-
-const insertCountry = (pool,callback,name) => {
-
+const insertCountry = (pool,name,callback) => {
+  console.log('insert',name)
   
   let query = `INSERT INTO pais (name) values ("${name}") `;
 
@@ -147,14 +127,41 @@ const insertCountry = (pool,callback,name) => {
 
     connection.query(query, (error, result) => {
       if (error) throw error;
-
-      responseId = result;
-      callback(responseId);
+      console.log('resultInsert',result)
+      callback(responseHttp.responseCreated('Creado'));
       connection.release();
       
     });
   });
 };
+
+
+
+const viewCountry = (pool,req,callback) => {
+  let name  = req
+  let query = `SELECT * FROM pais where name = '${name}'`;
+  
+
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+    
+    connection.query(query, async (error, result) => {
+      if (error) throw error;
+      console.log(result.length)
+      if(!result.legth > 0){
+        let insert = await insertCountry(pool,name,callback)
+        console.log(insert)
+        // if(insert.message === 'Creado')callback(true);
+        }else{
+          console.log(result)
+          callback(true)
+        };
+      connection.release();
+    });
+  });
+}
+
+
 
 // const insertTypeUser = (body) => {
 //   let query = `INSERT INTO tipo_usuario`;
@@ -173,28 +180,32 @@ const insertCountry = (pool,callback,name) => {
 // }
 
 
-const updateRegister = (pool,req, callback) => {
+const updateRegister = async (pool,req, callback) => {
   
   /*------- llamada al back para traer Id más grande-----   */ 
   let { dni,name,lastName,phone } = req.body;
   let { direccion,calle,numero,cPostal,nameCiudad,namePais } = req.body;
-  viewCountry(pool,callback,namePais)
-  insertCity(pool,callback,direccion,calle,numero,cPostal,nameCiudad,namePais)
+  console.log(namePais)
+  let vCountry = await viewCountry(pool,namePais,callback)
+  console.log('vCountry',vCountry)
+  // insertCity(pool,callback,direccion,calle,numero,cPostal,nameCiudad,namePais)
 
-  let responseId;
-  let query = `UPDATE usuario SET  `;
-  pool.getConnection((error, connection) => {
-    if (error) throw error;
+    // if(vCountry){
+    //   let responseId;
+    //   let query = `UPDATE usuario SET  `;
+    //   pool.getConnection((error, connection) => {
+    //     if (error) throw error;
 
-    connection.query(query, (error, result) => {
-      if (error) throw error;
+    //     connection.query(query, (error, result) => {
+    //       if (error) throw error;
 
-      responseId = result;
+    //       responseId = result;
 
-      connection.release();
-      return responseId;
-    });
-  });
+    //       connection.release();
+    //       return responseId;
+    //     });
+    //   });
+    //   }
 };
 
 // const insertTypeUsuario = (pool,req, callback) => {
@@ -221,5 +232,6 @@ module.exports = {
   servicios,
   login,
   register,
-  persons
+  persons,
+  updateRegister
 };

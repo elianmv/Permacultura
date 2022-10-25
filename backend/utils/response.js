@@ -24,7 +24,7 @@ const responseCreated = (message) => {
 
 const responseError = (message) => {
     return  {
-        status: httpStatus.OK,
+        status: httpStatus.BAD_REQUEST,
         message:message
       }
 }
