@@ -52,8 +52,8 @@ const users = (pool, req, callback) => {
     connection.query(query, (error, result) => {
       if (error) throw error;
 
-      let response = result;
-      callback(response)
+      
+      callback(responseHttp.responseOk(result))
       connection.release();
     });
   });
@@ -256,5 +256,6 @@ module.exports = {
   login,
   register,
   persons,
-  updateRegister
+  updateRegister,
+  users
 };

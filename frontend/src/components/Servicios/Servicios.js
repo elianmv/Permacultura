@@ -20,8 +20,10 @@ export function Servicios() {
     fetch(`http://127.0.0.1:8080/api/v1/servicios`) //full list of services 
       .then((response) => response.json())
       .then((data) => {
+console.log("data" ,data.response)
         setIsLoaded(true);
-        setServices(data);
+        setServices(data.response);
+        
       })
       .catch((err) => {
         setIsLoaded(true);

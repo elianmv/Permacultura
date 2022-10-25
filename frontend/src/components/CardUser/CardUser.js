@@ -12,21 +12,12 @@ import {
 import { Accordion } from "react-bootstrap";
 
 export function CardUser({ item }) {
-  const onClick = () => {
-    Swal.fire({
-      title: "    ",
-      width: 600,
-      padding: "3em",
-      color: "#716add",
-      background: "#fff url(/images/trees.png)",
-      backdrop: `
-        rgba(0,0,123,0.4)
-        url("/images/nyan-cat.gif")
-        left top
-        no-repeat
-      `,
-    });
+
+  const onDelete = () => {
+    console.log("delete")
   };
+
+  
   return (
     <Table className="card">
       <thead>
@@ -46,7 +37,7 @@ export function CardUser({ item }) {
             <td>{item.name}</td>
             <td>{item.lastname}</td>
             <td>{item.email}</td>
-            <td><Button color="danger" onClick={onClick}>
+            <td><Button  color="danger" onClick={()=>onDelete()}>
           Eliminar
         </Button></td>
           </tr>
