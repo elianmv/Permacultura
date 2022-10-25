@@ -1,11 +1,17 @@
 const express = require('express');
 const routes = express.Router()
-const { users, login, servicios, register, updateRegister } = require('./operations')
+const { login, servicios, register, updateRegister,persons } = require('./operations')
 const { pool } = require('../config/connect')
 
 
 routes.get('/servicios',(req,res) => {
     servicios(pool,req,result => {
+        res.json(result)
+    })
+})
+
+routes.get('/person',(req,res) => {
+    persons(pool,req,result => {
         res.json(result)
     })
 })
