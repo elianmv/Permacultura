@@ -6,7 +6,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { AuthProvider, useAuthContext } from './context';
-import { Home, Login, NotFound, Private, Register, Config } from './pages';
+import { Home, Login, NotFound, Private, Register, Config, About } from './pages';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -21,6 +21,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact strict path="/" element={<Home />} />
+          <Route exact strict path="/about" element={<About />} />
           <Route exact strict path="/login" element={<Login />} />
           <Route exact strict path="/register" element={<Register />} />
           <Route

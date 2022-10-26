@@ -34,6 +34,9 @@ export function Menu() {
           <Link to='/'>Home</Link>
         </li>
         <li className='menu-item'>
+          <Link to='/about'>Quienes Somos</Link>
+        </li>
+        <li className='menu-item'>
           <Link to='/private'>Servicios</Link>
         </li>
        {!user? <li className='menu-item'>
