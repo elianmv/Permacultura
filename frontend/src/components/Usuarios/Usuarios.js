@@ -2,7 +2,7 @@
 import './Usuarios.css';
 import { useState, useEffect } from 'react';
 import {Table, Button} from 'reactstrap';
-import { CardUser } from '../CardUser/CardUser';
+
 import { useAuthContext } from '../../context/AuthContext/AuthContext';
 import Spinner from 'react-bootstrap/Spinner';
 import Icon from '@mdi/react';

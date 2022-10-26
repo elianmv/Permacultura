@@ -102,7 +102,7 @@ export function Config() {
     }
 
     auth.update(
-      { dni, name, lastName, userName, password, passwordConfirm, email, phone, userType },
+      { dni, name, lastName, email, phone, userType },
       (respon) => {
         if (respon.status) {
 
