@@ -17,6 +17,11 @@ export function Usuarios() {
 
   const { userName } = useAuthContext();
 
+
+  const onDelete = () => {
+    console.log("delete")
+  };
+
   useEffect(() => {
     fetch(`http://127.0.0.1:8080/api/v1/usuarios`) //full list of services 
       .then((response) => response.json())
@@ -49,7 +54,7 @@ export function Usuarios() {
       <>
       
       <div className='users-container'>
-      <Table Dark>
+      <Table dark>
       <thead>
           <tr>
             
@@ -62,15 +67,21 @@ export function Usuarios() {
         </thead>
         <tbody>
         {users.map((item, index) => (
-          <tr>
-            
+         
+          <tr key={index} item={item}>
+             
             <td>{item.username}</td>
             <td>{item.name}</td>
             <td>{item.lastname}</td>
             <td>{item.email}</td>
-            <td><Button color="danger">
-          Eliminar
-        </Button></td>
+            <td>
+                <Button
+                onClick={onDelete}
+                  type="submit"
+                  variant="outline-dark"
+                >
+                  Eliminar
+                </Button></td>
           </tr>
           ))}
           </tbody>

@@ -11,9 +11,13 @@ export function Home() {
   return (
 
     <div id="div-home">
+      
       <>
         <Menu />
       </>
+      <h1>Bienvenidos</h1>
+      {' '}
+      <h1>SyCas Permacultura</h1>
       <>
         <Carousel1 />
       </>
