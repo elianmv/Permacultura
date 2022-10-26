@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
   const login = ({ username, password }, onLogin: Function) => {
     LoginService.login(username, password).then((result) => {
       console.log(result)
-      if(result.message === 'login correcto'){
+      if(result.message === 'Login Correcto'){
         setUser(result);
         setUserLoggedIn(true)
         

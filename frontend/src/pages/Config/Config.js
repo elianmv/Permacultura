@@ -17,13 +17,12 @@ export function Config() {
   const [passwordError, setPasswordError] = useState(false);
   const [userType, setuserType] = useState("cli");
   const [name, setName] = useState(user.response[0].name);
-  const [userName, setUserName] = useState(user.response[0].username);
+ 
   const [lastName, setLastName] = useState(user.response[0].lastname);
   const [phone, setPhone] = useState(user.response[0].phone);
-  const [email, setEmail] = useState(user.response[0].email);
+
   const [dni, setDni] = useState(user.response[0].dni);
-  // const [password, setPassword] = useState(user.response[0].password);
-  // const [passwordConfirm, setPasswordConfirm] = useState(user.response[0].password);
+
   const [country, setCountry] = useState(user.response[0].country);
   const [city, setCity] = useState(user.response[0].city);
   const [street, setStreet] = useState(user.response[0].street);
@@ -269,7 +268,10 @@ export function Config() {
           </div>
         </div>
         <div className="users-container">
-      <Usuarios />
+      {user.response[0].tipo_usuario_name === 'admin'? <Usuarios /> : null}
+      {user.response[0].tipo_usuario_name === 'cli'? <Usuarios /> : null}
+      
+      
       </div>
       </div>
       
