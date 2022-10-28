@@ -43,11 +43,11 @@ Content-Type: application/json
     "phone":"",
     "dni":"",
     "direccion":"",
-    "calle":"",
-    "numero":"", 
-    "cPostal":"",
+    "calle":"Liniers",
+    "numero":"1779", 
+    "cPostal":"7000",
     "nameCiudad":"",
-    "namePais":"Uruguay" 
+    "namePais":"" 
 }
 
 ###

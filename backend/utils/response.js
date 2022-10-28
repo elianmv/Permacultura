@@ -7,12 +7,28 @@ const responseOk = (message) => {
       }
 };
 
+const responseOkMess = (response,message) => {
+  return  {
+      status: httpStatus.OK,
+      response:response,
+      message:message
+    }
+};
+
 const responseOkLogin = (message,response) => {
     return  {
         status: httpStatus.OK,
         response:response,
         message:message
       }
+};
+
+const responseCreatedwithBody = (response,message) => {
+  return  {
+      status: httpStatus.CREATED,
+      response:response,
+      message:message
+    }
 };
 
 const responseCreated = (message) => {
@@ -45,10 +61,12 @@ const responseUnauthorized = (message) => {
 
 module.exports = {
     responseOk,
+    responseOkMess,
     responseOkLogin,
     responseCreated,
     responseError,
     responseNoContent,
-    responseUnauthorized
+    responseUnauthorized,
+    responseCreatedwithBody
   };
 
