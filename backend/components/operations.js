@@ -1,7 +1,7 @@
 const my = require("mysql2");
 const responseHttp = require("../utils/response");
 const bcrypt = require("bcryptjs");
-const { viewCountry } = require("./secundaryOperation")
+const { viewCountry,viewCity,insertDireccion } = require("./secundaryOperation")
 
 /* ---- LLamada al back de todos los servicios----- */
 const servicios = (pool, req, callback) => {
@@ -101,97 +101,29 @@ const register = async (pool, req, callback) => {
 };
 
 
-const insertCity = (pool,callback,body) => {
-  let query = `INSERT INTO ciudad`;
-
-  pool.getConnection((error, connection) => {
-    if (error) throw error;
-
-    connection.query(query, (error, result) => {
-      if (error) throw error;
-
-      responseId = result;
-      return responseId
-      connection.release();
-    });
-  });
-};
-
-// const insertCountry = (pool,name,callback) => {
-//   console.log('insert',name)
-  
-//   let query = `INSERT INTO pais (name) values ("${name}") `;
-
-//   pool.getConnection((error, connection) => {
-//     if (error) throw error;
-
-//     connection.query(query, (error, result) => {
-//       if (error) throw error;
-//       console.log('resultInsert',result)
-//       callback(responseHttp.responseCreated('Creado'));
-//       connection.release();
-      
-//     });
-//   });
-// };
 
 
 
-// const viewCountry = (pool,req,callback) => {
-//   let name  = req
-//   let query = `SELECT * FROM pais where name = '${name}'`;
-  
-
-//   pool.getConnection((error, connection) => {
-//     if (error) throw error;
-    
-//     connection.query(query, async (error, result) => {
-//       if (error) throw error;
-//       console.log(result.length)
-//       if(!result.legth > 0){
-//         let insert = await insertCountry(pool,name,callback)
-//         console.log(insert)
-//         // if(insert.message === 'Creado')callback(true);
-//         }else{
-//           console.log(result)
-//           callback(true)
-//         };
-//       connection.release();
-//     });
-//   });
-// }
-
-
-
-// const insertTypeUser = (body) => {
-//   let query = `INSERT INTO tipo_usuario`;
-
-//   pool.getConnection((error, connection) => {
-//     if (error) throw error;
-    
-//     connection.query(query, (error, result) => {
-//       if (error) throw error;
-      
-//       responseId = result;
-      
-//       connection.release();
-//     });
-//   });
-// }
-
-
-const updateRegister = async (pool,req, callback) => {
+const updateRegister =  (pool,req, callback) => {
   
   /*------- llamada al back para traer Id más grande-----   */ 
   let { dni,name,lastName,phone } = req.body;
   let { direccion,calle,numero,cPostal,nameCiudad,namePais } = req.body;
-  
-  viewCountry(pool,namePais,callback).then(res => {
-    console.log(res)
+  let ciudad = {
+    nameCiudad,cPostal,namePais
+  }
+  let direcPerson = {
+    cPostal,calle,numero
+  }
+
+  Promise.All([viewCountry(pool,namePais,callback),viewCity(pool,ciudad,callback),insertDireccion(pool,direcPerson,callback)]).then(res => {
+    console.log(err)
   }).catch(err => {
     console.log(err)
-  });
+  })
 
+
+ 
   // if(vCountry)console.log('vCountry1',vCountry);
   // console.log('vCountry2',vCountry)
   
