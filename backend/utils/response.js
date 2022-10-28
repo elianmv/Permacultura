@@ -23,6 +23,14 @@ const responseOkLogin = (message,response) => {
       }
 };
 
+const responseCreatedwithBody = (response,message) => {
+  return  {
+      status: httpStatus.CREATED,
+      response:response,
+      message:message
+    }
+};
+
 const responseCreated = (message) => {
     return  {
         status: httpStatus.CREATED,
@@ -59,6 +67,6 @@ module.exports = {
     responseError,
     responseNoContent,
     responseUnauthorized,
-
+    responseCreatedwithBody
   };
 

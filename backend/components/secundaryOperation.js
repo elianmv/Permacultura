@@ -108,12 +108,12 @@ const viewCountry =  (pool,req,callback) => {
 
   
 
-  const insertDireccion = (pool,req,callback) => {
+  const insertDireccion = (pool,req) => {
     return new Promise((resolve, reject) => {
     let { cPostal,calle,numero } = req;
     
-    let query = `INSERT INTO direccion ('street','number','ciudad_zip_code')
-                 values ("${calle},${parseInt(numero)},${parseInt(cPostal)}") `;
+    let query = `INSERT INTO direccion (street,number,ciudad_zip_code)
+                 values ("${calle}","${parseInt(numero)}","${parseInt(cPostal)}") `;
   
     pool.getConnection((error, connection) => {
       if (error) reject(error);
@@ -121,7 +121,7 @@ const viewCountry =  (pool,req,callback) => {
       connection.query(query, (error, result) => {
         if (error) reject(error);
         
-        resolve(responseHttp.responseCreated('Creado'));
+        resolve(responseHttp.responseCreatedwithBody(result,'Creado'));
         connection.release();
         
       });

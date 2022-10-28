@@ -116,18 +116,65 @@ const updateRegister =  (pool,req, callback) => {
     cPostal,calle,numero
   }
 
-  Promise.All([viewCountry(pool,namePais,callback),
-    viewCity(pool,ciudad,callback),
-    insertDireccion(pool,direcPerson,callback)]).then(res => {
-    console.log(err)
+  insertDireccion(pool,direcPerson).then(resp => {
+    if(resp.message === 'Creado'){
+      let idDireccion = resp.response.insertId;
+      let query = `UPDATE usuario SET 
+                    lastname = "${lastName}",
+                    name = "${name}",
+                    phone = "${phone}",
+                    direccion_id = "${idDireccion}"
+                    WHERE email = "${email}"`;
+
+        pool.getConnection((error, connection) => {
+          if (error) throw error;
+
+          connection.query(query, (error, result) => {
+            if (error) throw error;
+
+            callback(responseHttp.responseCreated('Usuario Creado'));
+            connection.release();
+          });
+        });
+      
+    }
   }).catch(err => {
-    console.log(err)
+    callback(err)
   })
+
+  // Promise.All([viewCountry(pool,namePais,callback),
+  //   viewCity(pool,ciudad,callback),
+  //   insertDireccion(pool,direcPerson,callback)]).then(res => {
+  //   console.log(err)
+  // }).catch(err => {
+  //   console.log(err)
+  // })
 
   
  
   
 };
+
+// const insertDireccion = (pool,req,callback) => {
+  
+//   let { cPostal,calle,numero } = req;
+  
+//   let query = `INSERT INTO direccion ('street','number','ciudad_zip_code')
+//                values ("${calle},${parseInt(numero)},${parseInt(cPostal)}") `;
+
+//   pool.getConnection((error, connection) => {
+//     if (error) reject(error);
+
+//     connection.query(query, (error, result) => {
+//       if (error) reject(error);
+      
+//       resolve(responseHttp.responseCreated('Creado'));
+//       connection.release();
+      
+//     });
+//   })
+  
+// };
 //-------------------//
 //****  DELETE  ******//
 //_________________//

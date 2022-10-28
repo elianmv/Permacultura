@@ -44,10 +44,10 @@ Content-Type: application/json
     "dni":"",
     "direccion":"",
     "calle":"Liniers",
-    "numero":"1778", 
-    "cPostal":"7001",
-    "nameCiudad":"Pueblo",
-    "namePais":"Argelia" 
+    "numero":"1779", 
+    "cPostal":"7000",
+    "nameCiudad":"",
+    "namePais":"" 
 }
 
 ###
