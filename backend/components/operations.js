@@ -124,31 +124,47 @@ const updateRegister =  (pool,req, callback) => {
     console.log(err)
   })
 
-
- 
-  // if(vCountry)console.log('vCountry1',vCountry);
-  // console.log('vCountry2',vCountry)
   
-  // insertCity(pool,callback,direccion,calle,numero,cPostal,nameCiudad,namePais)
+ 
+  
+};
+//-------------------//
+//****  DELETE  ******//
+//_________________//
 
-    // if(vCountry){
-    //   let responseId;
-    //   let query = `UPDATE usuario SET  `;
-    //   pool.getConnection((error, connection) => {
-    //     if (error) throw error;
+const deletePersons = (pool, req, callback) => {
+  let { email } = req.body;
 
-    //     connection.query(query, (error, result) => {
-    //       if (error) throw error;
+  let query = `DELETE FROM usuario 
+    WHERE email ='${email}'`;
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
 
-    //       responseId = result;
-
-    //       connection.release();
-    //       return responseId;
-    //     });
-    //   });
-    //   }
+    connection.query(query, (error, result) => {
+      if (error) throw error;
+      
+      callback(responseHttp.responseOkMess(result,'Registro Borrado con Éxito'))
+      connection.release();
+    });
+  });
 };
 
+const deleteService = (pool, req, callback) => {
+  let { id } = req.body;
+
+  let query = `DELETE FROM servicio 
+    WHERE email ='${id}'`;
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+
+    connection.query(query, (error, result) => {
+      if (error) throw error;
+      
+      callback(responseHttp.responseOkMess(result,'Registro Borrado con Éxito'))
+      connection.release();
+    });
+  });
+};
 // const insertTypeUsuario = (pool,req, callback) => {
   
 //   /*------- Insert in tabla de tipo de usuario-----   */ 
@@ -174,5 +190,7 @@ module.exports = {
   login,
   register,
   persons,
-  updateRegister
+  updateRegister,
+  deletePersons,
+  deleteService
 };
