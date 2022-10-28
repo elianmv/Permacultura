@@ -270,7 +270,7 @@ export function Config() {
         <div className="users-container">
       {user.response[0].tipo_usuario_name === 'admin'? <Usuarios /> : null}
       {user.response[0].tipo_usuario_name === 'cli'? <Usuarios /> : null}
-      
+      {user.response[0].tipo_usuario_name === 'prov'? <Usuarios /> : null}
       
       </div>
       </div>

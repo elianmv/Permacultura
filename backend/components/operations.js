@@ -29,8 +29,7 @@ const servicios = (pool, req, callback) => {
 
 
 const persons = (pool, req, callback) => {
-  let query = `SELECT * FROM usuario 
-    WHERE tipo_usuario_name = 'cli' OR tipo_usuario_name = 'prov'`;
+  let query = `SELECT * FROM usuario`;
   pool.getConnection((error, connection) => {
     if (error) throw error;
 
@@ -195,8 +194,8 @@ const updateRegister =  (pool,req, callback) => {
 //****  DELETE  ******//
 //_________________//
 
-const deletePersons = (pool, req, callback) => {
-  let { email } = req.body;
+const deletePerson = (pool, req, callback) => {
+  let { email } = req.params;
 
   let query = `DELETE FROM usuario 
     WHERE email ='${email}'`;
@@ -213,10 +212,10 @@ const deletePersons = (pool, req, callback) => {
 };
 
 const deleteService = (pool, req, callback) => {
-  let { id } = req.body;
+  let { id } = req.params;
 
-  let query = `DELETE FROM servicio 
-    WHERE email ='${id}'`;
+  let query = `DELETE FROM publicacion 
+    WHERE id ='${id}'`;
   pool.getConnection((error, connection) => {
     if (error) throw error;
 
@@ -254,6 +253,6 @@ module.exports = {
   register,
   persons,
   updateRegister,
-  deletePersons,
+  deletePerson,
   deleteService
 };

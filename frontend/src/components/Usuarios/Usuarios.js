@@ -17,24 +17,45 @@ export function Usuarios() {
 
   const { userName } = useAuthContext();
 
+const [isDelete,setIsDelete]= useState ();
+const [userToDelete,setuserToDelet]= useState ();
 
-  const onDelete = () => {
-    console.log("delete")
+
+
+  const onDelete = (e) => {
+    setuserToDelet({...userToDelete,[e.target.name]:e.target.value})
+    console.log(userToDelete)
+    // const options = {
+    //   headers: { 'Content-Type': 'application/json' },
+    //   method: 'DELETE',
+    // };
+    // fetch(`http://127.0.0.1:8080/api/v1/${item.email}`,options) //full list of services 
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("delete :",data)
+    //     setIsDelete(true)
+       
+      // })
+      // .catch((err) => {
+        
+      //   console.log(err)
+      // });
   };
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8080/api/v1/usuarios`) //full list of services 
+    fetch(`http://127.0.0.1:8080/api/v1/person`) //full list of services 
       .then((response) => response.json())
       .then((data) => {
         console.log("usuarios",data)
         setIsLoaded(true);
         setUsers(data.response);
+       
       })
       .catch((err) => {
         setIsLoaded(true);
         setError(err);
       });
-  }, []);
+  }, [isDelete]);
 
   if (users.error) {
     return (
@@ -62,6 +83,7 @@ export function Usuarios() {
             <th>Name</th>
             <th>Lastname</th>
             <th>Email</th>
+            <th>Tipo de usuario</th>
             <th>Options</th>
           </tr>
         </thead>
@@ -74,6 +96,7 @@ export function Usuarios() {
             <td>{item.name}</td>
             <td>{item.lastname}</td>
             <td>{item.email}</td>
+            <td>{item.tipo_usuario_name}</td>
             <td>
                 <Button
                 onClick={onDelete}
