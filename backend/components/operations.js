@@ -116,7 +116,9 @@ const updateRegister =  (pool,req, callback) => {
     cPostal,calle,numero
   }
 
-  Promise.All([viewCountry(pool,namePais,callback),viewCity(pool,ciudad,callback),insertDireccion(pool,direcPerson,callback)]).then(res => {
+  Promise.All([viewCountry(pool,namePais,callback),
+    viewCity(pool,ciudad,callback),
+    insertDireccion(pool,direcPerson,callback)]).then(res => {
     console.log(err)
   }).catch(err => {
     console.log(err)
