@@ -36,7 +36,7 @@ routes.put('/updateRegister',(req,res) => {
     })
 })
 
-routes.delete('/deletePerson',(req,res) => {
+routes.delete('/deletePerson/:email',(req,res) => {
     deletePersons(pool,req,result => {
         res.json(result)
     })

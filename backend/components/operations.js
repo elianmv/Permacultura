@@ -180,8 +180,7 @@ const updateRegister =  (pool,req, callback) => {
 //_________________//
 
 const deletePersons = (pool, req, callback) => {
-  let { email } = req.body;
-
+  let { email } = req.params;
   let query = `DELETE FROM usuario 
     WHERE email ='${email}'`;
   pool.getConnection((error, connection) => {
