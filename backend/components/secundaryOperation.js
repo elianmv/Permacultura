@@ -1,7 +1,7 @@
 const my = require("mysql2");
 const responseHttp = require("../utils/response");
 
-const viewCountry = (pool,req,callback) => {
+const viewCountry =  (pool,req,callback) => {
 
     return new Promise((resolve, reject) => {
         let name  = req
@@ -11,14 +11,14 @@ const viewCountry = (pool,req,callback) => {
     pool.getConnection((error, connection) => {
       if (error) throw error;
       
-      connection.query(query, async (error, result) => {
+      connection.query(query,  (error, result) => {
         if (error) callback(responseHttp.responseError(error));
         
         if(!result.legth > 0){
-          let insert = await insertCountry(pool,name,callback)
+          let insert =  insertCountry(pool,name,callback)
           console.log(insert)
           resolve(true)
-          // if(insert.message === 'Creado')callback(true);
+          
           }else{
 
             resolve(result)
@@ -40,7 +40,7 @@ const viewCountry = (pool,req,callback) => {
   
       connection.query(query, (error, result) => {
         if (error) throw error;
-        console.log('resultInsert',result)
+        
         callback(responseHttp.responseCreated('Creado'));
         connection.release();
         
@@ -48,6 +48,89 @@ const viewCountry = (pool,req,callback) => {
     });
   };
 
+  //------------------------//
+  //  View and Insert City //
+  //-----------------------//
+
+  const viewCity =  (pool,req,callback) => {
+
+    return new Promise((resolve, reject) => {
+        let { cPostal }  = req
+    let query = `SELECT * FROM ciudad where zip_code = '${cPostal}'`;
+    
+  
+    pool.getConnection((error, connection) => {
+      if (error) throw error;
+      
+      connection.query(query,  (error, result) => {
+        if (error) callback(responseHttp.responseError(error));
+        
+        if(!result.legth > 0){
+          let insert =  insertCity(pool,req,callback)
+          console.log(insert)
+          resolve(true)
+          
+          }else{
+
+            resolve(result)
+          };
+        connection.release();
+      });
+    });
+    })
+    
+  }
+
+  
+    const insertCity = (pool,req,callback) => {
+    let { cPostal,nameCiudad,namePais } = req;
+    
+    let query = `INSERT INTO ciudad ('zip_code','name','pais_name') 
+    values ("${parseInt(cPostal)},${nameCiudad},${namePais}") `;
+  
+    pool.getConnection((error, connection) => {
+      if (error) throw error;
+  
+      connection.query(query, (error, result) => {
+        if (error) throw error;
+        
+        callback(responseHttp.responseCreated('Creado'));
+        connection.release();
+        
+      });
+    });
+  };
+
+
+  //------------------------//
+  //  Insert Dirección     //
+  //-----------------------//
+
+  
+
+  const insertDireccion = (pool,req) => {
+    return new Promise((resolve, reject) => {
+    let { cPostal,calle,numero } = req;
+    
+    let query = `INSERT INTO direccion (street,number,ciudad_zip_code)
+                 values ("${calle}","${parseInt(numero)}","${parseInt(cPostal)}") `;
+  
+    pool.getConnection((error, connection) => {
+      if (error) reject(error);
+  
+      connection.query(query, (error, result) => {
+        if (error) reject(error);
+        
+        resolve(responseHttp.responseCreatedwithBody(result,'Creado'));
+        connection.release();
+        
+      });
+    })
+    })
+  };
+
 module.exports = {
-    viewCountry
+    viewCountry,
+    viewCity,
+    insertDireccion
 }  
