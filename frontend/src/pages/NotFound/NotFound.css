@@ -1,0 +1,29 @@
+.not-found-container {
+    margin: 0 auto;
+    margin-top: 30vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+    width: 50%;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 #00000042;
+  }
+  
+  .not-found-msg {
+    padding: 10px 10px 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    color: rgb(36, 131, 45);
+  }
+  
+  svg {
+    margin: 0 10px;
+  }
+  
+  h4 {
+    padding-right: 10px;
+  }
+  

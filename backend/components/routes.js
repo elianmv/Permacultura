@@ -42,7 +42,7 @@ routes.delete('/deletePerson/:email',(req,res) => {
     })
 })
 
-routes.delete('/deleteService',(req,res) => {
+routes.delete('/deleteService/:id',(req,res) => {
     deleteService(pool,req,result => {
         res.json(result)
     })

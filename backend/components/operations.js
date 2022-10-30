@@ -29,13 +29,28 @@ const servicios = (pool, req, callback) => {
 
 
 const persons = (pool, req, callback) => {
-  let query = `SELECT * FROM usuario 
-    WHERE tipo_usuario_name = 'cli' OR tipo_usuario_name = 'prov'`;
+  let query = `SELECT * FROM usuario`;
   pool.getConnection((error, connection) => {
     if (error) throw error;
 
     connection.query(query, (error, result) => {
       if (error) throw error;
+      
+      callback(responseHttp.responseOk(result))
+      connection.release();
+    });
+  });
+};
+
+/* ---- LLamada al back de todos los usuarios----- */
+const users = (pool, req, callback) => {
+  let query = `SELECT username, email, name, lastname from usuario`;
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+
+    connection.query(query, (error, result) => {
+      if (error) throw error;
+
       
       callback(responseHttp.responseOk(result))
       connection.release();
@@ -179,8 +194,9 @@ const updateRegister =  (pool,req, callback) => {
 //****  DELETE  ******//
 //_________________//
 
-const deletePersons = (pool, req, callback) => {
+const deletePerson = (pool, req, callback) => {
   let { email } = req.params;
+
   let query = `DELETE FROM usuario 
     WHERE email ='${email}'`;
   pool.getConnection((error, connection) => {
@@ -196,10 +212,10 @@ const deletePersons = (pool, req, callback) => {
 };
 
 const deleteService = (pool, req, callback) => {
-  let { id } = req.body;
+  let { id } = req.params;
 
-  let query = `DELETE FROM servicio 
-    WHERE email ='${id}'`;
+  let query = `DELETE FROM publicacion 
+    WHERE id ='${id}'`;
   pool.getConnection((error, connection) => {
     if (error) throw error;
 
@@ -237,6 +253,6 @@ module.exports = {
   register,
   persons,
   updateRegister,
-  deletePersons,
+  deletePerson,
   deleteService
 };

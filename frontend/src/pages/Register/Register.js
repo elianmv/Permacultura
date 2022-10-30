@@ -73,18 +73,18 @@ export function Register() {
       Swal.fire({
         icon: "warning",
         title: "Oops...",
-        text: "Passwords do not match!",
-        footer: "Try again",
+        text: "La contraseña no coincide!",
+        footer: "Prueba nuevamente",
         showConfirmButton: false,
         timer: 2500,
       });
 
-      if (!password || !passwordConfirm || !userName) {
+      if (!password || !passwordConfirm || !userName || !email) {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "you have to complete the required fields",
-          footer: "Try again",
+          text: "Debes completar todos los campos",
+          footer: "Prueba nuevamente",
           showConfirmButton: false,
           timer: 2500,
         });
@@ -95,10 +95,21 @@ export function Register() {
     auth.register(
       { userName, password, passwordConfirm, email, userType },
       (respon) => {
-        if (respon.status) {
-          const from = location.state?.from?.pathname || "/login";
+        if (respon.message === "Usuario Creado") {
+          Swal.fire({
+            icon: "success",
+            title: "Felicidades!",
+            text: "Usuario Registrado con exito!",
+            footer: "Sera redirigido al Login en breve",
+            showConfirmButton: false,
+            timer: 2500,
+          });
+          setTimeout(() => {
+            const from = location.state?.from?.pathname || "/login";
           navigate(from, { replace: true });
-          return alert("Su usuario fue registrado con exito");
+          }, 3000);
+          
+        
         } else {
           return alert(respon.message);
         }

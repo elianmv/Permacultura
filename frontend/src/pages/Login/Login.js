@@ -74,7 +74,9 @@ export function Login() {
          
           
           <h3 id="titulo-login">¡Bienvenido!</h3>
-          
+          <span className="icon" id={passwordError ? "icon-err" : "icon"}>
+            <FontAwesomeIcon icon={faEnvelope} />
+          </span>
 
           <div className="input-usuario" id="input-us">
             <Input
@@ -85,7 +87,9 @@ export function Login() {
               id="input-us"
             />
           </div>
-          
+          <span className="icon-pssw" id={passwordError ? "icon-pssw-err" : "icon-pssw"}>
+            <FontAwesomeIcon  icon={faKey} />
+          </span>
 
           <div className="input-usuario" id="input-pw">
             <Input
