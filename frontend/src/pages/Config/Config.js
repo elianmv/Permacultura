@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu } from "../../components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../../context";
@@ -14,6 +14,8 @@ import { Usuarios } from '../../components/Usuarios';
 
 export function Config() {
   const { user } = useAuthContext()
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState(null);
   const [passwordError, setPasswordError] = useState(false);
   const [userType, setuserType] = useState("cli");
   const [name, setName] = useState(user.response[0].name);
@@ -28,7 +30,7 @@ export function Config() {
   const [street, setStreet] = useState(user.response[0].street);
   const [number, setNumber] = useState(user.response[0].number);
   const auth = useAuthContext();
-
+  const [cities, setCities] = useState();
   const handleChange = (name, value) => {
     if (name === "password") {
       if (value.length < 3) {
@@ -38,6 +40,23 @@ export function Config() {
       }
     }
   };
+
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/api/v1/cities/${country}`) //full list of cities
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("ciudades",data)
+        setIsLoaded(true);
+        setCities(data.response);
+        console.log(cities)
+       
+      })
+      .catch((err) => {
+        setIsLoaded(true);
+        setError(err);
+      });
+  }, [country]);
 
   const options = [
     {
@@ -199,19 +218,19 @@ export function Config() {
 
                 </Form.Select>
 
-                <span className="input-group-text">Ciudad</span>
+                 <span className="input-group-text">Ciudad</span>
 
+                <Form.Select aria-label="Default select example" value={city}  onChange = {(e) => setCity(e.target.value)}  >
+                
+                  {cities.map((item, index) => (
+         
+         
+             <option value={item.name}>{item.name}</option>
+          
+           ))} </Form.Select>
+                 
 
-
-                <input
-                  type="text"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  aria-label="city"
-                  name="city"
-                  className="form-control"
-                  placeholder="Opcional"
-                />
+                
               </div>
               <div className="input-group">
                 <span className="input-group-text">Calle</span>

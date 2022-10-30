@@ -2,9 +2,15 @@ const express = require('express');
 const routes = express.Router()
 const { login, servicios, register, 
         updateRegister,persons,
-        deletePersons,deleteService } = require('./operations')
+        deletePerson,deleteService,cities } = require('./operations')
 const { pool } = require('../config/connect')
 
+
+routes.get('/cities/:country',(req,res) => {
+    cities(pool,req,result => {
+        res.json(result)
+    })
+})
 
 routes.get('/servicios',(req,res) => {
     servicios(pool,req,result => {
@@ -37,7 +43,7 @@ routes.put('/updateRegister',(req,res) => {
 })
 
 routes.delete('/deletePerson/:email',(req,res) => {
-    deletePersons(pool,req,result => {
+    deletePerson(pool,req,result => {
         res.json(result)
     })
 })

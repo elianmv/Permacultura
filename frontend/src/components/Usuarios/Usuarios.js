@@ -7,7 +7,7 @@ import { useAuthContext } from '../../context/AuthContext/AuthContext';
 import Spinner from 'react-bootstrap/Spinner';
 import Icon from '@mdi/react';
 import { mdiAlertCircle } from '@mdi/js';
-
+import Swal from 'sweetalert2'
 
 
 export function Usuarios() {
@@ -18,28 +18,56 @@ export function Usuarios() {
   const { userName } = useAuthContext();
 
 const [isDelete,setIsDelete]= useState ();
-const [userToDelete,setuserToDelet]= useState ();
-
+const [userToDelete,setuserToDelete]= useState ('');
 
 
   const onDelete = (e) => {
-    setuserToDelet({...userToDelete,[e.target.name]:e.target.value})
-    console.log(userToDelete)
-    // const options = {
-    //   headers: { 'Content-Type': 'application/json' },
-    //   method: 'DELETE',
-    // };
-    // fetch(`http://127.0.0.1:8080/api/v1/${item.email}`,options) //full list of services 
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("delete :",data)
-    //     setIsDelete(true)
-       
-      // })
-      // .catch((err) => {
+    Swal.fire({
+      title: '¿Esta seguro?',
+      text: "No podra revertir la accion a realizar!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setIsDelete(false)
+        let email = e;
         
-      //   console.log(err)
-      // });
+        const options = {
+          headers: { 'Content-Type': 'application/json' },
+          method: 'DELETE',
+        };
+        
+        fetch(`http://127.0.0.1:8080/api/v1/deletePerson/${email}`,options) //full list of services 
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("delete :",data)
+            setIsDelete(true)
+           
+          })
+          .catch((err) => {
+            
+            console.log(err)
+          });
+
+
+        Swal.fire(
+          
+           {
+            icon: 'success',
+            title: 'El usuario fue eliminado con exito',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        
+      }
+    })
+    
+    
+    
+    
   };
 
   useEffect(() => {
@@ -75,16 +103,16 @@ const [userToDelete,setuserToDelet]= useState ();
       <>
       
       <div className='users-container'>
-      <Table dark>
+      <Table hover responsive dark  size="sm">
       <thead>
           <tr>
             
-            <th>Username</th>
-            <th>Name</th>
-            <th>Lastname</th>
+            <th>Nombre de usuario</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
             <th>Email</th>
             <th>Tipo de usuario</th>
-            <th>Options</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -99,7 +127,8 @@ const [userToDelete,setuserToDelet]= useState ();
             <td>{item.tipo_usuario_name}</td>
             <td>
                 <Button
-                onClick={onDelete}
+                onClick={(e) => onDelete(item.email)}
+                
                   type="submit"
                   variant="outline-dark"
                 >
