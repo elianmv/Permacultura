@@ -42,9 +42,45 @@ const persons = (pool, req, callback) => {
   });
 };
 
+const cities = (pool, req, callback) => {
+  let { country } = req.params;
+  console.log(country)
+  let query = `select name FROM ciudad 
+  WHERE pais_name ='${country}'`;
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+
+    connection.query(query, (error, result) => {
+      if (error) throw error;
+      
+      callback(responseHttp.responseOk(result))
+      connection.release();
+    });
+  });
+};
+
 /* ---- LLamada al back de todos los usuarios----- */
 const users = (pool, req, callback) => {
   let query = `SELECT username, email, name, lastname from usuario`;
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+
+    connection.query(query, (error, result) => {
+      if (error) throw error;
+
+      
+      callback(responseHttp.responseOk(result))
+      connection.release();
+    });
+  });
+};
+
+const provServicios = (pool, req, callback) => {
+  let { email} = req.params;
+  let query = `SELECT servicio.name, publicacion.id, publicacion.precio, publicacion.description from publicacion 
+  join usuario on  usuario_id = usuario.id
+  join servicio on  servicio_id = servicio.id
+  where usuario.email = '${email}' `;
   pool.getConnection((error, connection) => {
     if (error) throw error;
 
@@ -196,9 +232,9 @@ const updateRegister =  (pool,req, callback) => {
 
 const deletePerson = (pool, req, callback) => {
   let { email } = req.params;
-
+  console.log(email)
   let query = `DELETE FROM usuario 
-    WHERE email ='${email}'`;
+  WHERE email ='${email}'`;
   pool.getConnection((error, connection) => {
     if (error) throw error;
 
@@ -254,5 +290,7 @@ module.exports = {
   persons,
   updateRegister,
   deletePerson,
-  deleteService
+  deleteService,
+  cities,
+  provServicios
 };
