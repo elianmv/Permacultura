@@ -11,6 +11,7 @@ import SwitchSelector from "react-switch-selector";
 import { Form, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { Usuarios } from '../../components/Usuarios';
+import { ProvServicios } from '../../components/ProvServicios';
 
 export function Config() {
   const { user } = useAuthContext()
@@ -216,8 +217,8 @@ export function Config() {
                   <option value="Uruguay">Uruguay</option>
 
 
-                </Form.Select>
-
+               </Form.Select>
+               { city? <>
                  <span className="input-group-text">Ciudad</span>
 
                 <Form.Select aria-label="Default select example" value={city}  onChange = {(e) => setCity(e.target.value)}  >
@@ -228,7 +229,7 @@ export function Config() {
              <option value={item.name}>{item.name}</option>
           
            ))} </Form.Select>
-                 
+           </> : null } 
 
                 
               </div>
@@ -288,8 +289,8 @@ export function Config() {
         </div>
         <div className="users-container">
       {user.response[0].tipo_usuario_name === 'admin'? <Usuarios /> : null}
-      {user.response[0].tipo_usuario_name === 'cli'? <Usuarios /> : null}
-      {user.response[0].tipo_usuario_name === 'prov'? <Usuarios /> : null}
+      {user.response[0].tipo_usuario_name === 'cli'? <ProvServicios /> : null}
+      
       
       </div>
       </div>

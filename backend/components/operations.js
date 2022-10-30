@@ -75,6 +75,25 @@ const users = (pool, req, callback) => {
   });
 };
 
+const provServicios = (pool, req, callback) => {
+  let { email} = req.params;
+  let query = `SELECT servicio.name, publicacion.id, publicacion.precio, publicacion.description from publicacion 
+  join usuario on  usuario_id = usuario.id
+  join servicio on  servicio_id = servicio.id
+  where usuario.email = '${email}' `;
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+
+    connection.query(query, (error, result) => {
+      if (error) throw error;
+
+      
+      callback(responseHttp.responseOk(result))
+      connection.release();
+    });
+  });
+};
+
 const login = async (pool, req, callback) => {
   /*------- llamada al back con la condicion del email-----   */
   let { email, password } = req.body;
@@ -272,5 +291,6 @@ module.exports = {
   updateRegister,
   deletePerson,
   deleteService,
-  cities
+  cities,
+  provServicios
 };
