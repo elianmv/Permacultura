@@ -45,10 +45,11 @@ const responseError = (message) => {
       }
 }
 
-const responseNoContent = (message) => {
+const responseNoContent = (message,response) => {
     return  {
         status: httpStatus.NO_CONTENT,
-        message:message
+        message:message,
+        response:response
       }
 }
 

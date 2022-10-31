@@ -18,7 +18,7 @@ const publicaciones = (pool, req, callback) => {
     connection.query(query, (error, result) => {
       if (error) throw error;
       if(!result.length > 0){
-        callback(responseHttp.responseNoContent('Ningun Servicio Encontrado'))
+        callback(responseHttp.responseNoContent('Ningún Servicio Encontrado',result))
       }else{
         callback(responseHttp.responseOk(result))
       };
@@ -152,7 +152,7 @@ const login = async (pool, req, callback) => {
             callback(responseHttp.responseOkLogin('Login Correcto',response))
           }
       }else{
-        callback(responseHttp.responseNoContent('Usuario Desconocido'));
+        callback(responseHttp.responseNoContent('Usuario Desconocido',result));
       }
       connection.release();
     });
