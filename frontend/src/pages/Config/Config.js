@@ -228,7 +228,7 @@ export function Config() {
                   {cities.map((item, index) => (
          
          
-             <option value={item.name}>{item.name}</option>
+             <option value={item.zip_code}>{item.name}</option>
           
            ))} </Form.Select>
            </> : null } 

@@ -37,7 +37,7 @@ export function About() {
         <div className="picture">
           <div className="personas">
             <div className="text-p">
-              <h2>Cipriano de Los Santos</h2>
+              <h2>Juan Arias</h2>
               <p>
                 {" "}
                 Es un economista e historiador económico venezolano. Ha estado
@@ -52,7 +52,7 @@ export function About() {
           <div className="personas">
             <img src="assets/personas/persona2.jpg" alt=""></img>
             <div className="text-p">
-              <h2>Estela Sanchez</h2>
+              <h2>Franco Mengochea</h2>
               <p>
                 Estela Sanchez es una escritora, crítica literaria y profesora
                 universitaria española. Desde 2017 es presidenta de la
@@ -62,7 +62,7 @@ export function About() {
           </div>
           <div className="personas">
             <div className="text-p">
-              <h2>Maria Inmaculada Lora</h2>
+              <h2>Elian Vergara</h2>
               <p>
                 {" "}
                 Marquésa de Dalí de Púbol fue una pintora, escultora, grabadora,
@@ -74,18 +74,7 @@ export function About() {
             </div>
             <img src="assets/personas/persona3.jpg" alt=""></img>
           </div>
-          <div className="personas">
-            <img src="assets/personas/persona4.jpg" alt=""></img>
-            <div className="text-p">
-              <h2>Marco Antonio Pujol</h2>
-              <p>
-                Marco Antonio es un filólogo hispanista y arabista, historiador
-                y poeta, especializado en la Edad Media y el Siglo de Oro y, más
-                concretamente, en estudios cidianos, tanto históricos como
-                literarios.
-              </p>
-            </div>
-          </div>
+          
         </div>
       </div>
 
@@ -95,7 +84,7 @@ export function About() {
             <h1>Informacion de contacto:</h1>
             <ul>
               <li> Telefono: 249-468152</li>
-              <li>E-mail: book-dimension@gl.com</li>
+              <li>E-mail: sycas-permacultura@gl.com</li>
             </ul>
 
             <ul className="info-logos">

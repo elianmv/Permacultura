@@ -74,7 +74,7 @@ const editService = (pool, req, callback) => {
 const cities = (pool, req, callback) => {
   let { country } = req.params;
   console.log(country)
-  let query = `select name FROM ciudad 
+  let query = `select zip_code,name FROM ciudad 
   WHERE pais_name ='${country}'`;
   pool.getConnection((error, connection) => {
     if (error) throw error;
