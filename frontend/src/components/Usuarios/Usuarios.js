@@ -18,7 +18,7 @@ export function Usuarios() {
   const [passwordError, setPasswordError] = useState(false);
 
 const [isDelete,setIsDelete]= useState ();
-const [isAdd,setIsAdd]= useState ();
+const [isAdd,setIsAdd]= useState (false);
 const [userToDelete,setuserToDelete]= useState ('');
 
 const [userType, setuserType] = useState("cli");
@@ -178,7 +178,7 @@ const onSubmit = () => {
         setIsLoaded(true);
         setError(err);
       });
-  }, [isDelete],[isAdd]);
+  }, [[isDelete],[isAdd]]);
 
   if (users.error) {
     return (
@@ -199,6 +199,7 @@ const onSubmit = () => {
       <div className="col-md-9">
        
        <div className="card p-2 mt-3">
+        
       <input 
            className="form-control mb-2"  placeholder="Nombre de Usuario" 
            value={userName}
@@ -212,11 +213,13 @@ const onSubmit = () => {
 
           <input 
            className="form-control mb-2"  placeholder="Contraseña" 
+           type='password'
            value={password}
            onChange={(e) => setPassword(e.target.value)} 
           />
            <input 
            className="form-control mb-2"  placeholder="Confirme Contraseña" 
+           type='password'
            value={passwordConfirm}
            onChange={(e) => setPasswordConfirm(e.target.value)} 
           />

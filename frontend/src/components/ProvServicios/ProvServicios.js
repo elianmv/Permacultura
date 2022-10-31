@@ -200,17 +200,24 @@ const update = async () => {
 
 ))} </Form.Select> </> :null}
 
+      {!bandera? <spam>Precio</spam>: null }
+
          <input 
            className="form-control mb-2"  placeholder="Precio" 
            value={precio}
            onChange={(e) => setPrecio(e.target.value)} 
           />
 
+      {!bandera? <spam>Descripcion</spam>: null }
+
           <input 
            className="form-control mb-2"  placeholder="Descripcion" 
            value={descripcion}
            onChange={(e) => setDescripcion(e.target.value)} 
           />
+
+      {!bandera? <spam>Tiempo Estimado</spam>: null }
+
            <input 
            className="form-control mb-2"  placeholder="Tiempo estimado" 
            value={tiempo}
