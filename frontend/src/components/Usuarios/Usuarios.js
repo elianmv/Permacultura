@@ -8,18 +8,113 @@ import Spinner from 'react-bootstrap/Spinner';
 import Icon from '@mdi/react';
 import { mdiAlertCircle } from '@mdi/js';
 import Swal from 'sweetalert2'
-
+import SwitchSelector from "react-switch-selector";
 
 export function Usuarios() {
   const [users, setUsers] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
-
-  const { userName } = useAuthContext();
+  const auth = useAuthContext();
+  const [passwordError, setPasswordError] = useState(false);
 
 const [isDelete,setIsDelete]= useState ();
+const [isAdd,setIsAdd]= useState ();
 const [userToDelete,setuserToDelete]= useState ('');
 
+const [userType, setuserType] = useState("cli");
+const [userName, setUserName] = useState();
+const [email, setEmail] = useState();
+const [password, setPassword] = useState();
+const [passwordConfirm, setPasswordConfirm] = useState();
+
+const optionsAdmin = [
+  {
+    label: <span>Cliente</span>,
+    value: "cli",
+    selectedBackgroundColor: "#4DD632",
+  },
+  {
+    label: "Proveedor",
+    value: "prov",
+    selectedBackgroundColor: "#27AE60",
+  },
+  {
+    label: "Admin",
+    value: "admin",
+    selectedBackgroundColor: "#1E8449",
+  },
+];
+
+const onChangeNew = (newValue) => {
+  setuserType(newValue);
+};
+
+
+const initialSelectedIndexNew = optionsAdmin.findIndex(
+  ({ value }) => value === "cli"
+);
+
+
+const onSubmit = () => {
+  
+ setIsAdd(false)
+  if (passwordError === true) return alert("Contraseña Invalida");
+ 
+  
+
+  console.log(userName, password, passwordConfirm, email, userType);
+
+  if (password !== passwordConfirm) {
+    Swal.fire({
+      icon: "warning",
+      title: "Oops...",
+      text: "La contraseña no coincide!",
+      footer: "Prueba nuevamente",
+      showConfirmButton: false,
+      timer: 2500,
+    });
+
+    if (!password || !passwordConfirm || !userName || !email) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Debes completar todos los campos",
+        footer: "Prueba nuevamente",
+        showConfirmButton: false,
+        timer: 2500,
+      });
+    }
+  }
+
+ 
+  auth.register(
+    { userName, password, passwordConfirm, email, userType },
+    (respon) => {
+      if (respon.message === "Usuario Creado") {
+        setIsAdd(true)
+        Swal.fire({
+          icon: "success",
+          
+          text: "Usuario Registrado con exito!",
+         
+          showConfirmButton: false,
+          timer: 2500,
+        });
+        
+        
+      
+      } else {
+        return alert(respon.message);
+      }
+      // Send them back to the page they tried to visit when they were
+      // redirected to the login page. Use { replace: true } so we don't create
+      // another entry in the history stack for the login page.  This means that
+      // when they get to the protected page and click the back button, they
+      // won't end up back on the login page, which is also really nice for the
+      // user experience.
+    }
+  );
+}
 
   const onDelete = (e) => {
     Swal.fire({
@@ -83,7 +178,7 @@ const [userToDelete,setuserToDelete]= useState ('');
         setIsLoaded(true);
         setError(err);
       });
-  }, [isDelete]);
+  }, [isDelete],[isAdd]);
 
   if (users.error) {
     return (
@@ -101,7 +196,49 @@ const [userToDelete,setuserToDelete]= useState ('');
   } else {
     return (
       <>
-      
+      <div className="col-md-9">
+       
+       <div className="card p-2 mt-3">
+      <input 
+           className="form-control mb-2"  placeholder="Nombre de Usuario" 
+           value={userName}
+           onChange={(e) => setUserName(e.target.value)} 
+          />
+          <input 
+           className="form-control mb-2"  placeholder="Email" 
+           value={email}
+           onChange={(e) => setEmail(e.target.value)} 
+          />
+
+          <input 
+           className="form-control mb-2"  placeholder="Contraseña" 
+           value={password}
+           onChange={(e) => setPassword(e.target.value)} 
+          />
+           <input 
+           className="form-control mb-2"  placeholder="Confirme Contraseña" 
+           value={passwordConfirm}
+           onChange={(e) => setPasswordConfirm(e.target.value)} 
+          />
+          <div className="switch-usuario-rg" id="switch-us-rg">
+              <SwitchSelector
+              
+                onChange={onChangeNew}
+                options={optionsAdmin}
+                initialSelectedIndex={initialSelectedIndexNew}
+                backgroundColor={"#6E6E6E"}
+                fontColor={"#f5f6fa"}
+              />
+            </div>
+
+          <button 
+            className="btn btn-success" 
+           onClick={onSubmit}
+            >
+              Agregar
+            </button>  
+     </div>   
+  </div>
       <div className='users-container'>
       <Table hover responsive dark  size="sm">
       <thead>

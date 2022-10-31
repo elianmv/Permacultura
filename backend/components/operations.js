@@ -4,8 +4,8 @@ const bcrypt = require("bcryptjs");
 const { viewCountry,viewCity,insertDireccion } = require("./secundaryOperation")
 
 /* ---- LLamada al back de todos los servicios----- */
-const servicios = (pool, req, callback) => {
-  let query = `SELECT categoria.name as categoria,tiempo_estimado, precio,description, usuario.name as nombre,
+const publicaciones = (pool, req, callback) => {
+  let query = `SELECT publicacion.id, categoria.name as categoria,tiempo_estimado, precio,description, usuario.name as nombre,
   usuario.lastname as apellido, usuario.email,servicio.name as servicio 
   FROM publicacion 
   join usuario on publicacion.usuario_id = usuario.id
@@ -30,6 +30,35 @@ const servicios = (pool, req, callback) => {
 
 const persons = (pool, req, callback) => {
   let query = `SELECT * FROM usuario`;
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+
+    connection.query(query, (error, result) => {
+      if (error) throw error;
+      
+      callback(responseHttp.responseOk(result))
+      connection.release();
+    });
+  });
+};
+
+const services = (pool, req, callback) => {
+  let query = `SELECT name FROM servicio`;
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+
+    connection.query(query, (error, result) => {
+      if (error) throw error;
+      
+      callback(responseHttp.responseOk(result))
+      connection.release();
+    });
+  });
+};
+
+const editService = (pool, req, callback) => {
+  let { id } = req.params;
+  let query = `SELECT * FROM publicacion where id = ${id}`;
   pool.getConnection((error, connection) => {
     if (error) throw error;
 
@@ -284,7 +313,7 @@ const deleteService = (pool, req, callback) => {
 // };
 
 module.exports = {
-  servicios,
+  services,
   login,
   register,
   persons,
@@ -292,5 +321,7 @@ module.exports = {
   deletePerson,
   deleteService,
   cities,
-  provServicios
+  provServicios,
+  publicaciones,
+  editService
 };

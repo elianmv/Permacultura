@@ -26,7 +26,7 @@ export function Config() {
 
   const [dni, setDni] = useState(user.response[0].dni);
 
-  const [country, setCountry] = useState(user.response[0].country);
+  const [country, setCountry] = useState('Argentina');
   const [city, setCity] = useState(user.response[0].city);
   const [street, setStreet] = useState(user.response[0].street);
   const [number, setNumber] = useState(user.response[0].number);
@@ -120,6 +120,8 @@ export function Config() {
         });
       }
     }
+
+    
 
     auth.update(
       { dni, name, lastName, email, phone, userType },
@@ -218,7 +220,7 @@ export function Config() {
 
 
                </Form.Select>
-               { city? <>
+               { cities? <>
                  <span className="input-group-text">Ciudad</span>
 
                 <Form.Select aria-label="Default select example" value={city}  onChange = {(e) => setCity(e.target.value)}  >
@@ -257,7 +259,7 @@ export function Config() {
                   placeholder="Opcional"
                 />
               </div>
-
+              {user.response[0].tipo_usuario_name === 'cli'? null:
               <div className="switch-usuario-rg" id="switch-us-rg">
                 <SwitchSelector
 
@@ -267,7 +269,7 @@ export function Config() {
                   backgroundColor={"#6E6E6E"}
                   fontColor={"#f5f6fa"}
                 />
-              </div>
+              </div> }
               <div>
                 <Button
                   type="submit"
@@ -288,7 +290,7 @@ export function Config() {
           </div>
         </div>
         <div className="users-container">
-      {user.response[0].tipo_usuario_name === 'admin'? <Usuarios /> : null}
+      {user.response[0].tipo_usuario_name === 'cli'? <Usuarios /> : null}
       {user.response[0].tipo_usuario_name === 'cli'? <ProvServicios /> : null}
       
       
