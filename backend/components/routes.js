@@ -1,8 +1,8 @@
 const express = require('express');
 const routes = express.Router()
-const { login, servicios, register, 
+const { login, publicaciones, register, 
         updateRegister,persons,
-        deletePerson,deleteService,cities, provServicios } = require('./operations')
+        deletePerson,deleteService,cities, provServicios, services, editService } = require('./operations')
 const { pool } = require('../config/connect')
 
 
@@ -11,14 +11,25 @@ routes.get('/cities/:country',(req,res) => {
         res.json(result)
     })
 })
-
-routes.get('/servicios',(req,res) => {
-    servicios(pool,req,result => {
+routes.get('/services',(req,res) => {
+    services(pool,req,result => {
         res.json(result)
     })
 })
 
-routes.get('/servicios/:email',(req,res) => {
+routes.get('/services/:id',(req,res) => {
+    editService(pool,req,result => {
+        res.json(result)
+    })
+})
+
+routes.get('/publicaciones',(req,res) => {
+    publicaciones(pool,req,result => {
+        res.json(result)
+    })
+})
+
+routes.get('/publicaciones/:email',(req,res) => {
     provServicios(pool,req,result => {
         res.json(result)
     })
@@ -54,7 +65,7 @@ routes.delete('/deletePerson/:email',(req,res) => {
     })
 })
 
-routes.delete('/deleteService/:id',(req,res) => {
+routes.delete('/services/:id',(req,res) => {
     deleteService(pool,req,result => {
         res.json(result)
     })

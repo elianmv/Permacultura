@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2022-10-29 20:27:45.747
+-- Last modification date: 2022-10-31 01:12:52.792
 
 -- tables
 -- Table: categoria
@@ -69,7 +69,8 @@ CREATE TABLE usuario (
     phone varchar(255) NULL,
     tipo_usuario_name varchar(255) NOT NULL,
     direccion_id int NULL,
-    UNIQUE INDEX unique_uname_email (username,email),
+    UNIQUE INDEX unique_email (email),
+    UNIQUE INDEX usuario_username (username),
     CONSTRAINT usuario_pk PRIMARY KEY (id)
 );
 

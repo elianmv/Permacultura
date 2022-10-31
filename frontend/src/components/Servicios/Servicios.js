@@ -17,7 +17,7 @@ export function Servicios() {
   const { userName } = useAuthContext();
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8080/api/v1/servicios`) //full list of services 
+    fetch(`http://127.0.0.1:8080/api/v1/publicaciones`) //full list of services 
       .then((response) => response.json())
       .then((data) => {
 console.log("data" ,data.response)
