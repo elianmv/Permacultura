@@ -15,9 +15,11 @@ export function Home() {
       <>
         <Menu />
       </>
-      <h1>Bienvenidos</h1>
-      {' '}
-      <h1>SyCas Permacultura</h1>
+      
+     
+      <h1 className='h1-title'>SyCas Permacultura</h1>
+      <h2 className='h1-title'>Bienvenidos</h2>
+      
       <>
         <Carousel1 />
       </>
