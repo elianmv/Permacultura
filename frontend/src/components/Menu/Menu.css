@@ -5,11 +5,14 @@
 .Menu {
   background-color: rgb(121, 202, 117);
   box-shadow: 0 2px 5px 0 #00000042;
-
+  position: sticky;
+  top: 0;
+  bottom: 50px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding-right: 20px;
+  z-index: 2;
 }
 
 .Menu ul {

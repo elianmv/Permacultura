@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap');
+
+.h1-title{
+    
+    text-align: center;
+}
+
+
 .container {
     max-width: 1140px;
     
@@ -30,7 +38,7 @@
       }
 
 
-.carousel {
+/* .carousel {
     margin-top: 20px;
     position: relative;
     right: 0;
@@ -44,6 +52,13 @@
     margin-bottom: 1rem;
     margin-left: 10%;
     list-style: none;
+    z-index: 1;
+} */
+
+.carousel-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .list--box-check {
