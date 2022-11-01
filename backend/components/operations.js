@@ -73,7 +73,7 @@ const editService = (pool, req, callback) => {
 
 const cities = (pool, req, callback) => {
   let { country } = req.params;
-  console.log(country)
+
   let query = `select zip_code,name FROM ciudad 
   WHERE pais_name ='${country}'`;
   pool.getConnection((error, connection) => {
@@ -152,7 +152,8 @@ const login = async (pool, req, callback) => {
             callback(responseHttp.responseOkLogin('Login Correcto',response))
           }
       }else{
-        callback(responseHttp.responseNoContent('Usuario Desconocido',result));
+      
+        callback(responseHttp.responseNoContent('Usuario Desconocido'));
       }
       connection.release();
     });
@@ -172,9 +173,11 @@ const register = async (pool, req, callback) => {
     if (error) throw error;
 
     connection.query(query, (error, result) => {
-      if (error) throw error;
-
-      callback(responseHttp.responseCreated('Usuario Creado'));
+      
+      
+      if (error) callback(responseHttp.responseError("err"));
+      if (result) callback(responseHttp.responseCreated('Usuario Creado'));
+     
       connection.release();
     });
   });
@@ -261,7 +264,7 @@ const updateRegister =  (pool,req, callback) => {
 
 const deletePerson = (pool, req, callback) => {
   let { email } = req.params;
-  console.log(email)
+
   let query = `DELETE FROM usuario 
   WHERE email ='${email}'`;
   pool.getConnection((error, connection) => {

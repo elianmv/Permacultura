@@ -6,7 +6,7 @@ import "./Login.css";
 import Input from "./Components/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
-
+import Swal from "sweetalert2";
 // const json = [
 //   { user: "juang@gmail.com", passw: "123456" },
 //   { user: "eliv@gmail.com", passw: "123456" },
@@ -48,7 +48,14 @@ export function Login() {
             navigate(from, { replace: true });
             
           }else{
-            console.log(respon)
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Los datos ingresados no son correctos",
+              footer: "Pruebe nuevamente",
+              showConfirmButton: false,
+              timer: 1500,
+            });
             
           }
           // Send them back to the page they tried to visit when they were

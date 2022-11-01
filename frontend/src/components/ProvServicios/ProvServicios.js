@@ -14,7 +14,7 @@ export function ProvServicios() {
   const [servicios, setServicios] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
-  const [id, setId] = useState();
+  const [idService, setIdService] = useState();
   const [tiempo, setTiempo] = useState();
   const [precio, setPrecio] = useState();
   const [descripcion, setDescripcion] = useState('');
@@ -24,6 +24,7 @@ export function ProvServicios() {
   const [ editService, setEditService ] = useState()
 
   const { user } = useAuthContext();
+  const [ emailUser, setEmailUser ] = useState(user.response[0].email)
 
 const [isDelete,setIsDelete]= useState ();
 const [userToDelete,setuserToDelete]= useState ('');
@@ -37,6 +38,28 @@ const addplato = async () => {
   // setprecio('')
   // setIngredientes('')
   // getPlatos()
+
+   console.log(tiempo, descripcion, precio, emailUser, servicio)
+  // const options = {
+  //   headers: { 'Content-Type': 'application/json' },
+  //   method: 'POST',
+
+  //   body: JSON.stringify({ tiempo, descripcion, precio, emailUser, servicio }),
+  // };
+
+  // fetch(`http://localhost:8080/api/v1/serviceCreate/`,options) //full list of services
+  //     .then((response) => response.json())
+  //     .then((data) => {
+
+  //       setIsLoaded(true);
+  //       setServices(data.response);
+       
+       
+  //     })
+  //     .catch((err) => {
+  //       setIsLoaded(true);
+  //       setError(err);
+  //     });
 }  
 
 
@@ -44,6 +67,8 @@ const getplato =(id) => {
   // const res = await axios.get(URL+'/'+id)
   // setId(res.data._id)
 
+  setBandera(false)
+ 
   // setIngredientes(res.data.ingredientes)
   // setBandera(false)
   // window.scrollTo(0,0)
@@ -51,15 +76,17 @@ const getplato =(id) => {
     fetch(`http://localhost:8080/api/v1/services/${id}`) //full list of services
       .then((response) => response.json())
       .then((data) => {
-        
-        setIsLoaded(true);
-        setBandera(false)
+ 
         setEditService(data.response[0]);
         setTiempo(editService.tiempo_estimado)
         setDescripcion(editService.description)
         setPrecio(editService.precio)
+        setIdService(editService.id)
+        setIsLoaded(true);
         
-        console.log("servicioToEdit",editService)
+        
+        
+
        
       })
       .catch((err) => {
@@ -73,20 +100,34 @@ const addOrUpdateplato = () => {
   bandera? addplato() : update()   
 }
 
-const update = async () => {
-  // const obj = {  id, nombre, precio, ingredientes }
-  // // console.log( 'id:' + id, 'n:' + nombre, 'precio:' + precio, 'ingredientes:' + ingredientes)
-  // const res = await axios.put(URL + '/' + id, obj)
-  // console.log(res.data)
-  // setBandera(true)
-  // setNombre('')
-  // setprecio('')
-  // setIngredientes('')
-  // getPlatos()
+const update = () => {
+
+
+
+  const options = {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'PUT',
+
+    body: JSON.stringify({ tiempo, descripcion, precio }),
+  };
+
+  fetch(`http://localhost:8080/api/v1/editServices/${idService}`,options) //full list of services
+      .then((response) => response.json())
+      .then((data) => {
+
+        setIsLoaded(true);
+        setServices(data.response);
+       
+       
+      })
+      .catch((err) => {
+        setIsLoaded(true);
+        setError(err);
+      });
 }
 
   const onDelete = (e) => {
-    console.log(e)
+
     Swal.fire({
       title: '¿Esta seguro?',
       text: "No podra revertir la accion a realizar!",
@@ -108,13 +149,13 @@ const update = async () => {
         fetch(`http://127.0.0.1:8080/api/v1/services/${id}`,options) //full list of services 
           .then((response) => response.json())
           .then((data) => {
-            console.log("servicios de prov a eliminar :",data)
+       
             setIsDelete(true)
            
           })
           .catch((err) => {
             
-            console.log(err)
+          
           });
 
 
@@ -136,10 +177,10 @@ const update = async () => {
     fetch(`http://localhost:8080/api/v1/services`) //full list of services
       .then((response) => response.json())
       .then((data) => {
-        console.log("servicios",data)
+        console.log(data)
         setIsLoaded(true);
         setServices(data.response);
-        console.log('servicios:',services)
+
        
       })
       .catch((err) => {
@@ -152,11 +193,11 @@ const update = async () => {
   // };
 
   useEffect(() => {
-    console.log('email ',user.response[0].email)
+
     fetch(`http://127.0.0.1:8080/api/v1/publicaciones/${user.response[0].email}`) //full list of services 
       .then((response) => response.json())
       .then((data) => {
-        console.log("serv de prov",data)
+       
         setIsLoaded(true);
         setServicios(data.response);
        
@@ -191,7 +232,7 @@ const update = async () => {
         
        
 
-{services?<><Form.Select aria-label="Default select example" value={servicio}  onChange = {(e) => setServicio(e.target.value)}  >
+{services?<><Form.Select aria-label="Default select example" value={servicio}  onChange = {(e) => setServicio(e)}  >
 <option >Servicio</option>
   {services.map((item, index) => (
 
