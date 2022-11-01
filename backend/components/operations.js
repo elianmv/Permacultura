@@ -16,7 +16,7 @@ const publicaciones = (pool, req, callback) => {
     if (error) throw error;
 
     connection.query(query, (error, result) => {
-      if (error) throw error;
+      if (error) callback(responseHttp.responseError("Bad Request"));
       if(!result.length > 0){
         callback(responseHttp.responseNoContent('Ningún Servicio Encontrado',result))
       }else{
@@ -34,7 +34,7 @@ const persons = (pool, req, callback) => {
     if (error) throw error;
 
     connection.query(query, (error, result) => {
-      if (error) throw error;
+      if (error) callback(responseHttp.responseError("Bad Request"));
       
       callback(responseHttp.responseOk(result))
       connection.release();
@@ -48,7 +48,7 @@ const services = (pool, req, callback) => {
     if (error) throw error;
 
     connection.query(query, (error, result) => {
-      if (error) throw error;
+      if (error) callback(responseHttp.responseError("Bad Request"));
       
       callback(responseHttp.responseOk(result))
       connection.release();
@@ -63,7 +63,7 @@ const editService = (pool, req, callback) => {
     if (error) throw error;
 
     connection.query(query, (error, result) => {
-      if (error) throw error;
+      if (error) callback(responseHttp.responseError("Bad Request"));
       
       callback(responseHttp.responseOk(result))
       connection.release();
@@ -77,7 +77,7 @@ const cities = (pool, req, callback) => {
   let query = `select zip_code,name FROM ciudad 
   WHERE pais_name ='${country}'`;
   pool.getConnection((error, connection) => {
-    if (error) throw error;
+    if (error) callback(responseHttp.responseError("Bad Request"));
 
     connection.query(query, (error, result) => {
       if (error) throw error;
@@ -95,7 +95,7 @@ const users = (pool, req, callback) => {
     if (error) throw error;
 
     connection.query(query, (error, result) => {
-      if (error) throw error;
+      if (error) callback(responseHttp.responseError("Bad Request"));
 
       
       callback(responseHttp.responseOk(result))
@@ -114,7 +114,7 @@ const provServicios = (pool, req, callback) => {
     if (error) throw error;
 
     connection.query(query, (error, result) => {
-      if (error) throw error;
+      if (error) callback(responseHttp.responseError("Bad Request"));
 
       
       callback(responseHttp.responseOk(result))
@@ -139,7 +139,7 @@ const login = async (pool, req, callback) => {
     if (error) throw error;
 
     connection.query(query, async (error, response) => {
-      if (error) throw error;
+      if (error) callback(responseHttp.responseError("Bad Request"));
       
       
       if(response.length > 0 ){
@@ -175,7 +175,7 @@ const register = async (pool, req, callback) => {
     connection.query(query, (error, result) => {
       
       
-      if (error) callback(responseHttp.responseError("err"));
+      if (error) callback(responseHttp.responseError("Bad Request"));
       if (result) callback(responseHttp.responseCreated('Usuario Creado'));
      
       connection.release();
@@ -184,7 +184,26 @@ const register = async (pool, req, callback) => {
 };
 
 
+const servicesCreate = async (pool, req, callback) => {
+  /*------- llamada al back con la condicion del email-----   */
+  let { userName, password, passwordConfirm, email, userType } = req.body;
+  if (!(password === passwordConfirm)) return "Contraseñas Incorrectas";
+  const passwordHashed = await bcrypt.hash(password, 10);
+  
+  let query = `INSERT INTO usuario (username,email,password,tipo_usuario_name)
+              values("${userName}","${email}","${passwordHashed}","${userType}")`;
 
+  pool.getConnection((error, connection) => {
+    if (error) callback(responseHttp.responseError("Bad Request"));
+
+    connection.query(query, (error, result) => {
+      if (error) callback(responseHttp.responseError("Bad Request"));
+
+      callback(responseHttp.responseCreated('Usuario Creado'));
+      connection.release();
+    });
+  });
+};
 
 
 const updateRegister =  (pool,req, callback) => {
@@ -210,7 +229,7 @@ const updateRegister =  (pool,req, callback) => {
                     WHERE email = "${email}"`;
 
         pool.getConnection((error, connection) => {
-          if (error) throw error;
+          if (error) callback(responseHttp.responseError("Bad Request"));
 
           connection.query(query, (error, result) => {
             if (error) throw error;
@@ -271,7 +290,7 @@ const deletePerson = (pool, req, callback) => {
     if (error) throw error;
 
     connection.query(query, (error, result) => {
-      if (error) throw error;
+      if (error) callback(responseHttp.responseError("Bad Request"));
       
       callback(responseHttp.responseOkMess(result,'Registro Borrado con Éxito'))
       connection.release();
@@ -288,7 +307,7 @@ const deleteService = (pool, req, callback) => {
     if (error) throw error;
 
     connection.query(query, (error, result) => {
-      if (error) throw error;
+      if (error) callback(responseHttp.responseError("Bad Request"));
       
       callback(responseHttp.responseOkMess(result,'Registro Borrado con Éxito'))
       connection.release();
@@ -326,5 +345,6 @@ module.exports = {
   cities,
   provServicios,
   publicaciones,
-  editService
+  editService,
+  servicesCreate
 };
