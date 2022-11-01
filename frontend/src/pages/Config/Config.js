@@ -47,10 +47,10 @@ export function Config() {
     fetch(`http://localhost:8080/api/v1/cities/${country}`) //full list of cities
       .then((response) => response.json())
       .then((data) => {
-        console.log("ciudades",data)
+       
         setIsLoaded(true);
         setCities(data.response);
-        console.log(cities)
+        
        
       })
       .catch((err) => {
@@ -96,15 +96,15 @@ export function Config() {
     const email = formData.get("email");
 
 
-    console.log(userName, password, passwordConfirm, email, userType);
+
 
 
     if (password !== passwordConfirm) {
       Swal.fire({
         icon: "warning",
         title: "Oops...",
-        text: "Passwords do not match!",
-        footer: "Try again",
+        text: "La contraseña no coincide!",
+        footer: "Pruebe nuevamente",
         showConfirmButton: false,
         timer: 2500,
       });
@@ -113,8 +113,8 @@ export function Config() {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "you have to complete the required fields",
-          footer: "Try again",
+          text: "Debe completar todos los campos requeridos",
+          footer: "Pruebe nuevamente",
           showConfirmButton: false,
           timer: 2500,
         });

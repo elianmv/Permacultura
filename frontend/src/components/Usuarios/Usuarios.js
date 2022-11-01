@@ -18,7 +18,7 @@ export function Usuarios() {
   const [passwordError, setPasswordError] = useState(false);
 
 const [isDelete,setIsDelete]= useState ();
-const [isAdd,setIsAdd]= useState (false);
+const [isAdd,setIsAdd]= useState ();
 const [userToDelete,setuserToDelete]= useState ('');
 
 const [userType, setuserType] = useState("cli");
@@ -26,6 +26,23 @@ const [userName, setUserName] = useState();
 const [email, setEmail] = useState();
 const [password, setPassword] = useState();
 const [passwordConfirm, setPasswordConfirm] = useState();
+
+
+const refreshView = () => {
+  fetch(`http://127.0.0.1:8080/api/v1/person`) //full list of services 
+  .then((response) => response.json())
+  .then((data) => {
+    console.log("usuarios",data)
+    setIsLoaded(true);
+    setUsers(data.response);
+   
+  })
+  .catch((err) => {
+    setIsLoaded(true);
+    setError(err);
+  });
+
+}
 
 const optionsAdmin = [
   {
@@ -99,12 +116,21 @@ const onSubmit = () => {
          
           showConfirmButton: false,
           timer: 2500,
+          
         });
         
-        
+        refreshView()
       
       } else {
-        return alert(respon.message);
+         Swal.fire({
+          icon: "warning",
+          
+          text: "Correo electronico en uso",
+         
+          showConfirmButton: false,
+          timer: 2500,
+          
+        });
       }
       // Send them back to the page they tried to visit when they were
       // redirected to the login page. Use { replace: true } so we don't create
@@ -139,7 +165,7 @@ const onSubmit = () => {
           .then((response) => response.json())
           .then((data) => {
             console.log("delete :",data)
-            setIsDelete(true)
+            refreshView()
            
           })
           .catch((err) => {
@@ -178,7 +204,9 @@ const onSubmit = () => {
         setIsLoaded(true);
         setError(err);
       });
-  }, [[isDelete],[isAdd]]);
+  }, [
+    // [isDelete],[isAdd]
+  ]);
 
   if (users.error) {
     return (

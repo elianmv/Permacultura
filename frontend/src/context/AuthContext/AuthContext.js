@@ -28,8 +28,7 @@ export function AuthProvider({ children }) {
        
         onLogin({message:result.message,status:false});
       }
-      console.log('user: ',user)
-      console.log(user)
+      
     });
    
   };
