@@ -40,26 +40,26 @@ const addplato = async () => {
   // getPlatos()
 
    console.log(tiempo, descripcion, precio, emailUser, servicio)
-  // const options = {
-  //   headers: { 'Content-Type': 'application/json' },
-  //   method: 'POST',
+  const options = {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
 
-  //   body: JSON.stringify({ tiempo, descripcion, precio, emailUser, servicio }),
-  // };
+    body: JSON.stringify({ tiempo, descripcion, precio, emailUser, servicio }),
+  };
 
-  // fetch(`http://localhost:8080/api/v1/serviceCreate/`,options) //full list of services
-  //     .then((response) => response.json())
-  //     .then((data) => {
+  fetch(`http://localhost:8080/api/v1/serviceCreate`,options) //full list of services
+      .then((response) => response.json())
+      .then((data) => {
 
-  //       setIsLoaded(true);
-  //       setServices(data.response);
+        setIsLoaded(true);
+        setServices(data.response);
        
        
-  //     })
-  //     .catch((err) => {
-  //       setIsLoaded(true);
-  //       setError(err);
-  //     });
+      })
+      .catch((err) => {
+        setIsLoaded(true);
+        setError(err);
+      });
 }  
 
 
@@ -116,8 +116,15 @@ const update = () => {
       .then((data) => {
 
         setIsLoaded(true);
-        setServices(data.response);
-       
+        
+        Swal.fire(
+          
+          {
+           icon: 'success',
+           title: 'Su servicio fue actualizado con exito',
+           showConfirmButton: false,
+           timer: 1500
+         })
        
       })
       .catch((err) => {
@@ -232,7 +239,7 @@ const update = () => {
         
        
 
-{services?<><Form.Select aria-label="Default select example" value={servicio}  onChange = {(e) => setServicio(e)}  >
+{services?<><Form.Select aria-label="Default select example" value={servicio}  onChange = {(e) => setServicio(e.target.value)}  >
 <option >Servicio</option>
   {services.map((item, index) => (
 

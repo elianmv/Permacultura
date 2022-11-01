@@ -43,7 +43,7 @@ const persons = (pool, req, callback) => {
 };
 
 const services = (pool, req, callback) => {
-  let query = `SELECT name FROM servicio`;
+  let query = `SELECT id ,name FROM servicio`;
   pool.getConnection((error, connection) => {
     if (error) throw error;
 
