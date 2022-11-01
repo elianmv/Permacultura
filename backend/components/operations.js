@@ -166,8 +166,10 @@ const register = async (pool, req, callback) => {
   if (!(password === passwordConfirm)) return "Contraseñas Incorrectas";
   const passwordHashed = await bcrypt.hash(password, 10);
   
-  let query = `INSERT INTO usuario (username,email,password,tipo_usuario_name)
-              values("${userName}","${email}","${passwordHashed}","${userType}")`;
+  let query = `SELECT servicio.name, publicacion.id, publicacion.precio, publicacion.description from publicacion 
+  join usuario on  usuario_id = usuario.id
+  join servicio on  servicio_id = servicio.id
+  where usuario.email = '${email}' `;
 
   pool.getConnection((error, connection) => {
     if (error) throw error;
@@ -186,20 +188,49 @@ const register = async (pool, req, callback) => {
 
 const servicesCreate = async (pool, req, callback) => {
   /*------- llamada al back con la condicion del email-----   */
-  let { userName, password, passwordConfirm, email, userType } = req.body;
+  let { id, tiempoEstimado, precio, email, description } = req.body;
   if (!(password === passwordConfirm)) return "Contraseñas Incorrectas";
   const passwordHashed = await bcrypt.hash(password, 10);
   
-  let query = `INSERT INTO usuario (username,email,password,tipo_usuario_name)
-              values("${userName}","${email}","${passwordHashed}","${userType}")`;
+  let query = `SELECT usuario.id  FROM usuario 
+  where email ='${email}'`;
 
   pool.getConnection((error, connection) => {
     if (error) callback(responseHttp.responseError("Bad Request"));
 
     connection.query(query, (error, result) => {
       if (error) callback(responseHttp.responseError("Bad Request"));
+      let objPerson = {
+        idPerson:'',
+        id, 
+        tiempoEstimado, 
+        precio, 
+        email, 
+        description
+      };
+     if(result){
+        objPerson.idPerson = result;
+        createServiceOfPerson(pool,objPerson, callback)};
+      connection.release();
+    });
+  });
+};
 
-      callback(responseHttp.responseCreated('Usuario Creado'));
+const createServiceOfPerson = async (pool, req, callback) => {
+  /*------- llamada al back con la condicion del email-----   */
+  let { idPerson ,id, tiempoEstimado, precio, description } = req.body;
+  
+  
+  let query = `insert into publicacion (tiempo_estimado, precio, usuario_id, servicio_id, description) 
+  values ('${tiempoEstimado}', '${precio}', '${idPerson}', '${id}', '${description}');`;
+
+  pool.getConnection((error, connection) => {
+    if (error) callback(responseHttp.responseError("Bad Request"));
+
+    connection.query(query, (error, result) => {
+      if (error) callback(responseHttp.responseError("Bad Request"));
+      
+      if (result) callback(responseHttp.responseCreated('Servicio Creado'));
       connection.release();
     });
   });
