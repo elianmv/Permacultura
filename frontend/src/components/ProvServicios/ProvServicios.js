@@ -47,7 +47,7 @@ const addplato = async () => {
     body: JSON.stringify({ tiempo, descripcion, precio, emailUser, servicio }),
   };
 
-  fetch(`http://localhost:8080/api/v1/serviceCreate`,options) //full list of services
+  fetch(`http://localhost:8080/api/v1/service`,options) //full list of services
       .then((response) => response.json())
       .then((data) => {
 
@@ -58,7 +58,15 @@ const addplato = async () => {
       })
       .catch((err) => {
         setIsLoaded(true);
-        setError(err);
+        Swal.fire(
+          
+          {
+           icon: 'warning',
+           title: 'Su servicio no pudo ser agregado, intente nuevamente',
+           showConfirmButton: false,
+           timer: 1500
+         })
+       
       });
 }  
 
