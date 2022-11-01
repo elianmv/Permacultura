@@ -172,7 +172,7 @@ const register = async (pool, req, callback) => {
     if (error) throw error;
 
     connection.query(query, (error, result) => {
-      if (error) throw error;
+      if (error) console.log(error);
 
       callback(responseHttp.responseCreated('Usuario Creado'));
       connection.release();
@@ -181,7 +181,26 @@ const register = async (pool, req, callback) => {
 };
 
 
+const servicesCreate = async (pool, req, callback) => {
+  /*------- llamada al back con la condicion del email-----   */
+  let { userName, password, passwordConfirm, email, userType } = req.body;
+  if (!(password === passwordConfirm)) return "Contraseñas Incorrectas";
+  const passwordHashed = await bcrypt.hash(password, 10);
+  
+  let query = `INSERT INTO usuario (username,email,password,tipo_usuario_name)
+              values("${userName}","${email}","${passwordHashed}","${userType}")`;
 
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
+
+    connection.query(query, (error, result) => {
+      if (error) throw error;
+
+      callback(responseHttp.responseCreated('Usuario Creado'));
+      connection.release();
+    });
+  });
+};
 
 
 const updateRegister =  (pool,req, callback) => {
@@ -323,5 +342,6 @@ module.exports = {
   cities,
   provServicios,
   publicaciones,
-  editService
+  editService,
+  servicesCreate
 };

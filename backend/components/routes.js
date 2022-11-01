@@ -2,7 +2,9 @@ const express = require('express');
 const routes = express.Router()
 const { login, publicaciones, register, 
         updateRegister,persons,
-        deletePerson,deleteService,cities, provServicios, services, editService } = require('./operations')
+        deletePerson,deleteService,cities,
+         provServicios, services, editService,
+         servicesCreate } = require('./operations')
 const { pool } = require('../config/connect')
 
 
@@ -49,6 +51,12 @@ routes.post('/login',(req,res) => {
 
 routes.post('/register',(req,res) => {
     register(pool,req,result => {
+        res.json(result)
+    })
+})
+
+routes.post('/services',(req,res) => {
+    servicesCreate(pool,req,result => {
         res.json(result)
     })
 })
