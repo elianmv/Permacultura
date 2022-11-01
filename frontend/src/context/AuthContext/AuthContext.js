@@ -46,6 +46,9 @@ export function AuthProvider({ children }) {
    
   };
 
+
+  
+
   const logout = (onLogout: Function) => {
     LoginService.logout(user.username).then(() => {
       setUser(null);

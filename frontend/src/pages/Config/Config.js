@@ -20,7 +20,7 @@ export function Config() {
   const [passwordError, setPasswordError] = useState(false);
   const [userType, setuserType] = useState("cli");
   const [name, setName] = useState(user.response[0].name);
- 
+  const [emailUser, setEmailUser] = useState(user.response[0].email);
   const [lastName, setLastName] = useState(user.response[0].lastname);
   const [phone, setPhone] = useState(user.response[0].phone);
 
@@ -85,63 +85,61 @@ export function Config() {
     ({ value }) => value === "cli"
   );
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = () => {
     // event.preventDefault();
-    let check = false;
-    if (passwordError === true) return alert("Contraseña Invalida");
-    const formData = new FormData(event.currentTarget);
-    const userName = formData.get("userName");
-    const password = formData.get("password");
-    const passwordConfirm = formData.get("passwordConfirm");
-    const email = formData.get("email");
+    console.log(country, city, dni, name, lastName, phone, street ,number, emailUser)
 
-
-
-
-
-    if (password !== passwordConfirm) {
-      Swal.fire({
-        icon: "warning",
-        title: "Oops...",
-        text: "La contraseña no coincide!",
-        footer: "Pruebe nuevamente",
-        showConfirmButton: false,
-        timer: 2500,
-      });
-
-      if (!password || !passwordConfirm || !userName) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Debe completar todos los campos requeridos",
-          footer: "Pruebe nuevamente",
-          showConfirmButton: false,
-          timer: 2500,
+    const options = {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PUT',
+  
+      body: JSON.stringify({ country, city, dni, name, lastName, phone, street ,number, emailUser }),
+    };
+  
+    fetch(`http://localhost:8080/api/v1/editServices/${emailUser}`,options) //full list of services
+        .then((response) => response.json())
+        .then((data) => {
+  
+          setIsLoaded(true);
+          
+          Swal.fire(
+            
+            {
+             icon: 'success',
+             title: 'Sus datos fueron actualizados con exito',
+             showConfirmButton: false,
+             timer: 1500
+           })
+         
+        })
+        .catch((err) => {
+          setIsLoaded(true);
+          setError(err);
         });
-      }
+  
     }
 
     
 
-    auth.update(
-      { dni, name, lastName, email, phone, userType },
-      (respon) => {
-        if (respon.status) {
+    // auth.update(
+    //   { dni, name, lastName, email, phone, userType },
+    //   (respon) => {
+    //     if (respon.status) {
 
-          return alert("Los datos fueron actualizados con exito");
-        } else {
-          return alert(respon.message);
-        }
-        // Send them back to the page they tried to visit when they were
-        // redirected to the login page. Use { replace: true } so we don't create
-        // another entry in the history stack for the login page.  This means that
-        // when they get to the protected page and click the back button, they
-        // won't end up back on the login page, which is also really nice for the
-        // user experience.
-      }
-    );
+    //       return alert("Los datos fueron actualizados con exito");
+    //     } else {
+    //       return alert(respon.message);
+    //     }
+    //     // Send them back to the page they tried to visit when they were
+    //     // redirected to the login page. Use { replace: true } so we don't create
+    //     // another entry in the history stack for the login page.  This means that
+    //     // when they get to the protected page and click the back button, they
+    //     // won't end up back on the login page, which is also really nice for the
+    //     // user experience.
+    //   }
+    // );
 
-  };
+  
 
   return (
     <>
@@ -152,7 +150,7 @@ export function Config() {
           <div className="content-register">
             <h2 className="title-register">Actualice sus Datos</h2>{" "}
             {/* form */}
-            <Form onSubmit={onSubmit} className="table-config">
+            <Form  className="table-config">
 
               <div className="input-group">
                 <span className="input-group-text">Nombre</span>
@@ -272,8 +270,9 @@ export function Config() {
               </div> }
               <div>
                 <Button
-                  type="submit"
+                
                   variant="outline-success"
+                  onClick={onSubmit}
                 >
                   Registrar
                 </Button>{" "}
