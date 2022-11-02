@@ -107,13 +107,14 @@ const viewCountry =  (pool,req,callback) => {
   //-----------------------//
 
   
-
+  
   const insertDireccion = (pool,req) => {
+    console.log(req)
     return new Promise((resolve, reject) => {
-    let { cPostal,calle,numero } = req;
+    let { city,street,number } = req;
     
     let query = `INSERT INTO direccion (street,number,ciudad_zip_code)
-                 values ("${calle}","${parseInt(numero)}","${parseInt(cPostal)}") `;
+                 values ("${street}","${parseInt(number)}","${parseInt(city)}") `;
   
     pool.getConnection((error, connection) => {
       if (error) reject(error);

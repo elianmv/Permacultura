@@ -4,6 +4,9 @@ import { Menu } from "../../components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../../context";
 import "./About.css";
+import juan from '../../assets/images/juan.jpeg';
+import franco from '../../assets/images/franco.jpeg';
+import elian from '../../assets/images/elian.jpeg';
 
 export function About() {
   
@@ -18,17 +21,11 @@ export function About() {
         <div>
           <p>
             El nacimiento de lo que hoy se conoce como SyCas Permacultura 
-            se remonta al año 2019 cuando un grupo de novatos en el desarrollo
+            se remonta al año 2019 cuando un grupo estudiantes
             se aventuran poner en practica cada experiencia que fueron recibiendo, para
             desarrollar la actividad que mas disfrutaban en sus vidas: EL
-            DESARROLLO DE SOFTWARE . En su comienzo el objetivo era muy
-            humilde: tener una pequeña librería de COMPRA-VENTA-CANJE de libros
-            y revistas usadas con la cual lograr dos de las mas importantes
-            necesidades básicas planteadas en ese momento que eran subsistir y
-            hacer algo placentero que justificara la existencia en la tierra. Y
-            como toda buena librería de compra-venta y canje de libros usados de
-            Buenos Aires, echaron raíces en una vieja galería del centro
-            comercial de la ciudad de MORON.
+            DESARROLLO DE SOFTWARE. Cada uno se siguio su camino y en este momento pudimos demostrar
+            todo lo aprendido tanto institucional como laboralmente!
           </p>
         </div>
         <div className="personas">
@@ -40,23 +37,26 @@ export function About() {
               <h2>Juan Arias</h2>
               <p>
                 {" "}
-                Es un economista e historiador económico venezolano. Ha estado
-                interesado desde la década de 1980 en la retórica de la
-                persuasión, particularmente de la economía y, más adelante, en
-                asuntos literarios más amplios tales como la teoría literaria y
-                la teoría social.
+                Desarrollador SAP UI5/Fiori, encaminado hacia el backend y apasionado por ayudar a encontrar y solucionar
+                conflictos en las aplicaciones. Rapido aprendizaje y
+                detallista a la hora de programar.
               </p>
             </div>
-            <img src="assets/personas/persona1.jpg" alt=""></img>
+            <img
+                  className="image-box right"
+                  src={juan}
+                  alt="ticas-permacultura" />
           </div>
           <div className="personas">
-            <img src="assets/personas/persona2.jpg" alt=""></img>
+          <img
+                  className="image-box right"
+                  src={franco}
+                  alt="ticas-permacultura" />
             <div className="text-p">
               <h2>Franco Mengochea</h2>
               <p>
-                Estela Sanchez es una escritora, crítica literaria y profesora
-                universitaria española. Desde 2017 es presidenta de la
-                asociación sobre género y cultura Clásicas y Modernas
+                Jugador de futbol de primera! Le gusta trabajar tando en diseño y front, como manipulando bases de datos.
+                Detallista y siempre dando ideas para mejorar la visual
               </p>
             </div>
           </div>
@@ -65,14 +65,14 @@ export function About() {
               <h2>Elian Vergara</h2>
               <p>
                 {" "}
-                Marquésa de Dalí de Púbol fue una pintora, escultora, grabadora,
-                escenógrafa y escritora española del siglo XXI. Se le considera
-                uno de los máximos representantes del surrealismo. Salvador Dalí
-                es conocido por sus impactantes y oníricas imágenes
-                surrealistas.
+                Consultor Cognos Analytics. Siempre investigando el uso de aplicaciones y buscando fallos. Trabajando en bases de datos
+                pero siempre tratando de mejorar en el front que es con lo que me entretengo haciendo
               </p>
             </div>
-            <img src="assets/personas/persona3.jpg" alt=""></img>
+            <img
+                  className="image-box right"
+                  src={elian}
+                  alt="ticas-permacultura" />
           </div>
           
         </div>

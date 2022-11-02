@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import { Usuarios } from '../../components/Usuarios';
 import { ProvServicios } from '../../components/ProvServicios';
 
+
 export function Config() {
   const { user } = useAuthContext()
   const [isLoaded, setIsLoaded] = useState(false);
@@ -87,7 +88,7 @@ export function Config() {
 
   const onSubmit = () => {
     // event.preventDefault();
-    console.log(country, city, dni, name, lastName, phone, street ,number, emailUser)
+
 
     const options = {
       headers: { 'Content-Type': 'application/json' },
@@ -99,17 +100,30 @@ export function Config() {
     fetch(`http://localhost:8080/api/v1/updateRegister/${emailUser}`,options) //full list of services
         .then((response) => response.json())
         .then((data) => {
-  
+          console.log(data)
           setIsLoaded(true);
           
-          Swal.fire(
-            
+          
+            if (data.message === 'Datos actualizados'){
+            Swal.fire(
             {
+
              icon: 'success',
              title: 'Sus datos fueron actualizados con exito',
              showConfirmButton: false,
              timer: 1500
            })
+          }
+          else {
+            Swal.fire(
+              {
+  
+               icon: 'warning',
+               title: 'Debe completar todos los campos de ciudad',
+               showConfirmButton: false,
+               timer: 1500
+             })
+          }
          
         })
         .catch((err) => {
@@ -222,7 +236,7 @@ export function Config() {
                  <span className="input-group-text">Ciudad</span>
 
                 <Form.Select aria-label="Default select example" value={city}  onChange = {(e) => setCity(e.target.value)}  >
-                
+                <option >Seleccione su ciudad</option>
                   {cities.map((item, index) => (
          
          
