@@ -237,19 +237,20 @@ const createServiceOfPerson = async (pool, req, callback) => {
 
 
 const updateRegister =  (pool,req, callback) => {
-  console.log(req.params)
-  let { email } = req.params
+  console.log(req.body)
+  let { emailUser } = req.params
   /*------- llamada al back para traer Id más grande-----   */ 
   let { dni,name,lastName,phone } = req.body;
-  let { direccion,calle,numero,cPostal,nameCiudad,namePais } = req.body;
+  let { direccion,street,number,cPostal,city,country } = req.body;
   let ciudad = {
-    nameCiudad,cPostal,namePais
+    city,cPostal,country
   }
   let direcPerson = {
-    cPostal,calle,numero
+    cPostal,street,number
   }
 
   insertDireccion(pool,direcPerson).then(resp => {
+    console.log(resp)
     if(resp.message === 'Creado'){
       let idDireccion = resp.response.insertId;
       let query = `UPDATE usuario SET 
@@ -258,8 +259,8 @@ const updateRegister =  (pool,req, callback) => {
                     name = "${name}",
                     phone = "${phone}",
                     direccion_id = "${idDireccion}"
-                    WHERE email = "${email}"`;
-                console.log(idDireccion, dni, name, lastName, phone,  email)
+                    WHERE email = "${emailUser}"`;
+                console.log(idDireccion, dni, name, lastName, phone,  emailUser)
         pool.getConnection((error, connection) => {
           if (error) callback(responseHttp.responseError("Bad Request"));
 
