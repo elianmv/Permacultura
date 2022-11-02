@@ -237,7 +237,8 @@ const createServiceOfPerson = async (pool, req, callback) => {
 
 
 const updateRegister =  (pool,req, callback) => {
-  console.log(req)
+  console.log(req.params)
+  let { email } = req.params
   /*------- llamada al back para traer Id más grande-----   */ 
   let { dni,name,lastName,phone } = req.body;
   let { direccion,calle,numero,cPostal,nameCiudad,namePais } = req.body;
