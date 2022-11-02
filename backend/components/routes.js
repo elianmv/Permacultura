@@ -61,7 +61,7 @@ routes.post('/services',(req,res) => {
     })
 })
 
-routes.post('/updateRegister',(req,res) => {
+routes.put('/updateRegister/:email',(req,res) => {
     updateRegister(pool,req,result => {
         res.json(result)
     })
