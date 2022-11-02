@@ -96,7 +96,7 @@ export function Config() {
       body: JSON.stringify({ country, city, dni, name, lastName, phone, street ,number, emailUser }),
     };
   
-    fetch(`http://localhost:8080/api/v1/editServices/${emailUser}`,options) //full list of services
+    fetch(`http://localhost:8080/api/v1/updateRegister/${emailUser}`,options) //full list of services
         .then((response) => response.json())
         .then((data) => {
   

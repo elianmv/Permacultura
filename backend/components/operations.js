@@ -188,12 +188,12 @@ const register = async (pool, req, callback) => {
 
 const servicesCreate = async (pool, req, callback) => {
   /*------- llamada al back con la condicion del email-----   */
-  let { id, tiempoEstimado, precio, email, description } = req.body;
-  if (!(password === passwordConfirm)) return "Contraseñas Incorrectas";
-  const passwordHashed = await bcrypt.hash(password, 10);
   
+  let { servicio, tiempo, precio, emailUser, descripcion } = req.body;
+  
+ 
   let query = `SELECT usuario.id  FROM usuario 
-  where email ='${email}'`;
+  where email ='${emailUser}'`;
 
   pool.getConnection((error, connection) => {
     if (error) callback(responseHttp.responseError("Bad Request"));
@@ -202,14 +202,15 @@ const servicesCreate = async (pool, req, callback) => {
       if (error) callback(responseHttp.responseError("Bad Request"));
       let objPerson = {
         idPerson:'',
-        id, 
-        tiempoEstimado, 
+        servicio, 
+        tiempo, 
         precio, 
-        email, 
-        description
+        emailUser, 
+        descripcion
       };
      if(result){
-        objPerson.idPerson = result;
+        objPerson.idPerson = result[0].id;
+        
         createServiceOfPerson(pool,objPerson, callback)};
       connection.release();
     });
@@ -218,15 +219,16 @@ const servicesCreate = async (pool, req, callback) => {
 
 const createServiceOfPerson = async (pool, req, callback) => {
   /*------- llamada al back con la condicion del email-----   */
-  let { idPerson ,id, tiempoEstimado, precio, description } = req.body;
   
+  // let { idPerson ,servicio, tiempo, precio, descripcion } = req.body;
+
   
   let query = `insert into publicacion (tiempo_estimado, precio, usuario_id, servicio_id, description) 
-  values ('${tiempoEstimado}', '${precio}', '${idPerson}', '${id}', '${description}');`;
+  values ('${req.tiempo}', '${req.precio}', '${req.idPerson}', '${req.servicio}', '${req.descripcion}');`;
 
   pool.getConnection((error, connection) => {
     if (error) callback(responseHttp.responseError("Bad Request"));
-
+ 
     connection.query(query, (error, result) => {
       if (error) callback(responseHttp.responseError("Bad Request"));
       
@@ -253,20 +255,22 @@ const updateRegister =  (pool,req, callback) => {
     if(resp.message === 'Creado'){
       let idDireccion = resp.response.insertId;
       let query = `UPDATE usuario SET 
+                    dni = "${dni}",
                     lastname = "${lastName}",
                     name = "${name}",
                     phone = "${phone}",
                     direccion_id = "${idDireccion}"
                     WHERE email = "${email}"`;
-
+                console.log(idDireccion, dni, name, lastName, phone,  email)
         pool.getConnection((error, connection) => {
           if (error) callback(responseHttp.responseError("Bad Request"));
 
           connection.query(query, (error, result) => {
             if (error) throw error;
-
+            console.log(result)
             callback(responseHttp.responseCreated('Usuario Creado'));
             connection.release();
+
           });
         });
       

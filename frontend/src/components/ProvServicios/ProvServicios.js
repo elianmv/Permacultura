@@ -31,13 +31,7 @@ const [userToDelete,setuserToDelete]= useState ('');
 
 
 const addplato = async () => {
-  // let obj = { nombre, precio, ingredientes } 
-  // const res = await axios.post(URL, obj) 
-  // console.log(res.data)
-  // setNombre('')
-  // setprecio('')
-  // setIngredientes('')
-  // getPlatos()
+
 
    console.log(tiempo, descripcion, precio, emailUser, servicio)
   const options = {
@@ -47,13 +41,21 @@ const addplato = async () => {
     body: JSON.stringify({ tiempo, descripcion, precio, emailUser, servicio }),
   };
 
-  fetch(`http://localhost:8080/api/v1/service`,options) //full list of services
+  fetch(`http://localhost:8080/api/v1/services`,options) //full list of services
       .then((response) => response.json())
       .then((data) => {
 
         setIsLoaded(true);
-        setServices(data.response);
+        Swal.fire(
+          
+          {
+           icon: 'success',
+           title: 'Su servicio fue agregado con exito',
+           showConfirmButton: false,
+           timer: 1500
+         })
        
+      
        
       })
       .catch((err) => {
