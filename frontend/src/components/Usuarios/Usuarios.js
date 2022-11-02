@@ -103,10 +103,12 @@ const onSubmit = () => {
     }
   }
 
- 
+  console.log(userName, password, passwordConfirm, email, userType)
   auth.register(
+    
     { userName, password, passwordConfirm, email, userType },
     (respon) => {
+      console.log(respon.message)
       if (respon.message === "Usuario Creado") {
         setIsAdd(true)
         Swal.fire({
@@ -125,7 +127,7 @@ const onSubmit = () => {
          Swal.fire({
           icon: "warning",
           
-          text: "Correo electronico en uso",
+          text: "Correo electronico o nombre de usuario en uso",
          
           showConfirmButton: false,
           timer: 2500,

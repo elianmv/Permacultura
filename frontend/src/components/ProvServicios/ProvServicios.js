@@ -31,7 +31,13 @@ const [userToDelete,setuserToDelete]= useState ('');
 
 
 const addplato = async () => {
-
+  // let obj = { nombre, precio, ingredientes } 
+  // const res = await axios.post(URL, obj) 
+  // console.log(res.data)
+  // setNombre('')
+  // setprecio('')
+  // setIngredientes('')
+  // getPlatos()
 
    console.log(tiempo, descripcion, precio, emailUser, servicio)
   const options = {

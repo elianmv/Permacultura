@@ -166,11 +166,8 @@ const register = async (pool, req, callback) => {
   if (!(password === passwordConfirm)) return "Contraseñas Incorrectas";
   const passwordHashed = await bcrypt.hash(password, 10);
   
-  let query = `SELECT servicio.name, publicacion.id, publicacion.precio, publicacion.description from publicacion 
-  join usuario on  usuario_id = usuario.id
-  join servicio on  servicio_id = servicio.id
-  where usuario.email = '${email}' `;
-
+  let query = `INSERT INTO usuario (username,email,password,tipo_usuario_name)
+              values("${userName}","${email}","${passwordHashed}","${userType}")`;
   pool.getConnection((error, connection) => {
     if (error) throw error;
 
@@ -222,7 +219,7 @@ const createServiceOfPerson = async (pool, req, callback) => {
   
   // let { idPerson ,servicio, tiempo, precio, descripcion } = req.body;
 
-  
+ 
   let query = `insert into publicacion (tiempo_estimado, precio, usuario_id, servicio_id, description) 
   values ('${req.tiempo}', '${req.precio}', '${req.idPerson}', '${req.servicio}', '${req.descripcion}');`;
 
@@ -240,7 +237,7 @@ const createServiceOfPerson = async (pool, req, callback) => {
 
 
 const updateRegister =  (pool,req, callback) => {
-  
+  console.log(req)
   /*------- llamada al back para traer Id más grande-----   */ 
   let { dni,name,lastName,phone } = req.body;
   let { direccion,calle,numero,cPostal,nameCiudad,namePais } = req.body;
