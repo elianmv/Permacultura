@@ -1,6 +1,6 @@
 const express = require('express');
 const routes = express.Router()
-const { login, servicios, register } = require('./operations')
+const { login, servicios, register, updateRegister } = require('./operations')
 const { pool } = require('../config/connect')
 
 
@@ -22,8 +22,8 @@ routes.post('/register',(req,res) => {
     })
 })
 
-routes.put('/Person',(req,res) => {
-    login(pool,req,result => {
+routes.put('/updateRegister',(req,res) => {
+    updateRegister(pool,req,result => {
         res.json(result)
     })
 })

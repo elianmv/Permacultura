@@ -6,8 +6,9 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { AuthProvider, useAuthContext } from './context';
-import { Home, Login, NotFound, Private, Register } from './pages';
+import { Home, Login, NotFound, Private, Register, Config } from './pages';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
@@ -31,6 +32,18 @@ function App() {
                 <Private />
               </Authenticate>
             }
+            
+          />
+          <Route
+            exact
+            string
+            path="/config"
+            element={
+              <Authenticate>
+                <Config />
+              </Authenticate>
+            }
+            
           />
           {/* 
             Using path="*"" means "match anything", so this route 

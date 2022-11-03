@@ -1,32 +1,28 @@
 
 
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@800&display=swap');
 
 .Menu {
+  background-color: rgb(121, 202, 117);
+  box-shadow: 0 2px 5px 0 #00000042;
 
-  background-color: #03f427;
-  box-shadow: 0 2px 5px 0 #4405056b;
-  margin-bottom: 16px;
- display: flex;
- flex-direction: column;
- padding-left: 2%;
- padding-right: 2%;
-
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 20px;
 }
 
 .Menu ul {
- 
-  display: flex;
+  display: block;
   list-style-type: none;
   margin: 0;
   padding: 0;
-  align-items: center;
-  align-content: flex-end;
-  justify-content: flex-end;
 }
 
 .Menu li {
   color: #def1f0;
   display: inline-block;
+  font-family: 'Tajawal', sans-serif;
   font-size: 14;
   list-style-type: none;
   margin: 0;
@@ -34,7 +30,8 @@
   position: relative;
 }
 
-.Menu li a {
+.Menu li a,
+#username {
   color: #def1f0;
   display: inline-block;
   font-size: 12px;
@@ -45,8 +42,25 @@
   text-decoration: none;
   text-transform: uppercase;
 }
+#username {
+  padding: 0;
+}
 
-.Menu li:hover a {
-  background-color: #61b8f6;
-  color: white;
+#username a {
+  color: #def1f0;
+}
+
+.dropdown-menu,
+.username-item {
+  
+  padding: 0 !important;
+}
+
+.menu-item:hover,
+#username:hover {
+  background-color: rgb(39, 211, 56);
+}
+
+.username-item{
+  background-color: rgb(121, 202, 117);
 }
