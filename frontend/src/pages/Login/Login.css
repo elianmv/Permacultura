@@ -134,16 +134,17 @@
 
 .form-reg .button-reg{
    
-    margin:20px;
+    /* margin:20px;
     padding: 5px;
     width: 200px;
     height: 40px;
     border: 1px solid ;
     border-radius: 25px;
-    margin-left: 25vh;
+    margin-left: 25vh; */
 }
 .button-reg {
-    
+    height: 30px;
+    bottom: 10px;
     font-family: 'Kalam', cursive;
     font-size:large;
     background-color:transparent;
@@ -168,7 +169,7 @@
 #icon{
     position: absolute;
     display: block;
-    margin-top: -40px;
+    margin-top: -70px;
     margin-left: -250px;
     user-select: none;
     cursor: pointer;
@@ -176,7 +177,7 @@
   #icon-pssw {
     position: absolute;
     display: block;
-    margin-top: 80px;
+    margin-top: 45px;
     margin-left: -250px;
     user-select: none;
     cursor: pointer;
@@ -185,7 +186,7 @@
   #icon-err{
     position: absolute;
     display: block;
-    margin-top: 40px;
+    margin-top: -90px;
     margin-left: -250px;
     user-select: none;
     cursor: pointer;
@@ -193,7 +194,7 @@
   #icon-pssw-err {
     position: absolute;
     display: block;
-    margin-top: 160px;
+    margin-top: 30px;
     margin-left: -250px;
     user-select: none;
     cursor: pointer;

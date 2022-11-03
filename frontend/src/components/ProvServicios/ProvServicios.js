@@ -29,7 +29,7 @@ export function ProvServicios() {
 const [isDelete,setIsDelete]= useState ();
 const [userToDelete,setuserToDelete]= useState ('');
 
-
+console.log(user)
 const addplato = async () => {
   // let obj = { nombre, precio, ingredientes } 
   // const res = await axios.post(URL, obj) 

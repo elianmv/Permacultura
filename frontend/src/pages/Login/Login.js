@@ -78,15 +78,15 @@ export function Login() {
 
   return (
     <>
-      <div className="form-reg" >
+      {/* <div className="form-reg" >
         <button className="button-reg"
         onClick={onRegister}>
           
           Registrese
         </button>
-      </div>
+      </div> */}
       <div id="div-login" >
-
+      
         <form id="form-login" onSubmit={onSubmit}  >
 
 
@@ -126,9 +126,13 @@ export function Login() {
           <button className="button-login" type="submit">
             Login
           </button>
-
+          <button className="button-reg"
+        onClick={onRegister}>
+          
+          Registrese
+        </button>
         </form>
-
+       
       </div>
     </>
   );
