@@ -127,6 +127,31 @@
     border:none;
     outline: none;
 }
+
+.button-reg:hover {
+    background-color: #2ec05000;
+}
+
+.form-reg .button-reg{
+   
+    margin:20px;
+    padding: 5px;
+    width: 200px;
+    height: 40px;
+    border: 1px solid ;
+    border-radius: 25px;
+    margin-left: 25vh;
+}
+.button-reg {
+    
+    font-family: 'Kalam', cursive;
+    font-size:large;
+    background-color:transparent;
+    border:none;
+    outline: none;
+}
+
+
 .input-login::placeholder {
     font-family: 'Kalam', cursive;
     font-size: 20px;

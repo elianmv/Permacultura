@@ -28,6 +28,11 @@ export function Login() {
     }
   };
 
+  const onRegister = ()=>{
+    const from = location.state?.from?.pathname || "/register";
+    navigate(from, { replace: true });
+  }
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let check = false;
@@ -35,51 +40,60 @@ export function Login() {
     const formData = new FormData(event.currentTarget);
     const username = formData.get("username");
     const password = formData.get("password");
-   
-   
+
+
     // json.map((element) => {
     //   if (element.user === username && element.passw === password) {
     //     check = true;
-        auth.login({ username, password }, (respon) => {
-          console.log(respon)
-          if(respon.status){
-            
-            const from = location.state?.from?.pathname || "/";
-            navigate(from, { replace: true });
-            
-          }else{
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Los datos ingresados no son correctos",
-              footer: "Pruebe nuevamente",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            
-          }
-          // Send them back to the page they tried to visit when they were
-          // redirected to the login page. Use { replace: true } so we don't create
-          // another entry in the history stack for the login page.  This means that
-          // when they get to the protected page and click the back button, they
-          // won't end up back on the login page, which is also really nice for the
-          // user experience.
-         
+    auth.login({ username, password }, (respon) => {
+      console.log(respon)
+      if (respon.status) {
+
+        const from = location.state?.from?.pathname || "/";
+        navigate(from, { replace: true });
+
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Los datos ingresados no son correctos",
+          footer: "Pruebe nuevamente",
+          showConfirmButton: false,
+          timer: 1500,
         });
-      // }
+
+      }
+      // Send them back to the page they tried to visit when they were
+      // redirected to the login page. Use { replace: true } so we don't create
+      // another entry in the history stack for the login page.  This means that
+      // when they get to the protected page and click the back button, they
+      // won't end up back on the login page, which is also really nice for the
+      // user experience.
+
+    });
+    // }
     // });
     // if(!check) return alert("Contraseña Invalida");
   };
 
   return (
-    <div id="div-login" >
-      
-        <form id="form-login" onSubmit={onSubmit}  >
+    <>
+      <div className="form-reg" >
+        <button className="button-reg"
+        onClick={onRegister}>
           
+          Registrese
+        </button>
+      </div>
+      <div id="div-login" >
+
+        <form id="form-login" onSubmit={onSubmit}  >
+
+
           <h1>SyCAS</h1>
           <h4>Servicios y Capacitaciones de Ambientes Sustentables</h4>
-         
-          
+
+
           <h3 id="titulo-login">¡Bienvenido!</h3>
           <span className="icon" id={passwordError ? "icon-err" : "icon"}>
             <FontAwesomeIcon icon={faEnvelope} />
@@ -95,7 +109,7 @@ export function Login() {
             />
           </div>
           <span className="icon-pssw" id={passwordError ? "icon-pssw-err" : "icon-pssw"}>
-            <FontAwesomeIcon  icon={faKey} />
+            <FontAwesomeIcon icon={faKey} />
           </span>
 
           <div className="input-usuario" id="input-pw">
@@ -112,8 +126,10 @@ export function Login() {
           <button className="button-login" type="submit">
             Login
           </button>
+
         </form>
-      
-    </div>
+
+      </div>
+    </>
   );
 }
