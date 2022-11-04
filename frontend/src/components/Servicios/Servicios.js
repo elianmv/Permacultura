@@ -55,7 +55,7 @@ console.log("data" ,data.response)
       
       <div className='services-container'>
         {services.response.map((item, index) => (
-          <CardService key={index} item={item} />
+          <CardService key={index}  item={item} />
         ))}
       </div>
       </>);

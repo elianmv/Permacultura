@@ -42,6 +42,30 @@
   background-color:  rgb(2, 41, 8) !important;
 }
 
+.card-service{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50%;
+}
+
+ion-icon {
+  font-size:100px !important;
+}
+
+.proveedor {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  
+}
+
+.div-icon {
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+}
+
 @media screen and (max-width: 52em) {
   .center {
     max-width: 52em;

@@ -225,6 +225,7 @@ const onSubmit = () => {
   } else {
     return (
       <>
+      <div className='user_div'>
       <div className="col-md-9">
        
        <div className="card p-2 mt-3">
@@ -310,6 +311,7 @@ const onSubmit = () => {
     </Table>
         
         
+      </div>
       </div>
       </>
     );

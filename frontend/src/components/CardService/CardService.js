@@ -29,6 +29,15 @@ export function CardService({ item }) {
     })
   }
   return (
+    <div className='card-service'>
+      <div className='proveedor'>
+      <h4>Proveedor</h4>
+      <div className='div-icon'>
+      <ion-icon className='icon' name="person-outline"></ion-icon>
+      <h5>{item.nombre} {item.apellido}</h5>
+      </div>
+      </div>
+      
     <Card className='card'>
 
       <CardBody className='card-content'>
@@ -56,5 +65,6 @@ export function CardService({ item }) {
         </CardText>
       </CardBody>
     </Card>
+    </div>
   );
 }
