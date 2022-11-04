@@ -53,6 +53,7 @@ export function CardService({ item }) {
               <Accordion.Body>Publicado por {item.nombre} {item.apellido}</Accordion.Body>
               <Accordion.Body> Email: {item.email}</Accordion.Body>
               <Accordion.Body>{item.description}</Accordion.Body>
+              <Accordion.Body>Semanas para finalización: {item.tiempo_estimado}</Accordion.Body>
               <Accordion.Body><Button
               
     color="success"

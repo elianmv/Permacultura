@@ -291,7 +291,7 @@ const update = () => {
       {!bandera? <spam>Tiempo Estimado</spam>: null }
 
            <input 
-           className="form-control mb-2"  placeholder="Tiempo estimado" 
+           className="form-control mb-2"  placeholder="Tiempo estimado (Semanas)" 
            value={tiempo}
            onChange={(e) => setTiempo(e.target.value)} 
           />
