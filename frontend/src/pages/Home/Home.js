@@ -1,18 +1,28 @@
 import { Carousel1, Menu } from '../../components';
 import { Carousel } from '../../components';
 import './Home.css';
-
+import { loremIpsum, name, surname, username } from 'react-lorem-ipsum';
+import Image from 'react-bootstrap/Image';
+import ticaspermacultura from '../../assets/images/ticaspermacultura.png';
 
 export function Home() {
+
+
   return (
 
     <div id="div-home">
+      
       <>
         <Menu />
       </>
-      <>
+      
+     
+      <h1 className='h1-title'>SyCas Permacultura</h1>
+      <h2 className='h1-title'>Bienvenidos</h2>
+      <div>
+      <div className='carousel-home'>
         <Carousel1 />
-      </>
+      </div>
       <div className="container">
         <div className="row">
           <div>
@@ -51,6 +61,7 @@ export function Home() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2022-09-26 13:17:45.495
+-- Last modification date: 2022-10-31 01:12:52.792
 
 -- tables
 -- Table: categoria
@@ -69,22 +69,27 @@ CREATE TABLE usuario (
     phone varchar(255) NULL,
     tipo_usuario_name varchar(255) NOT NULL,
     direccion_id int NULL,
-    UNIQUE INDEX unique_uname_email (username,email),
+    UNIQUE INDEX unique_email (email),
+    UNIQUE INDEX usuario_username (username),
     CONSTRAINT usuario_pk PRIMARY KEY (id)
 );
 
 -- foreign keys
 -- Reference: ciudad_pais (table: ciudad)
 ALTER TABLE ciudad ADD CONSTRAINT ciudad_pais FOREIGN KEY ciudad_pais (pais_name)
-    REFERENCES pais (name);
+    REFERENCES pais (name)
+    ON UPDATE CASCADE;
 
 -- Reference: direccion_ciudad (table: direccion)
 ALTER TABLE direccion ADD CONSTRAINT direccion_ciudad FOREIGN KEY direccion_ciudad (ciudad_zip_code)
-    REFERENCES ciudad (zip_code);
+    REFERENCES ciudad (zip_code)
+    ON UPDATE CASCADE;
 
 -- Reference: proveedor_usuario (table: publicacion)
 ALTER TABLE publicacion ADD CONSTRAINT proveedor_usuario FOREIGN KEY proveedor_usuario (usuario_id)
-    REFERENCES usuario (id);
+    REFERENCES usuario (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 -- Reference: publicacion_servicio (table: publicacion)
 ALTER TABLE publicacion ADD CONSTRAINT publicacion_servicio FOREIGN KEY publicacion_servicio (servicio_id)
@@ -96,10 +101,13 @@ ALTER TABLE servicio ADD CONSTRAINT servicio_categoria FOREIGN KEY servicio_cate
 
 -- Reference: usuario_direccion (table: usuario)
 ALTER TABLE usuario ADD CONSTRAINT usuario_direccion FOREIGN KEY usuario_direccion (direccion_id)
-    REFERENCES direccion (id);
+    REFERENCES direccion (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 -- Reference: usuario_tipo_usuario (table: usuario)
 ALTER TABLE usuario ADD CONSTRAINT usuario_tipo_usuario FOREIGN KEY usuario_tipo_usuario (tipo_usuario_name)
-    REFERENCES tipo_usuario (name);
+    REFERENCES tipo_usuario (name)
+    ON UPDATE CASCADE;
 
 -- End of file.

@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const api = require('./config/api')
 require('dotenv').config();
-
+const cors = require('cors')
 app.use( (req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -18,7 +18,7 @@ app.use(
       extended: true,
     })
   );
-
+app.use(cors())
 app.use(express.json())
 
 app.use('/api/v1', api.v1)

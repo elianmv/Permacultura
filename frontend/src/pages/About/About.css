@@ -1,0 +1,168 @@
+/* Variables de colores */
+:root {
+  --color-verde: #408242;
+  --color-azul: #1a3a2b;
+  --color-medio: #7fb073;
+  --color-claro: #161d08;
+  --color-oscuro: #092f0d;
+}
+
+body {
+  font-family: "Fira Sans", sans-serif;
+}
+.personas h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Fira Sans", sans-serif;
+  font-size: 40px;
+  margin: 5%;
+  color: var(--color-claro);
+  
+}
+
+.proposite {
+  display: flex;
+  flex-direction: column;
+  
+  margin-top: 0;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 10%;
+}
+.proposite p{
+  font-size: 20px;
+}
+.personas {
+  background: url(../../image/permaculturabg-image.jpg);
+  background-repeat: no-repeat;
+  background-position: unset;
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 5%;
+  border-style: double;
+  border-color: var(--color-azul);
+  border-radius: 5px;
+  -webkit-box-shadow: -2px 3px 7px 2px rgba(0,0,0,0.78);
+  -moz-box-shadow: -2px 3px 7px 2px rgba(0,0,0,0.78);
+  box-shadow: -2px 3px 7px 2px rgba(0,0,0,0.78);
+}
+.text-p:hover {
+  font-size: 105%;
+}
+
+.picture div {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid var(--color-verde);
+  padding: 5%;
+  
+}
+.text-p {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border-style: double;
+  border-color: var(--color-azul);
+  margin: 5%;
+  background-color: var(--color-medio);
+  color: var(--color-oscuro);
+  
+}
+.picture img {
+  width: 350px;
+  margin-top: 5%;
+  border-style: double;
+  border-color: var(--color-azul);
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-medio);
+  color: var(--color-oscuro);
+  border-radius: 5px;
+  border: 2px solid var(--color-oscuro);
+  margin: 10%;
+  padding: 10%;
+  -webkit-box-shadow: -2px 3px 7px 2px rgba(0,0,0,0.78);
+-moz-box-shadow: -2px 3px 7px 2px rgba(0,0,0,0.78);
+box-shadow: -2px 3px 7px 2px rgba(0,0,0,0.78);
+}
+
+.info-logos li {
+  font-family: "Fira Sans", sans-serif;
+
+  display: inline;
+  color: var(--color-oscuro);
+}
+
+.info-logos li a {
+  display: inline;
+  padding: 2%;
+  justify-content: center;
+  color: var(--color-claro);
+  width: 10%;
+}
+ul.info-logos li a:hover {
+  color: var(--color-oscuro);
+}
+
+.about-us {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+  background: url(../../image/permaculturabg-image.jpg);
+  background-repeat: no-repeat;
+  background-position: unset;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.map {
+  border: 2px solid #05445e;
+}
+
+@media screen and (max-width: 800px) {
+  .picture div {
+    display: flex;
+
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .about-us {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .map {
+    width: 250px;
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .about-us {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .map {
+    
+    width: 150px;
+    height: 200px;
+  }
+}

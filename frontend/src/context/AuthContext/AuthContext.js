@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
   const login = ({ username, password }, onLogin: Function) => {
     LoginService.login(username, password).then((result) => {
       console.log(result)
-      if(result.message === 'login correcto'){
+      if(result.message === 'Login Correcto'){
         setUser(result);
         setUserLoggedIn(true)
         
@@ -28,8 +28,7 @@ export function AuthProvider({ children }) {
        
         onLogin({message:result.message,status:false});
       }
-      console.log('user: ',user)
-      console.log(user)
+      
     });
    
   };
@@ -46,6 +45,9 @@ export function AuthProvider({ children }) {
     });
    
   };
+
+
+  
 
   const logout = (onLogout: Function) => {
     LoginService.logout(user.username).then(() => {

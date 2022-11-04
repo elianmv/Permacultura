@@ -4,36 +4,55 @@ POST http://127.0.0.1:8080/api/v1/login HTTP/1.1
 Content-Type: application/json
 
 { 
-    "email":"joseg@gmail.com", 
-    "password":"12345678" 
+    "email":"jjag@gmail.com", 
+    "password":"1234" 
 }
 
 ###
 
-GET http://localhost:8080/api/v1/platos HTTP/1.1
+GET http://localhost:8080/api/v1/person HTTP/1.1
 Content-Type: application/json
 
 
 ###
 
-GET http://localhost:8080/api/v1/platos/63473deb75be4b19bc5c95d9 HTTP/1.1
+POST http://localhost:8080/api/v1/register HTTP/1.1
 Content-Type: application/json
 
+{ 
+    "userName":"juan",
+    "email":"jjag@gmail.com", 
+    "password":"1234",
+    "passwordConfirm":"1234",
+    "userType":"cli" 
+}
 
 ###
 
-GET http://localhost:8080/api/v1/platos/Asado HTTP/1.1
+GET http://localhost:8080/api/v1/servicios HTTP/1.1
 Content-Type: application/json
 
 ###
 
-DELETE  http://localhost:8080/api/v1/platos/Asado HTTP/1.1
+PUT  http://localhost:8080/api/v1/updateRegister/jjag@gmail.com HTTP/1.1
 Content-Type: application/json
 
+{ 
+    "name":"Juan",
+    "lastName":"Gabriel", 
+    "phone":"2494642350",
+    "dni":"33356859",
+    "direccion":"",
+    "calle":"Liniers",
+    "numero":"1779", 
+    "cPostal":"7000",
+    "nameCiudad":"Tandil",
+    "namePais":"Argentina " 
+}
 
 ###
 
-PUT  http://localhost:8080/api/v1/platos/Milas HTTP/1.1
+DELETE  http://localhost:8080/api/v1/deletePerson/lpunyer0@shareasale.com HTTP/1.1
 Content-Type: application/json
 
 {
@@ -41,3 +60,51 @@ Content-Type: application/json
     "value": 700,
     "ingredients": "Carne de Ternera"
 }
+###
+
+POST http://localhost:8080/api/v1/register HTTP/1.1
+Content-Type: application/json
+
+{ 
+    "userName":"juan",
+    "email":"jjag@gmail.com", 
+    "password":"1234",
+    "passwordConfirm":"1234",
+    "userType":"cli" 
+}
+
+###
+
+GET http://localhost:8080/api/v1/services HTTP/1.1
+Content-Type: application/json
+
+###
+###
+
+GET http://localhost:8080/api/v1/services/7 HTTP/1.1
+Content-Type: application/json
+
+###
+
+DELETE  http://localhost:8080/api/v1/deletePerson/blarn3@wikia.com HTTP/1.1
+Content-Type: application/json
+
+###
+ 
+DELETE  http://localhost:8080/api/v1/services/18 HTTP/1.1
+Content-Type: application/json
+
+
+###
+
+GET http://localhost:8080/api/v1/cities/Argentina HTTP/1.1
+Content-Type: application/json
+
+
+###
+
+
+GET http://localhost:8080/api/v1/publicaciones/foldfieldcherrym@cisco.com HTTP/1.1
+Content-Type: application/json
+
+###

@@ -1,34 +1,38 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu } from "../../components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../../context";
 import "./Config.css";
-// import InputRegister from "./Components/Input";
+// import App from "./Components/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import SwitchSelector from "react-switch-selector";
 import { Form, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { Usuarios } from '../../components/Usuarios';
+import { ProvServicios } from '../../components/ProvServicios';
+
 
 export function Config() {
   const { user } = useAuthContext()
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState(null);
   const [passwordError, setPasswordError] = useState(false);
   const [userType, setuserType] = useState("cli");
   const [name, setName] = useState(user.response[0].name);
-  const [userName, setUserName] = useState(user.response[0].username);
+  const [emailUser, setEmailUser] = useState(user.response[0].email);
   const [lastName, setLastName] = useState(user.response[0].lastname);
   const [phone, setPhone] = useState(user.response[0].phone);
-  const [email, setEmail] = useState(user.response[0].email);
+
   const [dni, setDni] = useState(user.response[0].dni);
-  // const [password, setPassword] = useState(user.response[0].password);
-  // const [passwordConfirm, setPasswordConfirm] = useState(user.response[0].password);
-  const [country, setCountry] = useState(user.response[0].country);
+
+  const [country, setCountry] = useState('Argentina');
   const [city, setCity] = useState(user.response[0].city);
   const [street, setStreet] = useState(user.response[0].street);
   const [number, setNumber] = useState(user.response[0].number);
   const auth = useAuthContext();
-
+  const [cities, setCities] = useState();
   const handleChange = (name, value) => {
     if (name === "password") {
       if (value.length < 3) {
@@ -38,6 +42,23 @@ export function Config() {
       }
     }
   };
+
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/api/v1/cities/${country}`) //full list of cities
+      .then((response) => response.json())
+      .then((data) => {
+       
+        setIsLoaded(true);
+        setCities(data.response);
+        
+       
+      })
+      .catch((err) => {
+        setIsLoaded(true);
+        setError(err);
+      });
+  }, [country]);
 
   const options = [
     {
@@ -65,61 +86,74 @@ export function Config() {
     ({ value }) => value === "cli"
   );
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = () => {
     // event.preventDefault();
-    let check = false;
-    if (passwordError === true) return alert("Contraseña Invalida");
-    const formData = new FormData(event.currentTarget);
-    const userName = formData.get("userName");
-    const password = formData.get("password");
-    const passwordConfirm = formData.get("passwordConfirm");
-    const email = formData.get("email");
 
 
-    console.log(userName, password, passwordConfirm, email, userType);
+    const options = {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PUT',
+  
+      body: JSON.stringify({ country, city, dni, name, lastName, phone, street ,number, emailUser }),
+    };
+  
+    fetch(`http://localhost:8080/api/v1/updateRegister/${emailUser}`,options) //full list of services
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          setIsLoaded(true);
+          
+          
+            if (data.message === 'Datos actualizados'){
+            Swal.fire(
+            {
 
-
-    if (password !== passwordConfirm) {
-      Swal.fire({
-        icon: "warning",
-        title: "Oops...",
-        text: "Passwords do not match!",
-        footer: "Try again",
-        showConfirmButton: false,
-        timer: 2500,
-      });
-
-      if (!password || !passwordConfirm || !userName) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "you have to complete the required fields",
-          footer: "Try again",
-          showConfirmButton: false,
-          timer: 2500,
+             icon: 'success',
+             title: 'Sus datos fueron actualizados con exito',
+             showConfirmButton: false,
+             timer: 1500
+           })
+          }
+          else {
+            Swal.fire(
+              {
+  
+               icon: 'warning',
+               title: 'Debe completar todos los campos de ciudad',
+               showConfirmButton: false,
+               timer: 1500
+             })
+          }
+         
+        })
+        .catch((err) => {
+          setIsLoaded(true);
+          setError(err);
         });
-      }
+  
     }
 
-    auth.update(
-      { dni, name, lastName, userName, password, passwordConfirm, email, phone, userType },
-      (respon) => {
-        if (respon.status) {
+    
 
-          return alert("Los datos fueron actualizados con exito");
-        } else {
-          return alert(respon.message);
-        }
-        // Send them back to the page they tried to visit when they were
-        // redirected to the login page. Use { replace: true } so we don't create
-        // another entry in the history stack for the login page.  This means that
-        // when they get to the protected page and click the back button, they
-        // won't end up back on the login page, which is also really nice for the
-        // user experience.
-      }
-    );
+    // auth.update(
+    //   { dni, name, lastName, email, phone, userType },
+    //   (respon) => {
+    //     if (respon.status) {
 
-  };
+    //       return alert("Los datos fueron actualizados con exito");
+    //     } else {
+    //       return alert(respon.message);
+    //     }
+    //     // Send them back to the page they tried to visit when they were
+    //     // redirected to the login page. Use { replace: true } so we don't create
+    //     // another entry in the history stack for the login page.  This means that
+    //     // when they get to the protected page and click the back button, they
+    //     // won't end up back on the login page, which is also really nice for the
+    //     // user experience.
+    //   }
+    // );
+
+  
 
   return (
     <>
@@ -130,7 +164,7 @@ export function Config() {
           <div className="content-register">
             <h2 className="title-register">Actualice sus Datos</h2>{" "}
             {/* form */}
-            <Form onSubmit={onSubmit} className="table-config">
+            <Form  className="table-config">
 
               <div className="input-group">
                 <span className="input-group-text">Nombre</span>
@@ -197,21 +231,21 @@ export function Config() {
                   <option value="Uruguay">Uruguay</option>
 
 
-                </Form.Select>
+               </Form.Select>
+               { cities? <>
+                 <span className="input-group-text">Ciudad</span>
 
-                <span className="input-group-text">Ciudad</span>
+                <Form.Select aria-label="Default select example" value={city}  onChange = {(e) => setCity(e.target.value)}  >
+                <option >Seleccione su ciudad</option>
+                  {cities.map((item, index) => (
+         
+         
+             <option value={item.zip_code}>{item.name}</option>
+          
+           ))} </Form.Select>
+           </> : null } 
 
-
-
-                <input
-                  type="text"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  aria-label="city"
-                  name="city"
-                  className="form-control"
-                  placeholder="Opcional"
-                />
+                
               </div>
               <div className="input-group">
                 <span className="input-group-text">Calle</span>
@@ -237,7 +271,7 @@ export function Config() {
                   placeholder="Opcional"
                 />
               </div>
-
+              {user.response[0].tipo_usuario_name === 'cli'? null:
               <div className="switch-usuario-rg" id="switch-us-rg">
                 <SwitchSelector
 
@@ -247,11 +281,12 @@ export function Config() {
                   backgroundColor={"#6E6E6E"}
                   fontColor={"#f5f6fa"}
                 />
-              </div>
+              </div> }
               <div>
                 <Button
-                  type="submit"
+                
                   variant="outline-success"
+                  onClick={onSubmit}
                 >
                   Registrar
                 </Button>{" "}
@@ -262,12 +297,20 @@ export function Config() {
                   Cancelar
                 </Button>
               </div>
-
+              
 
             </Form>
           </div>
         </div>
+        <div className="users-container">
+      {user.response[0].tipo_usuario_name === 'cli'? <Usuarios /> : null}
+      {user.response[0].tipo_usuario_name === 'cli'? <ProvServicios /> : null}
+      
+      
       </div>
+      </div>
+      
+     
     </>
   );
 }
