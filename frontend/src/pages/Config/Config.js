@@ -303,8 +303,8 @@ export function Config() {
           </div>
         </div>
         <div className="users-container">
-      {user.response[0].tipo_usuario_name === 'cli'? <Usuarios /> : null}
-      {user.response[0].tipo_usuario_name === 'cli'? <ProvServicios /> : null}
+      {user.response[0].tipo_usuario_name === 'admin'? <Usuarios /> : null}
+      {user.response[0].tipo_usuario_name === 'prov'? <ProvServicios /> : null}
       
       
       </div>
