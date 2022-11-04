@@ -49,7 +49,7 @@ export function CardService({ item }) {
         <CardText>
           <Accordion flush>
             <Accordion.Item eventKey='1' flush>
-              <Accordion.Header>Descripcion</Accordion.Header>
+              <Accordion.Header>Descripción</Accordion.Header>
               <Accordion.Body>Publicado por {item.nombre} {item.apellido}</Accordion.Body>
               <Accordion.Body>{item.description}</Accordion.Body>
               <Accordion.Body><Button
