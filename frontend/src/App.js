@@ -6,8 +6,14 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { AuthProvider, useAuthContext } from './context';
+<<<<<<< HEAD
 import { Home, Login, NotFound, Private } from './pages';
 import './App.css';
+=======
+import { Home, Login, NotFound, Private, Register, Config, About } from './pages';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+>>>>>>> origin/juan
 
 function App() {
   return (
@@ -20,7 +26,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact strict path="/" element={<Home />} />
+<<<<<<< HEAD
           <Route exact strict path="/login" element={<Login />} />
+=======
+          <Route exact strict path="/about" element={<About />} />
+          <Route exact strict path="/login" element={<Login />} />
+          <Route exact strict path="/register" element={<Register />} />
+>>>>>>> origin/juan
           <Route
             exact
             string
@@ -30,6 +42,21 @@ function App() {
                 <Private />
               </Authenticate>
             }
+<<<<<<< HEAD
+=======
+            
+          />
+          <Route
+            exact
+            string
+            path="/config"
+            element={
+              <Authenticate>
+                <Config />
+              </Authenticate>
+            }
+            
+>>>>>>> origin/juan
           />
           {/* 
             Using path="*"" means "match anything", so this route 

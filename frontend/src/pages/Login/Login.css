@@ -1,0 +1,241 @@
+#titulo-login {
+    font-family: 'Kalam', cursive;
+    font-size:x-large;
+    
+}
+#form-login h1 {
+    font-family: 'Kalam', cursive;
+    font-size:xx-large;
+    margin-bottom: 0;
+    padding: 0;
+}
+#form-login h4 {
+    margin-top: 0;
+    padding: 0;
+    font-family: 'Kalam', cursive;
+    font-size:small;
+}
+
+#form-login {
+    background-image: url('../../assets/images/permacultura.png');
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: 5px;
+    margin-top:60px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    width: 400px;
+    height: 500px;
+    border: 1px solid #A3EBB1;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0);
+    -webkit-box-shadow: -10px 8px 15px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: -10px 8px 15px -4px rgba(0,0,0,0.75);
+    box-shadow: -10px 8px 15px -4px rgba(0,0,0,0.75);
+}
+
+#div-login {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    /* background-color: #0D5F8A; */
+    background-size: cover;
+    height: 100%;
+    
+    
+} 
+#form-login .input-login {
+    text-decoration: none;
+    background:transparent !important;
+    border:none;
+    outline: none;
+    
+    /* margin:10px;
+    padding: 5px;
+    width: 300px;
+    height: 40px;
+    border: 1px solid ;
+    border-radius: 25px; */
+    
+}
+
+.custom-span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 0;
+    opacity: 0.7;
+    background-color: #a4e3fe ;
+    width: 400px;
+    height: 220px;
+    border-radius: 150% 100% 100% 150% / 100% 550% 150% 150% 
+}
+.input-usuario {
+    margin:10px;
+    padding: 5px;
+    width: 300px;
+    height: 40px;
+    border: 1px solid ;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent !important;
+    
+    
+}
+#input-us{
+    background-color: transparent !important;
+}
+#form-login .button-login {
+    margin:20px;
+    padding: 5px;
+    width: 200px;
+    height: 40px;
+    border: 1px solid ;
+    border-radius: 25px;
+}
+
+.input-loginError {
+    text-decoration: none;
+    background-color:transparent;
+    border:none;
+    outline: none;
+     
+}
+
+#label-error {
+    color :#D01110;
+    font-size: small;
+    align-items: flex-end;
+}
+.input-login:hover {
+    background-color: #a3ebb200;
+}
+.button-login:hover {
+    background-color: #d3fbdc00;
+}
+.button-login {
+    font-family: 'Kalam', cursive;
+    font-size:large;
+    background-color:transparent;
+    border:none;
+    outline: none;
+}
+
+.button-reg:hover {
+    background-color: #2ec05000;
+}
+
+.form-reg .button-reg{
+   
+    /* margin:20px;
+    padding: 5px;
+    width: 200px;
+    height: 40px;
+    border: 1px solid ;
+    border-radius: 25px;
+    margin-left: 25vh; */
+}
+.button-reg {
+    height: 30px;
+    bottom: 10px;
+    font-family: 'Kalam', cursive;
+    font-size:large;
+    background-color:transparent;
+    border:none;
+    outline: none;
+}
+
+
+.input-login::placeholder {
+    font-family: 'Kalam', cursive;
+    font-size: 20px;
+    text-align: center;
+    color: black;
+}
+.input-loginError::placeholder {
+    font-family: 'Kalam', cursive;
+    font-size: 20px;
+    text-align: center;
+    color: black;
+}
+
+#icon{
+    position: absolute;
+    display: block;
+    margin-top: -70px;
+    margin-left: -250px;
+    user-select: none;
+    cursor: pointer;
+  }
+  #icon-pssw {
+    position: absolute;
+    display: block;
+    margin-top: 45px;
+    margin-left: -250px;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  #icon-err{
+    position: absolute;
+    display: block;
+    margin-top: -90px;
+    margin-left: -250px;
+    user-select: none;
+    cursor: pointer;
+  }
+  #icon-pssw-err {
+    position: absolute;
+    display: block;
+    margin-top: 30px;
+    margin-left: -250px;
+    user-select: none;
+    cursor: pointer;
+  }
+  #input-us{
+    background-color: transparent;
+    
+  }
+
+  /* ---------- Animaciones ------------- */
+
+  #input-us,.icon {
+    animation: inputMoved 2s ease 0.5s forwards ;
+    opacity: 0;
+    
+  }
+  #input-pw,.icon-pssw {
+    animation: inputMovedFromRigth 2s ease 0.5s forwards ;
+    opacity: 0;
+    
+  }
+
+
+
+  @keyframes inputMoved {
+    from{
+        transform: translateX(-200px);
+        opacity: 0;
+    }
+    to{
+        transform: translateX(0);
+        opacity: 1;
+    }
+  }
+  @keyframes inputMovedFromRigth {
+    from{
+        transform: translateX(200px);
+        opacity: 0;
+    }
+    to{
+        transform: translateX(0);
+        opacity: 1;
+    }
+  }

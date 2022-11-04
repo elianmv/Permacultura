@@ -1,0 +1,50 @@
+.services-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    width: auto;
+  }
+
+  .error-msg {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 #00000042;
+    color:  rgb(2, 41, 8);
+  }
+  
+  svg {
+    margin: 0 10px;
+  }
+  
+  h4 {
+    padding-right: 10px;
+  }
+  
+  .user-prov {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    width: auto;
+  }
+
+  .td-prov {
+    width: 300px;
+    
+  }
+
+  td {
+    padding: 2px;
+    margin: 5px;
+  }
+
+  #cont-prov {
+    width: 100%;
+    margin-right: 50px;
+  }

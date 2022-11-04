@@ -1,0 +1,91 @@
+.body-config {
+    width: 100%;
+    
+    background-color: rgb(216, 248, 183);
+    background-image: url(../../image/permaculturabg-image.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+  }
+  .title-register {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .input-group {
+    padding: 5px;
+  }
+
+.users-container{
+  margin-top: 5rem;
+}
+  
+.table-config {
+    /* background-image:  url('../../assets/images/permacultura.png');
+    background-repeat: no-repeat;
+    background-position-x: left;
+    background-position-y: bottom; */
+   
+    width: 80%;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .content-register {
+    background-image:  url('../../assets/images/permacultura.png');
+    background-repeat: no-repeat;
+    background-position-x: left;
+    background-position-y: bottom;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    background-color: white;
+    border-radius: 15px;
+  }
+  
+  .register {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    padding: 0%;
+    
+  }
+  
+  @media (max-width: 900px) {
+    .table-register {
+      width: auto;
+    }
+    .table-config {
+      width: auto;
+    }
+  }
+  
+  
+
+
+
+
+
+  .switch-usuario-rg {
+    color: white;
+    margin:10px;
+    padding: 5px;
+    width: 250px;
+    height: 40px;
+    
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}

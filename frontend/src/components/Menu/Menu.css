@@ -1,7 +1,25 @@
+<<<<<<< HEAD
 .Menu {
   background-color: #03a9f4;
   box-shadow: 0 2px 5px 0 #00000042;
   margin-bottom: 16px;
+=======
+
+
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@800&display=swap');
+
+.Menu {
+  background-color: rgb(121, 202, 117);
+  box-shadow: 0 2px 5px 0 #00000042;
+  position: sticky;
+  top: 0;
+  bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 20px;
+  z-index: 2;
+>>>>>>> origin/juan
 }
 
 .Menu ul {
@@ -14,6 +32,10 @@
 .Menu li {
   color: #def1f0;
   display: inline-block;
+<<<<<<< HEAD
+=======
+  font-family: 'Tajawal', sans-serif;
+>>>>>>> origin/juan
   font-size: 14;
   list-style-type: none;
   margin: 0;
@@ -21,7 +43,12 @@
   position: relative;
 }
 
+<<<<<<< HEAD
 .Menu li a {
+=======
+.Menu li a,
+#username {
+>>>>>>> origin/juan
   color: #def1f0;
   display: inline-block;
   font-size: 12px;
@@ -32,8 +59,33 @@
   text-decoration: none;
   text-transform: uppercase;
 }
+<<<<<<< HEAD
 
 .Menu li:hover a {
   background-color: #61b8f6;
   color: white;
 }
+=======
+#username {
+  padding: 0;
+}
+
+#username a {
+  color: #def1f0;
+}
+
+.dropdown-menu,
+.username-item {
+  
+  padding: 0 !important;
+}
+
+.menu-item:hover,
+#username:hover {
+  background-color: rgb(39, 211, 56);
+}
+
+.username-item{
+  background-color: rgb(121, 202, 117);
+}
+>>>>>>> origin/juan
