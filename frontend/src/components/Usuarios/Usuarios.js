@@ -9,7 +9,7 @@ import Icon from '@mdi/react';
 import { mdiAlertCircle } from '@mdi/js';
 import Swal from 'sweetalert2'
 import SwitchSelector from "react-switch-selector";
-
+import { Menu } from "../../components";
 export function Usuarios() {
   const [users, setUsers] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);

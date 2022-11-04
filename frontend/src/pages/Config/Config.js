@@ -1,13 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Menu } from "../../components";
-import { useNavigate, useLocation } from "react-router-dom";
+
 import { useAuthContext } from "../../context";
 import "./Config.css";
-// import App from "./Components/Input";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
-import SwitchSelector from "react-switch-selector";
+
+
 import { Form, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { Usuarios } from '../../components/Usuarios';
@@ -19,7 +17,7 @@ export function Config() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
   const [passwordError, setPasswordError] = useState(false);
-  const [userType, setuserType] = useState("cli");
+  
   const [name, setName] = useState(user.response[0].name);
   const [emailUser, setEmailUser] = useState(user.response[0].email);
   const [lastName, setLastName] = useState(user.response[0].lastname);
@@ -71,24 +69,15 @@ export function Config() {
       value: "prov",
       selectedBackgroundColor: "#27AE60",
     },
-    // {
-    //   label: "Admin",
-    //   value: "admin",
-    //   selectedBackgroundColor: "#1E8449",
-    // },
+
   ];
 
-  const onChange = (newValue) => {
-    setuserType(newValue);
-  };
 
-  const initialSelectedIndex = options.findIndex(
-    ({ value }) => value === "cli"
-  );
+
+
 
   const onSubmit = () => {
-    // event.preventDefault();
-
+ 
 
     const options = {
       headers: { 'Content-Type': 'application/json' },
@@ -135,23 +124,7 @@ export function Config() {
 
     
 
-    // auth.update(
-    //   { dni, name, lastName, email, phone, userType },
-    //   (respon) => {
-    //     if (respon.status) {
 
-    //       return alert("Los datos fueron actualizados con exito");
-    //     } else {
-    //       return alert(respon.message);
-    //     }
-    //     // Send them back to the page they tried to visit when they were
-    //     // redirected to the login page. Use { replace: true } so we don't create
-    //     // another entry in the history stack for the login page.  This means that
-    //     // when they get to the protected page and click the back button, they
-    //     // won't end up back on the login page, which is also really nice for the
-    //     // user experience.
-    //   }
-    // );
 
   
 
@@ -271,17 +244,7 @@ export function Config() {
                   placeholder="Opcional"
                 />
               </div>
-              {user.response[0].tipo_usuario_name === 'cli'? null:
-              <div className="switch-usuario-rg" id="switch-us-rg">
-                <SwitchSelector
-
-                  onChange={onChange}
-                  options={options}
-                  initialSelectedIndex={user.response[0].tipo_usuario_name}
-                  backgroundColor={"#6E6E6E"}
-                  fontColor={"#f5f6fa"}
-                />
-              </div> }
+              
               <div>
                 <Button
                 
@@ -303,8 +266,8 @@ export function Config() {
           </div>
         </div>
         <div className="users-container">
-      {user.response[0].tipo_usuario_name === 'cli'? <Usuarios /> : null}
-      {user.response[0].tipo_usuario_name === 'cli'? <ProvServicios /> : null}
+      {user.response[0].tipo_usuario_name === 'admin'? <Usuarios /> : null}
+      {user.response[0].tipo_usuario_name === 'prov'? <ProvServicios /> : null}
       
       
       </div>

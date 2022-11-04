@@ -29,6 +29,20 @@ export function ProvServicios() {
 const [isDelete,setIsDelete]= useState ();
 const [userToDelete,setuserToDelete]= useState ('');
 
+useEffect(() => {
+  fetch(`http://127.0.0.1:8080/api/v1/publicaciones/${user.response[0].email}`) //full list of services 
+  .then((response) => response.json())
+  .then((data) => {
+   
+    setIsLoaded(true);
+    setServicios(data.response);
+   
+  })
+  .catch((err) => {
+    setIsLoaded(true);
+    setError(err);
+  });
+}, []);
 
 const refreshView = () => {
   fetch(`http://127.0.0.1:8080/api/v1/publicaciones/${user.response[0].email}`) //full list of services 
@@ -47,13 +61,6 @@ const refreshView = () => {
 }
 
 const addplato = async () => {
-  // let obj = { nombre, precio, ingredientes } 
-  // const res = await axios.post(URL, obj) 
-  // console.log(res.data)
-  // setNombre('')
-  // setprecio('')
-  // setIngredientes('')
-  // getPlatos()
 
 
   const options = {
@@ -96,14 +103,10 @@ const addplato = async () => {
 
 
 const getplato =(id) => {
-  // const res = await axios.get(URL+'/'+id)
-  // setId(res.data._id)
 
   setBandera(false)
  
-  // setIngredientes(res.data.ingredientes)
-  // setBandera(false)
-  // window.scrollTo(0,0)
+
  
     fetch(`http://localhost:8080/api/v1/services/${id}`) //full list of services
       .then((response) => response.json())
@@ -254,9 +257,9 @@ const update = () => {
       <>
       
       <div >
-      <div className="col-md-9">
+      <div className="register">
        
-       <div className="card p-2 mt-3">
+       <div className="card mb-3">
         
        
 

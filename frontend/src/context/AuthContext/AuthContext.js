@@ -63,6 +63,7 @@ export function AuthProvider({ children }) {
       userLoggedIn,
       userName,
       setUser,
+      user,
       setUserLoggedIn,
       register,}}>
       {children}

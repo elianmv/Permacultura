@@ -6,7 +6,7 @@ import { useAuthContext } from '../../context/AuthContext/AuthContext';
 import Spinner from 'react-bootstrap/Spinner';
 import Icon from '@mdi/react';
 import { mdiAlertCircle } from '@mdi/js';
-
+import { Menu } from "../../components";
 
 
 export function Servicios() {
@@ -17,7 +17,8 @@ export function Servicios() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
 
-  const { userName } = useAuthContext();
+  const { user } = useAuthContext();
+  console.log(user.response[0].tipo_usuario_name)
 
   useEffect(() => {
     fetch(`http://127.0.0.1:8080/api/v1/publicaciones`) //full list of services 
@@ -48,16 +49,15 @@ console.log("data" ,data.response)
         <span className='visually-hidden'>Cargando...</span>
       </Spinner>
     );
-  } else {
+  }else {
     return (
-      <>
+    <>
       
       <div className='services-container'>
         {services.response.map((item, index) => (
           <CardService key={index} item={item} />
         ))}
       </div>
-      </>
-    );
+      </>);
   }
 }
