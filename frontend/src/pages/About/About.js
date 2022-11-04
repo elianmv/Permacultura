@@ -55,7 +55,7 @@ export function About() {
             <div className="text-p">
               <h2>Franco Mengochea</h2>
               <p>
-                Jugador de futbol de primera! Le gusta trabajar tando en diseño y front, como manipulando bases de datos.
+                Jugador de futbol de primera! Le gusta trabajar tanto en diseño y front, como manipulando bases de datos.
                 Detallista y siempre dando ideas para mejorar la visual
               </p>
             </div>
@@ -66,7 +66,7 @@ export function About() {
               <p>
                 {" "}
                 Consultor Cognos Analytics. Siempre investigando el uso de aplicaciones y buscando fallos. Trabajando en bases de datos
-                pero siempre tratando de mejorar en el front que es con lo que me entretengo haciendo
+                pero siempre tratando de mejorar en el front, que es una tarea entretenida para él.
               </p>
             </div>
             <img

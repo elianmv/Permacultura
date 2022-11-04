@@ -256,10 +256,10 @@ const update = () => {
     return (
       <>
       
-      <div >
+      <div className='user-prov' >
       <div className="register">
        
-       <div className="card mb-3">
+       <div id='cont-prov' className="card mb-3">
         
        
 
@@ -280,7 +280,7 @@ const update = () => {
            onChange={(e) => setPrecio(e.target.value)} 
           />
 
-      {!bandera? <spam>Descripcion</spam>: null }
+      {!bandera? <spam>Descripción</spam>: null }
 
           <input 
            className="form-control mb-2"  placeholder="Descripcion" 
@@ -302,12 +302,13 @@ const update = () => {
      </div>   
   </div>
       <Table hover responsive dark  size="sm">
+        
       <thead>
           <tr>
             
             <th>Servicio</th>
             <th>precio</th>
-            <th>descripcion</th>
+            <th>descripción</th>
             
             <th>Acciones</th>
           </tr>
@@ -318,8 +319,8 @@ const update = () => {
           <tr key={index} item={item}>
              
             <td>{item.name}</td>
-            <td>{item.precio}</td>
-            <td>{item.description}</td>
+            <td >$ {item.precio}</td>
+            <td className='td-prov'>{item.description}</td>
             
             <td>
                 <Button

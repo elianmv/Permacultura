@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     justify-content: space-around;
     font-size: 18px;
-    width: 80%;
+    width: 600px !important;
   }
 
   .error-msg {
