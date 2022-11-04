@@ -147,7 +147,7 @@ export function Register() {
               <span className="input-group-text">Email</span>
 
               <input
-                type="text"
+                type="email"
                 aria-label="username"
                 name="email"
                 className="form-control"

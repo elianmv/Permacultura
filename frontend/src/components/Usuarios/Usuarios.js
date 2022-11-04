@@ -79,7 +79,6 @@ const onSubmit = () => {
  
   
 
-  console.log(userName, password, passwordConfirm, email, userType);
 
   if (password !== passwordConfirm) {
     Swal.fire({

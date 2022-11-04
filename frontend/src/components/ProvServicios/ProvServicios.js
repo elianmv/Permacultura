@@ -30,6 +30,22 @@ const [isDelete,setIsDelete]= useState ();
 const [userToDelete,setuserToDelete]= useState ('');
 
 
+const refreshView = () => {
+  fetch(`http://127.0.0.1:8080/api/v1/publicaciones/${user.response[0].email}`) //full list of services 
+  .then((response) => response.json())
+  .then((data) => {
+   
+    setIsLoaded(true);
+    setServicios(data.response);
+   
+  })
+  .catch((err) => {
+    setIsLoaded(true);
+    setError(err);
+  });
+
+}
+
 const addplato = async () => {
   // let obj = { nombre, precio, ingredientes } 
   // const res = await axios.post(URL, obj) 
@@ -39,7 +55,7 @@ const addplato = async () => {
   // setIngredientes('')
   // getPlatos()
 
-   console.log(tiempo, descripcion, precio, emailUser, servicio)
+
   const options = {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
@@ -60,7 +76,7 @@ const addplato = async () => {
            showConfirmButton: false,
            timer: 1500
          })
-       
+         refreshView() 
       
        
       })
@@ -141,7 +157,7 @@ const update = () => {
            showConfirmButton: false,
            timer: 1500
          })
-       
+         refreshView()
       })
       .catch((err) => {
         setIsLoaded(true);
@@ -174,7 +190,7 @@ const update = () => {
           .then((data) => {
        
             setIsDelete(true)
-           
+            refreshView()
           })
           .catch((err) => {
             
@@ -217,18 +233,7 @@ const update = () => {
 
   useEffect(() => {
 
-    fetch(`http://127.0.0.1:8080/api/v1/publicaciones/${user.response[0].email}`) //full list of services 
-      .then((response) => response.json())
-      .then((data) => {
-       
-        setIsLoaded(true);
-        setServicios(data.response);
-       
-      })
-      .catch((err) => {
-        setIsLoaded(true);
-        setError(err);
-      });
+    
   }, [isDelete]);
 
   if (servicios.error) {
