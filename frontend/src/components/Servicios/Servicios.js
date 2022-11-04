@@ -18,7 +18,7 @@ export function Servicios() {
   const [error, setError] = useState(null);
 
   const { user } = useAuthContext();
-  console.log(user.response[0].tipo_usuario_name)
+
 
   useEffect(() => {
     fetch(`http://127.0.0.1:8080/api/v1/publicaciones`) //full list of services 
@@ -34,7 +34,7 @@ console.log("data" ,data.response)
         setIsLoaded(true);
         setError(err);
       });
-  }, []);
+  }, [isLoaded]);
 
   if (services.message === 'Ningún Servicio Encontrado') {
     return (
