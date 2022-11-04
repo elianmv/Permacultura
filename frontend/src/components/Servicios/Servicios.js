@@ -49,18 +49,7 @@ console.log("data" ,data.response)
         <span className='visually-hidden'>Cargando...</span>
       </Spinner>
     );
-  } else if(user.response[0].tipo_usuario_name === 'prov')  {
-    return (
-      <>
-      
-      <div className='services-container'>
-        {services.response.map((item, index) => (
-          <CardService key={index} item={item} />
-        ))}
-      </div>
-      </>
-    );
-  }else{
+  }else {
     return (
     <>
       
