@@ -1,8 +1,5 @@
 import { Carousel1, Menu } from '../../components';
-import { Carousel } from '../../components';
 import './Home.css';
-import { loremIpsum, name, surname, username } from 'react-lorem-ipsum';
-import Image from 'react-bootstrap/Image';
 import ticaspermacultura from '../../assets/images/ticaspermacultura.png';
 
 export function Home() {

@@ -1,33 +1,21 @@
 import React from "react";
 import { useState } from "react";
-import { Menu } from "../../components";
+
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../../context";
 import "./Register.css";
-import InputRegister from "./Components/Input";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+
 import SwitchSelector from "react-switch-selector";
 import { Form, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 export function Register() {
-  const [passwordError, setPasswordError] = useState(false);
+
   const [userType, setuserType] = useState("cli");
 
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuthContext();
-
-  const handleChange = (name, value) => {
-    if (name === "password") {
-      if (value.length < 3) {
-        setPasswordError(true);
-      } else {
-        setPasswordError(false);
-      }
-    }
-  };
 
   const options = [
     {
@@ -59,7 +47,7 @@ export function Register() {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
    
-    if (passwordError === true) return alert("Contraseña Invalida");
+    
     const formData = new FormData(event.currentTarget);
     const userName = formData.get("userName");
     const password = formData.get("password");
@@ -147,7 +135,7 @@ export function Register() {
               <span className="input-group-text">Email</span>
 
               <input
-                type="text"
+                type="email"
                 aria-label="username"
                 name="email"
                 className="form-control"

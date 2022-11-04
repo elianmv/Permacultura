@@ -7,10 +7,7 @@ import Input from "./Components/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
-// const json = [
-//   { user: "juang@gmail.com", passw: "123456" },
-//   { user: "eliv@gmail.com", passw: "123456" },
-// ];
+
 
 export function Login() {
   const [passwordError, setPasswordError] = useState(false);
@@ -35,13 +32,13 @@ export function Login() {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    let check = false;
+    
     if (passwordError === true) return alert("Contraseña Invalida");
     const formData = new FormData(event.currentTarget);
     const username = formData.get("username");
     const password = formData.get("password");
 
-
+   
     // json.map((element) => {
     //   if (element.user === username && element.passw === password) {
     //     check = true;
@@ -78,15 +75,15 @@ export function Login() {
 
   return (
     <>
-      <div className="form-reg" >
+      {/* <div className="form-reg" >
         <button className="button-reg"
         onClick={onRegister}>
           
           Registrese
         </button>
-      </div>
+      </div> */}
       <div id="div-login" >
-
+      
         <form id="form-login" onSubmit={onSubmit}  >
 
 
@@ -126,9 +123,13 @@ export function Login() {
           <button className="button-login" type="submit">
             Login
           </button>
-
+          <button className="button-reg"
+        onClick={onRegister}>
+          
+          Registrese
+        </button>
         </form>
-
+       
       </div>
     </>
   );

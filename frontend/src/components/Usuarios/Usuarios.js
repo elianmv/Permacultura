@@ -9,7 +9,7 @@ import Icon from '@mdi/react';
 import { mdiAlertCircle } from '@mdi/js';
 import Swal from 'sweetalert2'
 import SwitchSelector from "react-switch-selector";
-
+import { Menu } from "../../components";
 export function Usuarios() {
   const [users, setUsers] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -79,7 +79,6 @@ const onSubmit = () => {
  
   
 
-  console.log(userName, password, passwordConfirm, email, userType);
 
   if (password !== passwordConfirm) {
     Swal.fire({
@@ -226,6 +225,7 @@ const onSubmit = () => {
   } else {
     return (
       <>
+      <div className='user_div'>
       <div className="col-md-9">
        
        <div className="card p-2 mt-3">
@@ -311,6 +311,7 @@ const onSubmit = () => {
     </Table>
         
         
+      </div>
       </div>
       </>
     );

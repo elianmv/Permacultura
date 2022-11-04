@@ -29,17 +29,40 @@ export function ProvServicios() {
 const [isDelete,setIsDelete]= useState ();
 const [userToDelete,setuserToDelete]= useState ('');
 
+useEffect(() => {
+  fetch(`http://127.0.0.1:8080/api/v1/publicaciones/${user.response[0].email}`) //full list of services 
+  .then((response) => response.json())
+  .then((data) => {
+   
+    setIsLoaded(true);
+    setServicios(data.response);
+   
+  })
+  .catch((err) => {
+    setIsLoaded(true);
+    setError(err);
+  });
+}, []);
+
+const refreshView = () => {
+  fetch(`http://127.0.0.1:8080/api/v1/publicaciones/${user.response[0].email}`) //full list of services 
+  .then((response) => response.json())
+  .then((data) => {
+   
+    setIsLoaded(true);
+    setServicios(data.response);
+   
+  })
+  .catch((err) => {
+    setIsLoaded(true);
+    setError(err);
+  });
+
+}
 
 const addplato = async () => {
-  // let obj = { nombre, precio, ingredientes } 
-  // const res = await axios.post(URL, obj) 
-  // console.log(res.data)
-  // setNombre('')
-  // setprecio('')
-  // setIngredientes('')
-  // getPlatos()
 
-   console.log(tiempo, descripcion, precio, emailUser, servicio)
+
   const options = {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
@@ -60,7 +83,7 @@ const addplato = async () => {
            showConfirmButton: false,
            timer: 1500
          })
-       
+         refreshView() 
       
        
       })
@@ -80,14 +103,10 @@ const addplato = async () => {
 
 
 const getplato =(id) => {
-  // const res = await axios.get(URL+'/'+id)
-  // setId(res.data._id)
 
   setBandera(false)
  
-  // setIngredientes(res.data.ingredientes)
-  // setBandera(false)
-  // window.scrollTo(0,0)
+
  
     fetch(`http://localhost:8080/api/v1/services/${id}`) //full list of services
       .then((response) => response.json())
@@ -141,7 +160,7 @@ const update = () => {
            showConfirmButton: false,
            timer: 1500
          })
-       
+         refreshView()
       })
       .catch((err) => {
         setIsLoaded(true);
@@ -174,7 +193,7 @@ const update = () => {
           .then((data) => {
        
             setIsDelete(true)
-           
+            refreshView()
           })
           .catch((err) => {
             
@@ -217,18 +236,7 @@ const update = () => {
 
   useEffect(() => {
 
-    fetch(`http://127.0.0.1:8080/api/v1/publicaciones/${user.response[0].email}`) //full list of services 
-      .then((response) => response.json())
-      .then((data) => {
-       
-        setIsLoaded(true);
-        setServicios(data.response);
-       
-      })
-      .catch((err) => {
-        setIsLoaded(true);
-        setError(err);
-      });
+    
   }, [isDelete]);
 
   if (servicios.error) {
@@ -248,10 +256,10 @@ const update = () => {
     return (
       <>
       
-      <div >
-      <div className="col-md-9">
+      <div className='user-prov' >
+      <div className="register">
        
-       <div className="card p-2 mt-3">
+       <div id='cont-prov' className="card mb-3">
         
        
 
@@ -272,7 +280,7 @@ const update = () => {
            onChange={(e) => setPrecio(e.target.value)} 
           />
 
-      {!bandera? <spam>Descripcion</spam>: null }
+      {!bandera? <spam>Descripción</spam>: null }
 
           <input 
            className="form-control mb-2"  placeholder="Descripcion" 
@@ -294,12 +302,13 @@ const update = () => {
      </div>   
   </div>
       <Table hover responsive dark  size="sm">
+        
       <thead>
           <tr>
             
             <th>Servicio</th>
             <th>precio</th>
-            <th>descripcion</th>
+            <th>descripción</th>
             
             <th>Acciones</th>
           </tr>
@@ -310,8 +319,8 @@ const update = () => {
           <tr key={index} item={item}>
              
             <td>{item.name}</td>
-            <td>{item.precio}</td>
-            <td>{item.description}</td>
+            <td >$ {item.precio}</td>
+            <td className='td-prov'>{item.description}</td>
             
             <td>
                 <Button
